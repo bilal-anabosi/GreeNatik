@@ -2,6 +2,7 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Test';
+import Cart from './pages/Cart';
 import {
   BrowserRouter as Router,
   Route,
@@ -16,6 +17,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
       </>

@@ -1,5 +1,5 @@
 import React from "react";
-import Product from "../shopCart/Product";
+import Product from "./Product";
 const products = [
   {
     imgSrc: "./pics/cartPage/cat.png",

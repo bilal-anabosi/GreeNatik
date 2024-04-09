@@ -1,7 +1,7 @@
 import React from 'react'
 import StyleWide from '../components/StyleWide.css'
 
-export const Card = ({text1,number1,text2,Sale,number2,img}) => {
+export const CardWide = ({text1,number1,text2,Sale,number2,img}) => {
   return (
     <div>
       
@@ -60,5 +60,5 @@ export const Card = ({text1,number1,text2,Sale,number2,img}) => {
     </div>
   )
 }
-export default Card;
+export default CardWide ;
 

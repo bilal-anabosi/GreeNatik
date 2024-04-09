@@ -9,7 +9,7 @@ function Category () {
     {/* nav */}
     <ul className="nav nav-category" id="categoryCollapseMenu">
       <li className="nav-item border-bottom w-100">
-        <a href="#" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#categoryFlushOne" aria-expanded="false" aria-controls="categoryFlushOne">
+        <a href="#!" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#categoryFlushOne" aria-expanded="false" aria-controls="categoryFlushOne">
           Dairy, Bread &amp; Eggs
           <i className="feather-icon icon-chevron-right" />
           <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -52,7 +52,7 @@ function Category () {
       </li>
       {/* nav item */}
       <li className="nav-item border-bottom w-100">
-        <a href="#" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        <a href="#!" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
           Snacks &amp; Munchies
           <i className="feather-icon icon-chevron-right" />
         <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -89,7 +89,7 @@ function Category () {
         </div>
       </li>
       <li className="nav-item border-bottom w-100">
-        <a href="#" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        <a href="#!" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
           Fruits &amp; Vegetables
           <i className="feather-icon icon-chevron-right" />
           <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -134,7 +134,7 @@ function Category () {
         </div>
       </li>
       <li className="nav-item border-bottom w-100">
-        <a href="#" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+        <a href="#!" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
           Cold Drinks &amp; Juices
           <i className="feather-icon icon-chevron-right" />
           <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -169,7 +169,7 @@ function Category () {
         </div>
       </li>
       <li className="nav-item border-bottom w-100">
-        <a href="#" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+        <a href="#!" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
           Breakfast &amp; Instant Food
           <i className="feather-icon icon-chevron-right" />
           <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -214,7 +214,7 @@ function Category () {
         </div>
       </li>
       <li className="nav-item border-bottom w-100">
-        <a href="#" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+        <a href="#!" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
           Bakery &amp; Biscuits
           <i className="feather-icon icon-chevron-right" />
           <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -308,4 +308,4 @@ function Category () {
 
   )
 }
-export default Category
+export default Category;

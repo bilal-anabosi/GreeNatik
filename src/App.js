@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Test';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 import {
   BrowserRouter as Router,
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path='/checkout'element={<Checkout/>}/>
         </Routes>
       </Router>
       </>

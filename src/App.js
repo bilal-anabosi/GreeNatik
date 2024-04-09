@@ -9,6 +9,10 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import Slide from './components/Home/Slides/Slide.jsx';
+import Feature from './components/Home/Feature/Feature.jsx';
+import Cards from './components/Home/Categories/Cards/Cards.jsx';
+
 
 function App() {
   return (
@@ -21,6 +25,14 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
+
+<Slide/>
+
+<Feature/>
+
+<Cards/>
+
+
       </>
   );
 }

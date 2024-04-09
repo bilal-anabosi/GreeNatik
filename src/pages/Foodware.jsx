@@ -1,9 +1,9 @@
 import Rating from '../components/Rating'
-import Card from '../components/Card';
+import CardWide from '../components/CardWide';
 import Price from '../components/Price'
 import Category from '../components/Category';
 import NavbarTwo from '../components/NavbarTwo';
-import Style from '../components/Style.css';
+import StyleWide from '../components/StyleWide.css';
 import Filter from '../components/Filter';
 
 function  Foodware () {
@@ -30,16 +30,16 @@ function  Foodware () {
       <div className="container2 Carddd">
       <div className="row">
         <div className="col-sm-3">
-          <div className="card"><Card number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
+          <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
         </div>
         <div className="col-sm-3">
-          <div className="card"><Card number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
+          <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
         </div>
         <div className="col-sm-3">
-          <div className="card"><Card number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
+          <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
         </div>
         <div className="col-sm-3">
-          <div className="card"> <Card number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
+          <div className="card"> <CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
         </div>
       </div>
     </div>
@@ -47,16 +47,16 @@ function  Foodware () {
     <div className="container3 Carddd">
       <div className="row">
         <div className="col-sm-3">
-          <div className="card"><Card number1={'$55'} Sale={"Sale"} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
+          <div className="card"><CardWide number1={'$55'} Sale={"Sale"} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
         </div>
         <div className="col-sm-3">
-          <div className="card"><Card number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
+          <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
         </div>
         <div className="col-sm-3">
-          <div className="card"><Card number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
+          <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
         </div>
         <div className="col-sm-3">
-          <div className="card"> <Card number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
+          <div className="card"> <CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'/pics/category-instant-food.jpg'} /></div>
         </div>
       </div>
     </div>

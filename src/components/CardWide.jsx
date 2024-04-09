@@ -1,5 +1,5 @@
 import React from 'react'
-import Style from '../components/Style.css'
+import StyleWide from '../components/StyleWide.css'
 
 export const Card = ({text1,number1,text2,Sale,number2,img}) => {
   return (

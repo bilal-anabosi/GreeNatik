@@ -1,5 +1,5 @@
 import React from 'react'
-import Style from '../components/Style.css'
+import StyleWide from '../components/StyleWide.css'
 function Filter () {
   return (
     <div className='Filterr'> 

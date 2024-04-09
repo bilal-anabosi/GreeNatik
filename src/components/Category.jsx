@@ -263,7 +263,7 @@ function Category () {
         </div>
       </li>
       <li className="nav-item border-bottom w-100">
-        <a href="#" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+        <a href="#!" className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
           Chicken, Meat &amp; Fish
           <i className="feather-icon icon-chevron-right" />
           <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">

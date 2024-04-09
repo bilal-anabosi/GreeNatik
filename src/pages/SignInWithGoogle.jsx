@@ -10,7 +10,7 @@ export default function SignInWithGoogle() {
             script.src = 'https://accounts.google.com/gsi/client';
             script.onload = () => {
                 window.google.accounts.id.initialize({
-                    client_id: '519740296160-3v68qmu8r3nt7eto5m37fma6i4ll04mu.apps.googleusercontent.com', // Use your client ID
+                    client_id:'519740296160-3v68qmu8r3nt7eto5m37fma6i4ll04mu.apps.googleusercontent.com', 
                     callback: callbackResponse,
                     
                 });

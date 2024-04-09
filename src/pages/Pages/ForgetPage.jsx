@@ -22,7 +22,7 @@ export default function ForgetPage() {
             
         }}>
             <div className='row'>
-            <div className='col-md-6 '>
+            <div className=' login col-md-6 '>
             <Stack sx={{
                 gap: 2,
                 marginTop:'50px'
@@ -62,7 +62,7 @@ export default function ForgetPage() {
             </Stack>
             </div>
             <div className='col-md-6 mt-5 ps-5'>
-            <img height={400} width={370} src='/public/img/man working on a computer.png'/>
+            <img height={400} width={370} src='./img/man working on a computer.png'/>
             </div>
             </div>
         </Container>

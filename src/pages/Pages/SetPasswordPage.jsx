@@ -18,7 +18,7 @@ export default function SetPasswordPage() {
         }}>
             
             <div className='row'>
-            <div className='col-md-6'>
+            <div className=' login col-md-6'>
             <Stack sx={{
                 gap: 2,
                 marginTop:'50px'
@@ -40,7 +40,7 @@ export default function SetPasswordPage() {
                 <SetPasswordForm/>
             </Stack>
             </div>
-            <img  src='/public/img/man sitting and showing a heart with his arms.png' className='col-md-6 mt-5 ps-5'/>
+            <img  src='./img/man sitting and showing a heart with his arms.png' className='col-md-6 mt-5 ps-5'/>
             </div>
         </Container>
     )

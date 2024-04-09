@@ -16,7 +16,7 @@ export default function VerifyPage() {
             gap: 2
         }}>
             <div className='row'>
-            <div className='col-md-6'>
+            <div className=' login col-md-6'>
             
             <Stack sx={{
                 gap: 2,
@@ -46,7 +46,7 @@ export default function VerifyPage() {
 
             </Stack>
             </div>
-            <img  src='/public/img/man playing dress up with pet dog.png' className='col-md-6 mt-5'/>
+            <img  src='./img/man playing dress up with pet dog.png' className='col-md-6 mt-5'/>
             </div>
         </Container>
     )

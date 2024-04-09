@@ -6,6 +6,7 @@ import { Link as RouterLink} from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import SignInWithGoogle from '../SignInWithGoogle.jsx';
+import '../Pages/Pages.css'
 
 export default function LoginPage() {
     return (
@@ -19,10 +20,10 @@ export default function LoginPage() {
         }}>
             <div className='row'>
                 <div className='col-md-6 py-5'>
-            <img height={400} width={370} src='/public/img/man and woman at table with laptop.png'/>
+            <img height={400} width={370} src='./img/man and woman at table with laptop.png'/>
             </div>
 
-            <div className='col-md-6'>
+            <div className='login col-md-6'>
             <Stack sx={{
                 gap: 2,
                 marginTop:'50px'

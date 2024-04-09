@@ -6,6 +6,7 @@ import { Link as RouterLink} from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import SignInWithGoogle from '../SignInWithGoogle.jsx';
+import '../Pages/Pages.css'
 
 
 export default function SignUpPage() {
@@ -22,10 +23,10 @@ export default function SignUpPage() {
             <div className="row">
 
             
-            <img height={400} width={500} src='/public/img/Group 2.png' className='col-md-6 mt-5 pe-5' />
+            <img height={400} width={370} src='./img/Group 2.png' className='col-md-6 mt-5 pe-5' />
             
             
-            <div className='col-md-6'>
+            <div className='  col-md-6'>
             <Stack sx={{
                 gap: 2,
                 marginTop:'50px'
@@ -42,7 +43,7 @@ export default function SignUpPage() {
                     Signup Factory
                 </Link>
 
-                <div style={{width:'300px'}}>
+                <div style={{width:'300px'}} className='signup'>
                 <SignUpForm/>
 
                 </div>

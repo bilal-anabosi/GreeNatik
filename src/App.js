@@ -1,18 +1,12 @@
-
 import './App.css';
 import Navbar from './components/Navbar';
-import Home from './pages/Test';
+import Store from './pages/Store';
 import Cart from './pages/Cart';
-
 import {
   BrowserRouter as Router,
   Route,
   Routes,
 } from "react-router-dom";
-import Slide from './components/Home/Slides/Slide.jsx';
-import Feature from './components/Home/Feature/Feature.jsx';
-import Cards from './components/Home/Categories/Cards/Cards.jsx';
-
 
 function App() {
   return (
@@ -20,19 +14,11 @@ function App() {
     <Navbar />
       <Router>
         <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Store />} />
+        <Route path="/store" element={<Store />} />
         <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
-
-<Slide/>
-
-<Feature/>
-
-<Cards/>
-
-
       </>
   );
 }

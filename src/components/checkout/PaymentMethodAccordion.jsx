@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function PaymentMethodAccordion({ onUpdate }) {
@@ -108,24 +107,14 @@ function PaymentMethodAccordion({ onUpdate }) {
                             <ErrorMessage name="cardName" component="div" className="text-danger" />
                           </div>
                         </div>
-                        <div className="col-md-3 col-12">
-                          <div className=" mt-7">
-                            <label className="form-label">Expiry date</label>
-                            <DatePicker
-                              name="expiryDate"
-                              className="form-control"
-                              selected={expiryDate}
-                              onChange={(date) => {
-                                setFieldValue('expiryDate', date);
-                                setExpiryDate(date);
-                              }}
-                              dateFormat="MM/yyyy"
-                              showMonthYearPicker
-                              placeholderText="Select Date"
-                            />
-                            <ErrorMessage name="expiryDate" component="div" className="text-danger" />
-                          </div>
-                        </div>
+                       <div className="mb-3 mb-lg-0 position-relative">
+  <label className="form-label">Expiry date</label>
+  <input className="form-control flatpickr flatpickr-input" type="text" placeholder="Select Date" readOnly="readonly" />
+  <div className="position-absolute bottom-0 end-0 p-3 lh-1">
+    <i className="bi bi-calendar text-muted" />
+  </div>
+</div>
+
                         <div className="col-md-3 col-12">
                           <div className="mb-3 mb-lg-0">
                             <label className="form-label">CVV code</label>

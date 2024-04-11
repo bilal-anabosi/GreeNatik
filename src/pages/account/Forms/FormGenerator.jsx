@@ -2,7 +2,7 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import InputField from '../Inputs/InputField';
+import InputField from '../Inputs/InputField.jsx';
 import * as yup from 'yup'
 
 export default function FormGenerator({ onSubmit, attributes }) {

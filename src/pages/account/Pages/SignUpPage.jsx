@@ -1,14 +1,15 @@
 import Container from '@mui/material/Container';
-import LoginForm from '../Forms/LoginForm.jsx';
+import SignUpForm from '../Forms/SignUpForm.jsx';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink} from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import SignInWithGoogle from '../SignInWithGoogle.jsx';
-import '../Pages/Pages.css'
+import './Pages.css'
 
-export default function LoginPage() {
+
+export default function SignUpPage() {
     return (
         
         <Container sx={{
@@ -16,32 +17,38 @@ export default function LoginPage() {
             alignItems: 'center',
             justifyContent: 'space-evenly',
             
-            gap: 2
+            gap: 2,
+            
         }}>
-            <div className='row'>
-                <div className='col-md-6 py-5'>
-            <img height={400} width={370} src='./img/man and woman at table with laptop.png'/>
-            </div>
+            <div className="row">
 
-            <div className='login col-md-6'>
+            
+            <img height={400} width={370} src='./img/Group 2.png' className='col-md-6 mt-5 pe-5' />
+            
+            
+            <div className='  col-md-6'>
             <Stack sx={{
                 gap: 2,
                 marginTop:'50px'
             }}>
                 <Typography variant="h4" component="h1" >
-                    Sign In
+                    Sign UP
                 </Typography>
                 
                 <Typography variant="body1" gutterBottom style={{color:'#5F6C74', fontSize:'15px'}} >
-                    Welcome back! please login to continue to your account
+                sign up to enjoy the feature of GreeNtik
                 </Typography>
 
-                <LoginForm/>
-
-                <Link component={RouterLink} to='/forget' style={{textDecoration: "none"}}>
-                    Forgot your password? 
+                <Link component={RouterLink} to='/SignupFactory' style={{textDecoration: "none"}} >
+                    Signup Factory
                 </Link>
 
+                <div style={{width:'300px'}} className='signup'>
+                <SignUpForm/>
+
+                </div>
+
+               
                 <Divider>
                     OR
                 </Divider>
@@ -49,11 +56,13 @@ export default function LoginPage() {
                 <div style={{alignItems:'center',justifyContent:'center',display:'flex'}}>
                 <SignInWithGoogle/>
                 </div>
+
+                
                 
                 <Typography variant="body2" gutterBottom textAlign='center'>
-                    Don&apos;t have an account? 
-                    <Link component={RouterLink} to='/sign-up' style={{textDecoration: "none"}}>
-                        Sign up
+                    Already have an account?
+                    <Link component={RouterLink} to='/login' style={{textDecoration: "none"}} >
+                        Login
                     </Link>
                 </Typography>
             

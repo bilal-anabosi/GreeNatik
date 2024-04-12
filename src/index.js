@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-AOS.init();
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 
@@ -24,13 +23,14 @@ const theme = createTheme({
 
 });
 
+AOS.init();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
 

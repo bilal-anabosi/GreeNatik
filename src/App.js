@@ -1,11 +1,7 @@
 import './App.css';
 import Navbar from './components/Navbar';
-import Store from './pages/Store';
 import Cart from './pages/Cart';
-
-
 import Checkout from './pages/Checkout';
-
 import SignUpPage from './pages/account/Pages/SignUpPage.jsx'
 import LoginPage from './pages/account/Pages/LoginPage.jsx'
 import SignupFactory from './pages/account/Pages/SignupFactory.jsx'
@@ -28,8 +24,6 @@ function App() {
     <Navbar />
       <Router>
         <Routes>
-        <Route path="/" element={<Store />} />
-        <Route path="/store" element={<Store />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/checkout'element={<Checkout/>}/>
         <Route path='/sign-up' element={<SignUpPage />} />

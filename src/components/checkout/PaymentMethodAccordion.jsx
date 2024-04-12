@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import 'react-datepicker/dist/react-datepicker.css';
+
 
 function PaymentMethodAccordion({ onUpdate }) {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("paypal");

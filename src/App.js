@@ -1,11 +1,10 @@
-
 import './App.css';
 import Navbar from './components/Navbar';
-import Home from './pages/Test';
+import Store from './pages/Store';
 import Cart from './pages/Cart';
 
-import Checkout from './pages/Checkout';
 
+import Checkout from './pages/Checkout';
 
 import SignUpPage from './pages/account/Pages/SignUpPage.jsx'
 import LoginPage from './pages/account/Pages/LoginPage.jsx'
@@ -15,6 +14,7 @@ import SetPasswordPage from './pages/account/Pages/SetPasswordPage.jsx'
 import ForgetPage from './pages/account/Pages/ForgetPage.jsx'
 import AccessDenied from './pages/account/Pages/AccessDined';
 import Error404 from './pages/account/Pages/Error404.jsx';
+
 
 import {
   BrowserRouter as Router,
@@ -28,8 +28,8 @@ function App() {
     <Navbar />
       <Router>
         <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Store />} />
+        <Route path="/store" element={<Store />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/checkout'element={<Checkout/>}/>
         <Route path='/sign-up' element={<SignUpPage />} />

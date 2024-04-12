@@ -1,5 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar';
+import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import SignUpPage from './pages/account/Pages/SignUpPage.jsx'
@@ -24,6 +25,8 @@ function App() {
     <Navbar />
       <Router>
         <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/home" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/checkout'element={<Checkout/>}/>
         <Route path='/sign-up' element={<SignUpPage />} />

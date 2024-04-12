@@ -1,0 +1,35 @@
+.container3 {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 7500px !important;
+  padding:  0 10px; /* تحديد padding صغير من الأطراف */
+  margin-bottom: 10px;
+  
+}
+
+
+
+.CheckoutGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 50px;
+}
+
+.main-content {
+  margin-top: 130px;
+}
+@media screen and (max-width: 1050px) { /* تغيير الحجم الذي يعتبر أصغر من الشاشة */
+  .CheckoutGrid {
+    grid-template-columns: 1fr; /* تغيير عدد الأعمدة في حالة أصغر من الشاشة */
+  }
+
+  .main-content {
+    margin-top: 0; /* إلغاء الهامش العلوي في حالة أصغر من الشاشة */
+    order: 2; /* تحديد ترتيب العناصر، لتحريكها أسفل */
+  }
+
+  .sidebar {
+    order: 1; /* تحديد ترتيب العناصر، لتحريكها لأعلى */
+  }
+}

@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/bilal-anabosi/GreeNatik">
+    <img src="https://i.imgur.com/vtfUvyb.png" alt="Logo" width="80" height="105">
+  </a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <h3 align="center">GreeNatik</h3>
 
-## Available Scripts
+  <p align="center">
+    Let's Make Earth Great Again!
+    <br />
+    <a href="https://github.com/bilal-anabosi/GreeNatik"><strong>Explore the docs »</strong></a>
+    <br />
+    <br /> </p>
+</div>
 
-In the project directory, you can run:
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#team">Team</a></li>
+  </ol>
+</details>
 
-### `npm start`
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<div align="center" >
+  <img src="https://i.imgur.com/aI1Nko7.png" alt="preview">
+</div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+<strong>The GreeNatik project </strong>, developed within the Web 2 course at the university, is an innovative eco-friendly e-commerce platform that aims to revolutionize sustainable consumption and waste management. Driven by a team of passionate students, this comprehensive solution offers a guilt-free shopping experience, empowering users to discover a wide range of environmentally conscious products. At the heart of the platform lies a smart recycling system that encourages users to recycle their waste, rewarding them with points that can be redeemed for future purchases. Beyond the e-commerce capabilities, <strong> GreeNatik </strong> platform also serves as an educational hub, curating a vast library of blogs, articles, and videos to raise awareness and inspire its users to adopt more sustainable practices. By fostering a thriving community of environmentally-conscious individuals, GreeNatik project sets out to make a tangible impact, reducing the environmental footprint one purchase and one recycled item at a time.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Built With
 
-### `npm run build`
+* <a href="https://react.dev/learn/installation" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg/240px-React_Logo_SVG.svg.png" alt="React" width="50" hight="50"> </a>
+* <a href="https://expressjs.com" ><img src="https://ajeetchaulagain.com/static/7cb4af597964b0911fe71cb2f8148d64/8d565/express-js.webp" alt="express" width="50" hight="50"> </a>
+* <a href="https://www.mongodb.com" ><img src="https://miro.medium.com/v2/resize:fit:1024/format:webp/1*doAg1_fMQKWFoub-6gwUiQ.png" alt="mongo" width="50" hight="50"> </a>
+* <a href="https://nodejs.org/en/download" ><img src="https://miro.medium.com/v2/resize:fit:800/1*bc9pmTiyKR0WNPka2w3e0Q.png" alt="node js" width="50" hight="50"> </a>
+* <a href="https://getbootstrap.com" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/240px-Bootstrap_logo.svg.png" alt="bootstrap" width="50" hight="50"> </a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- CONTACT -->
+## Team
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Bilal Anabosi - bolbol.anabosi.1@gmail.com
+* Abdellatif Shtayeh - s12220214@stu.najah.edu
+* Toqa Asidah - s12218467@stu.najah.edu
+* Roaa Kittaneh - roaakittaneh2004@gmail.com
+* Nora Sarrawi - norasarrawi5@gmail.com
+* Sana Saleh - s12217400@stu.najah.edu
+* Eman Rayan - s12217679@stu.najah.edu
+* Ibrahim Blieh - ebrahimbileh21@gmail.com
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>

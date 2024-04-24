@@ -11,7 +11,7 @@ import SetPasswordPage from './pages/account/Pages/SetPasswordPage.jsx'
 import ForgetPage from './pages/account/Pages/ForgetPage.jsx'
 import AccessDenied from './pages/account/Pages/AccessDined';
 import Error404 from './pages/account/Pages/Error404.jsx';
-
+import Store from './pages/Store';
 
 import {
   BrowserRouter as Router,
@@ -38,7 +38,7 @@ function App() {
       <Route path='/SignupFactory' element={<SignupFactory />} />
       <Route path='/AccessDenied' element={<AccessDenied />} />
       <Route path='/Error404' element={<Error404 />} />
-
+      <Route path="/store" element={<Store />} />
       
         </Routes>
       </Router>

@@ -1,0 +1,15 @@
+.ss .breadcrumb-item{
+    font-size: larger;
+    margin-left: 10px;
+    margin-bottom: -50px;
+    font-family: 'Inter', sans-serif;
+    }
+.ss .breadcrumb-item :first-child a {
+    text-decoration: none; 
+    color: #4EA933; 
+    }
+.ss .breadcrumb
+    {
+        margin-left: 50px;
+        margin-top: 20px;
+    }

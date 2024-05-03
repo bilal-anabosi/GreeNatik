@@ -2,14 +2,11 @@
   display: flex !important;
   align-items: center;
   justify-content: space-evenly;
-  max-width: 7500px !important;
-  padding:  0 10px; /* تحديد padding صغير من الأطراف */
+  max-width: 2500px !important;
+  padding: 10px 155px;
+  margin: 10 auto;
   margin-bottom: 10px;
-  
 }
-
-
-
 .CheckoutGrid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -19,17 +16,19 @@
 .main-content {
   margin-top: 130px;
 }
-@media screen and (max-width: 1050px) { /* تغيير الحجم الذي يعتبر أصغر من الشاشة */
+@media screen and (max-width: 1050px) { 
   .CheckoutGrid {
-    grid-template-columns: 1fr; /* تغيير عدد الأعمدة في حالة أصغر من الشاشة */
+    grid-template-columns: 1fr; 
   }
 
   .main-content {
-    margin-top: 0; /* إلغاء الهامش العلوي في حالة أصغر من الشاشة */
-    order: 2; /* تحديد ترتيب العناصر، لتحريكها أسفل */
+    margin-top: 0; 
+    order: 2; 
   }
 
   .sidebar {
-    order: 1; /* تحديد ترتيب العناصر، لتحريكها لأعلى */
+    order: 1; 
   }
+  .container3 {
+    padding: 10px 10px; }
 }

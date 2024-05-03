@@ -4,7 +4,19 @@ function AddressAccordion({ onUpdate }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isAddAddressClicked, setIsAddAddressClicked] = useState(false);
   const [isAddDeliveryAddressClicked, setIsAddDeliveryAddressClicked] = useState(true);
-  const [isAddressSelected, setIsAddressSelected] = useState(false); // تحديد ما إذا تم تحديد أي عنوان أم لا
+  const [isAddressSelected, setIsAddressSelected] = useState(false);
+  const [newAddress, setNewAddress] = useState({
+    firstName: '',
+    lastName: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    country: 'India', // Default country
+    state: 'Gujarat', // Default state
+    zipCode: '',
+    businessName: '',
+    isDefault: false,
+  });
 
   const addressData = [
     {
@@ -32,7 +44,7 @@ function AddressAccordion({ onUpdate }) {
   const handleAddressSelection = (index) => {
     setSelectedAddress(index === selectedAddress ? null : index);
     onUpdate({ address: addressData[index] });
-    setIsAddressSelected(true); // تحديد أنه تم تحديد عنوان
+    setIsAddressSelected(true);
   };
 
   const handleAddAddressClick = () => {
@@ -41,6 +53,34 @@ function AddressAccordion({ onUpdate }) {
 
   const handleAddDeliveryAddressClick = () => {
     setIsAddDeliveryAddressClicked(!isAddDeliveryAddressClicked);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewAddress({
+      ...newAddress,
+      [name]: value,
+    });
+  };
+
+  const handleSaveAddress = () => {
+    // Save the new address logic goes here
+    console.log("New address:", newAddress);
+    // Clear the form fields
+    setNewAddress({
+      firstName: '',
+      lastName: '',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      country: 'India',
+      state: 'Gujarat',
+      zipCode: '',
+      businessName: '',
+      isDefault: false,
+    });
+    // Close the modal
+    setIsAddAddressClicked(false);
   };
 
   useEffect(() => {
@@ -54,10 +94,87 @@ function AddressAccordion({ onUpdate }) {
           <i className="bi bi-geo-alt" style={{ color: 'gray' }}></i>
           Add delivery address
         </a>
-        <a href="#!" className={`btn ${isAddAddressClicked ? 'btn-primary' : 'btn-outline-primary'}`} data-bs-toggle="modal" data-bs-target="#addAddressModal" onClick={handleAddAddressClick}>
+        <a href="#!" className={`btn ${isAddAddressClicked ? 'btn-primary' : 'btn-outline-primary'}`} onClick={handleAddAddressClick}>
           Add a new address
         </a>
       </div>
+      {isAddAddressClicked && (
+        <div className="modal fade show" id="addAddressModal" tabIndex="-1" aria-labelledby="addAddressModalLabel" style={{ display: 'block', padding: '0px' }} aria-modal="true" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              {/* modal body */}
+              <div className="modal-body p-6">
+                <div className="d-flex justify-content-between mb-5">
+                  {/* heading */}
+                  <div>
+                    <h5 className="h6 mb-1" id="addAddressModalLabel">New Shipping Address</h5>
+                    <p className="small mb-0">Add new shipping address for your order delivery.</p>
+                  </div>
+                  <div>
+                    {/* button */}
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleAddAddressClick}></button>
+                  </div>
+                </div>
+                {/* row */}
+                <div className="row g-3">
+                  {/* col */}
+                  <div className="col-12">
+                    <input type="text" className="form-control" placeholder="First name" aria-label="First name" name="firstName" value={newAddress.firstName} onChange={handleInputChange} required />
+                  </div>
+                  {/* col */}
+                  <div className="col-12">
+                    <input type="text" className="form-control" placeholder="Last name" aria-label="Last name" name="lastName" value={newAddress.lastName} onChange={handleInputChange} required />
+                  </div>
+                  {/* col */}
+                  <div className="col-12">
+                    <input type="text" className="form-control" placeholder="Address Line 1" name="addressLine1" value={newAddress.addressLine1} onChange={handleInputChange} />
+                  </div>
+                  <div className="col-12">
+                    {/* button */}
+                    <input type="text" className="form-control" placeholder="Address Line 2" name="addressLine2" value={newAddress.addressLine2} onChange={handleInputChange} />
+                  </div>
+                  <div className="col-12">
+                    {/* button */}
+                    <input type="text" className="form-control" placeholder="City" name="city" value={newAddress.city} onChange={handleInputChange} />
+                  </div>
+                  <div className="col-12">
+                    {/* button */}
+                    <select className="form-select" name="country" value={newAddress.country} onChange={handleInputChange}>
+                      <option value="palestine">palestine</option>
+                     
+                    </select>
+                  </div>
+                  <div className="col-12">
+                    
+                    <select className="form-select" name="state" value={newAddress.state} onChange={handleInputChange}>
+                      <option value="Westbank">WestBank</option>
+                      <option value="GazaStrip">GazaStrip</option>
+                      <option value="Jerusalem">Jerusalem</option>
+                      <option value="48-palestinians">48-palestinians</option>
+                    </select>
+                  </div>
+                  <div className="col-12">
+                    <input type="text" className="form-control" placeholder="Zip Code" name="zipCode" value={newAddress.zipCode} onChange={handleInputChange} />
+                  </div>
+                  <div className="col-12">
+                    <input type="text" className="form-control" placeholder="Business Name" name="businessName" value={newAddress.businessName} onChange={handleInputChange} />
+                  </div>
+                  <div className="col-12">
+                    <div className="form-check">
+                      <input className="form-check-input" type="checkbox" value={newAddress.isDefault} id="flexCheckDefault" name="isDefault" onChange={handleInputChange} />
+                      <label className="form-check-label" htmlFor="flexCheckDefault">Set as Default</label>
+                    </div>
+                  </div>
+                  <div className="col-12 text-end">
+                    <button type="button" className="btn btn-outline-primary" data-bs-dismiss="modal" onClick={handleAddAddressClick}>Cancel</button>
+                    <button className="btn btn-primary" type="button" onClick={handleSaveAddress}>Save Address</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
         <div className="mt-5">
           {addressData.map((address, index) => (

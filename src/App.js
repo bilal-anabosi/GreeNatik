@@ -12,9 +12,9 @@ import ForgetPage from './pages/account/Pages/ForgetPage.jsx'
 import AccessDenied from './pages/account/Pages/AccessDined';
 import Error404 from './pages/account/Pages/Error404.jsx';
 import Store from './pages/Store';
-import All_blogs from './pages/blog/all-blogs';
-import Blog_category from './pages/blog/blog-category';
-import Single_blog from './pages/blog/single-blog';
+import AllBlogs from './pages/blog/AllBlogs';
+import BlogCategory from './pages/blog/BlogCategory';
+import SingleBlog from './pages/blog/SingleBlog';
 
 import {
   BrowserRouter as Router,
@@ -42,9 +42,9 @@ function App() {
           <Route path='/AccessDenied' element={<AccessDenied />} />
           <Route path='/Error404' element={<Error404 />} />
           <Route path="/store" element={<Store />} />
-          <Route path="/Blog" element={<All_blogs />} />
-          <Route path="/blog-category" element={<Blog_category />} />
-          <Route path="/Single-blog" element={<Single_blog />} />
+          <Route path="/Blog" element={<AllBlogs />} />
+          <Route path="/blog-category" element={<BlogCategory />} />
+          <Route path="/Single-blog" element={<SingleBlog />} />
 
         </Routes>
       </Router>

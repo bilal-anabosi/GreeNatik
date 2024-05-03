@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 
 
-function Single_blog() {
+function SingleBlog() {
   useEffect(() => {
     document.title = "this is a blog"; 
   }, []); 
@@ -19,8 +19,8 @@ function Single_blog() {
                 {/* breadcrumb */}
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb mb-0">
-                    <li className="breadcrumb-item"><a href="#!">Home</a></li>
-                    <li className="breadcrumb-item"><a href="#!">Blog</a></li>
+                    <li className="breadcrumb-item"><a href="#!!">Home</a></li>
+                    <li className="breadcrumb-item"><a href="#!!">Blog</a></li>
                     <li className="breadcrumb-item active" aria-current="page">Will Sustainable Living Make You Happier?</li>
                   </ol>
                 </nav>
@@ -35,7 +35,7 @@ function Single_blog() {
               <div className="col-md-8 offset-md-2">
                 {/* text */}
                 <div className="mb-5">
-                  <div className="mb-3 text-center"><a href="#!">LifeStyle</a></div>
+                  <div className="mb-3 text-center"><a href="#!!">LifeStyle</a></div>
                   <h1 className="fw-bold text-center">Will Sustainable Living Make You Happier?</h1>
                   <div className="d-flex justify-content-center text-muted mt-4">
                     <span className="me-2"><small>22 April 2023</small></span>
@@ -48,7 +48,7 @@ function Single_blog() {
                   </div>
                 </div>
                 {/* img */}
-                <div className="mb-8"><img src="https://i.imgur.com/iPi7mWX.png" alt className="img-fluid rounded" /></div>
+                <div className="mb-8"><img src="https://i.imgur.com/iPi7mWX.png" alt="ALT" className="img-fluid rounded" /></div>
                 <div>
                   {/* text */}
                   <div className="mb-4" >
@@ -88,7 +88,7 @@ function Single_blog() {
                     </p>
                     <div className="d-flex align-items-start mt-4">
                       {/* Img  */}
-                      <img src="https://i.imgur.com/qJhWxhR.png" alt className="img-fluid me-4 d-none d-lg-block d-md-block rounded" style={{ width: '150px', height: '150px' }} />
+                      <img src="https://i.imgur.com/qJhWxhR.png" alt="ALT" className="img-fluid me-4 d-none d-lg-block d-md-block rounded" style={{ width: '150px', height: '150px' }} />
                       <div>
                         <p>
                         It feels physically exhilarating to exercise outdoors, breath the fresh air,
@@ -141,7 +141,7 @@ function Single_blog() {
                 <hr className="mt-8 mb-5" />
                 <div className="d-flex justify-content-between align-items-center mb-5">
                   <div className="d-flex align-items-center">
-                    <img src="https://i.imgur.com/r5VurVd.png" alt className="rounded-circle avatar-md" />
+                    <img src="https://i.imgur.com/r5VurVd.png" alt="ALT" className="rounded-circle avatar-md" />
                     <div className="ms-2 lh-1">
                       <h5 className="mb-0">Abboud Samir</h5>
                       <span className="text-primary small">Verified User</span>
@@ -150,9 +150,9 @@ function Single_blog() {
                   <div>
                     {/* socials */}
                     <span className="ms-2 text-muted">Share</span>
-                    <a href="#" className="ms-2 text-muted"><i className="bi bi-facebook fs-6" /></a>
-                    <a href="#" className="ms-2 text-muted"><i className="bi bi-twitter fs-6" /></a>
-                    <a href="#" className="ms-2 text-muted"><i className="bi bi-linkedin fs-6" /></a>
+                    <a href="#!" className="ms-2 text-muted"><i className="bi bi-facebook fs-6" /></a>
+                    <a href="#!" className="ms-2 text-muted"><i className="bi bi-twitter fs-6" /></a>
+                    <a href="#!" className="ms-2 text-muted"><i className="bi bi-linkedin fs-6" /></a>
                   </div>
                 </div>
               </div>
@@ -166,4 +166,4 @@ function Single_blog() {
   );
 }
 
-export default Single_blog;
+export default SingleBlog;

@@ -1,6 +1,6 @@
 
 
-function Blog_card(props) {
+function BlogCard(props) {
 
   return (
     <>
@@ -9,7 +9,7 @@ function Blog_card(props) {
           <a href="#!">
             {/* img */}
             <div className="img-zoom">
-              <img src={props.img} alt className="img-fluid w-100" />
+              <img src={props.img} alt="ALT" className="img-fluid w-100" />
             </div>
           </a>
         </div>
@@ -34,4 +34,4 @@ function Blog_card(props) {
   );
 }
 
-export default Blog_card;
+export default BlogCard;

@@ -1,0 +1,45 @@
+.postContainer {
+  /* height: 300px; */
+  /* width: 300px; */
+  /* aspect-ratio: 1/1;  */
+  background-color: #f1f3f2;
+  margin: auto;
+  border-radius: 11px;
+  padding: 29px;
+}
+.info {
+  background-color: #f1f3f2;
+
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.image {
+  width: 50px;
+  border-radius: 30px;
+  margin: 4px;
+}
+.info span {
+  margin-top: 15px;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+}
+.additional-class {
+  border-radius: 31px;
+}
+.progress {
+  height: 9px;
+  margin-bottom: 27px;
+  margin-top: 22px;
+  background-color: #071e2a;
+}
+.button {
+  display: flex;
+  justify-content: center;
+}
+.percentage {
+  font-size: 10px;
+  height: 4px;
+}

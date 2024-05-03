@@ -12,6 +12,9 @@ import ForgetPage from './pages/account/Pages/ForgetPage.jsx'
 import AccessDenied from './pages/account/Pages/AccessDined';
 import Error404 from './pages/account/Pages/Error404.jsx';
 import Store from './pages/Store';
+import All_blogs from './pages/blog/all-blogs';
+import Blog_category from './pages/blog/blog-category';
+import Single_blog from './pages/blog/single-blog';
 
 import {
   BrowserRouter as Router,
@@ -22,27 +25,30 @@ import {
 function App() {
   return (
     <>
-    <Navbar />
+      <Navbar />
       <Router>
         <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/home" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path='/checkout'element={<Checkout/>}/>
-        <Route path='/sign-up' element={<SignUpPage />} />
-      <Route path='/login' element={<LoginPage />} />
-      <Route path='/forget' element={<ForgetPage />} />
-      <Route path='/verify' element={<VerifyPage />} />
-      <Route path='/set-password' element={<SetPasswordPage />} />
-      <Route path='/sign-up' element={<SignUpPage />} />
-      <Route path='/SignupFactory' element={<SignupFactory />} />
-      <Route path='/AccessDenied' element={<AccessDenied />} />
-      <Route path='/Error404' element={<Error404 />} />
-      <Route path="/store" element={<Store />} />
-      
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/sign-up' element={<SignUpPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/forget' element={<ForgetPage />} />
+          <Route path='/verify' element={<VerifyPage />} />
+          <Route path='/set-password' element={<SetPasswordPage />} />
+          <Route path='/sign-up' element={<SignUpPage />} />
+          <Route path='/SignupFactory' element={<SignupFactory />} />
+          <Route path='/AccessDenied' element={<AccessDenied />} />
+          <Route path='/Error404' element={<Error404 />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/Blog" element={<All_blogs />} />
+          <Route path="/blog-category" element={<Blog_category />} />
+          <Route path="/Single-blog" element={<Single_blog />} />
+
         </Routes>
       </Router>
-      </>
+    </>
   );
 }
 

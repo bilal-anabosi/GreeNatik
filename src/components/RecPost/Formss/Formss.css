@@ -98,7 +98,7 @@ margin-top: 8px;
     background-color:  #6cab59; 
     color: #fff;
 }
-.me-auto
+.z .me-auto
 {
     font-family: "Kodchasan", sans-serif;
     font-size: large;
@@ -120,7 +120,7 @@ font-weight: bold;
     font-weight: bold;
     margin-top: 5px; 
 }
-.text-success{
+.text-suc{
     color: #4EA933;
     font-family: "inter", sans-serif;
     font-size: larger; 

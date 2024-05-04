@@ -238,7 +238,7 @@ return (
                         />
                     </div>
                 )}
-
+<div className='z'>
 <div className="mb-3">
     {/* Display error message box */}
         {errorMessage && (
@@ -256,6 +256,7 @@ return (
                 </div>
             </div>
         )}
+</div>
 </div>
 </form>
 
@@ -281,7 +282,7 @@ return (
 </div>
 
 {/* Display success message */}
-{successMessage && <p className="text-success">{successMessage}</p>}
+{successMessage && <p className="text-suc">{successMessage}</p>}
 </div>
 </div>
 );

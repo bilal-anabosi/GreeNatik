@@ -1,3 +1,4 @@
+
 import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -15,6 +16,7 @@ import Store from './pages/Store';
 import AllBlogs from './pages/blog/AllBlogs';
 import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
+import Posts from "./pages/postsPage/Posts.jsx";
 
 import {
   BrowserRouter as Router,
@@ -31,6 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
+
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
@@ -45,6 +48,7 @@ function App() {
           <Route path="/Blog" element={<AllBlogs />} />
           <Route path="/blog-category" element={<BlogCategory />} />
           <Route path="/Single-blog" element={<SingleBlog />} />
+          <Route path="/all-posts" element={<Posts />} />
 
         </Routes>
       </Router>

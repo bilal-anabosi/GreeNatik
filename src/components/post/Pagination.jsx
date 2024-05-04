@@ -29,12 +29,15 @@ const Pagination = ({ posts }) => {
         ))}
       </div>
       <nav aria-label="Page navigation example">
-        <ul className="pagination">
+        <ul className="pagination mt-5">
           <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
             <a
               className="page-link"
               href="#"
-              onClick={() => paginate(currentPage - 1)}
+              onClick={(e) => {
+                e.preventDefault();
+                paginate(currentPage - 1);
+              }}
               aria-label="Previous"
             >
               <span aria-hidden="true">&laquo;</span>
@@ -45,7 +48,14 @@ const Pagination = ({ posts }) => {
               key={i}
               className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
             >
-              <a className="page-link" href="#" onClick={() => paginate(i + 1)}>
+              <a
+                className="page-link"
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  paginate(i + 1);
+                }}
+              >
                 {i + 1}
               </a>
             </li>
@@ -58,7 +68,10 @@ const Pagination = ({ posts }) => {
             <a
               className="page-link"
               href="#"
-              onClick={() => paginate(currentPage + 1)}
+              onClick={(e) => {
+                e.preventDefault();
+                paginate(currentPage + 1);
+              }}
               aria-label="Next"
             >
               <span aria-hidden="true">&raquo;</span>

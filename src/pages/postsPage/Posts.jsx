@@ -4,6 +4,7 @@ import classes from "./Posts.module.css";
 import DropdownMenu from "../../components/post/DropDowns.jsx";
 import PostModal from "../../components/post/PostModal.jsx";
 import Pagination from "../../components/post/Pagination.jsx";
+import Banner from "../../components/post/Banner.jsx";
 function generateRandomProgress() {
   return Math.floor(Math.random() * 101); // Generates a random number between 0 and 100
 }
@@ -12,9 +13,8 @@ const citiesAndFactories = [
     city: "Ramallah",
     factory: "Plastic Manufacturing Co.",
     requestType: "plastic",
-    quantity: "1000 kg",
-    date: "30 april 2024",
-
+    quantity: "300 kg",
+    date: "30 April 2024",
     progress: generateRandomProgress(),
   },
   {
@@ -22,23 +22,23 @@ const citiesAndFactories = [
     factory: "Metal Fabrication Ltd.",
     requestType: "metal",
     quantity: "500 kg",
-    date: "30 may 2024",
+    date: "30 May 2024",
     progress: generateRandomProgress(),
   },
   {
     city: "Hebron",
     factory: "Paper Packaging Industries",
     requestType: "paper",
-    quantity: "700 kg",
-    date: "30 june 2024",
+    quantity: "400 kg",
+    date: "30 June 2024",
     progress: generateRandomProgress(),
   },
   {
     city: "Nablus",
     factory: "Glassworks Company",
     requestType: "glass",
-    quantity: "2000 kg",
-    date: "10 march 2024",
+    quantity: "200 kg",
+    date: "30 July 2024",
     progress: generateRandomProgress(),
   },
   {
@@ -46,7 +46,7 @@ const citiesAndFactories = [
     factory: "Recycling Plant",
     requestType: "others",
     quantity: "500 kg",
-    date: "30 march 2024",
+    date: "30 August 2024",
     progress: generateRandomProgress(),
   },
   {
@@ -54,7 +54,7 @@ const citiesAndFactories = [
     factory: "Ceramics Co.",
     requestType: "others",
     quantity: "300 kg",
-    date: "20 may 2026",
+    date: "30 September 2024",
     progress: generateRandomProgress(),
   },
   {
@@ -62,15 +62,15 @@ const citiesAndFactories = [
     factory: "Aluminum Works",
     requestType: "metal",
     quantity: "150 kg",
-    date: "1 january 2025",
+    date: "30 October 2024",
     progress: generateRandomProgress(),
   },
   {
     city: "Tulkarm",
     factory: "Packaging Solutions",
     requestType: "plastic",
-    quantity: "80 kg",
-    date: "17 june 2020",
+    quantity: "400 kg",
+    date: "30 November 2024",
     progress: generateRandomProgress(),
   },
   {
@@ -78,7 +78,7 @@ const citiesAndFactories = [
     factory: "Fiberboard Industries",
     requestType: "paper",
     quantity: "60 kg",
-    date: "14 may 2012",
+    date: "30 December 2024",
     progress: generateRandomProgress(),
   },
   {
@@ -86,7 +86,7 @@ const citiesAndFactories = [
     factory: "Glass Bottle Co.",
     requestType: "glass",
     quantity: "100 kg",
-    date: "11 february 2010",
+    date: "30 January 2025",
     progress: generateRandomProgress(),
   },
   {
@@ -94,7 +94,7 @@ const citiesAndFactories = [
     factory: "Ceramics Co.",
     requestType: "others",
     quantity: "300 kg",
-    date: "11 december 2025",
+    date: "30 February 2025",
     progress: generateRandomProgress(),
   },
   {
@@ -102,7 +102,7 @@ const citiesAndFactories = [
     factory: "Aluminum Works",
     requestType: "metal",
     quantity: "150 kg",
-    date: "13 july 2024",
+    date: "30 March 2025",
     progress: generateRandomProgress(),
   },
   {
@@ -110,112 +110,103 @@ const citiesAndFactories = [
     factory: "Packaging Solutions",
     requestType: "plastic",
     quantity: "80 kg",
-    date: "25 april 2018",
+    date: "30 April 2025",
     progress: generateRandomProgress(),
   },
   {
-    city: "Ramallah",
-    factory: "Plastic Manufacturing Co.",
-    requestType: "plastic",
-    quantity: "1000 kg",
-    date: "30 april 2024",
-
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Gaza City",
-    factory: "Metal Fabrication Ltd.",
-    requestType: "metal",
-    quantity: "500 kg",
-    date: "30 may 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Hebron",
-    factory: "Paper Packaging Industries",
+    city: "Qalqilya",
+    factory: "Fiberboard Industries",
     requestType: "paper",
-    quantity: "700 kg",
-    date: "30 june 2024",
+    quantity: "60 kg",
+    date: "30 May 2025",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Beit Sahour",
+    factory: "Glass Bottle Co.",
+    requestType: "glass",
+    quantity: "100 kg",
+    date: "30 June 2025",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Salfit",
+    factory: "Plastic Recycling Plant",
+    requestType: "plastic",
+    quantity: "400 kg",
+    date: "30 July 2025",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Tubas",
+    factory: "Metal Casting Foundry",
+    requestType: "metal",
+    quantity: "90 kg",
+    date: "30 August 2025",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Khan Yunis",
+    factory: "Paper Processing Co.",
+    requestType: "paper",
+    quantity: "100 kg",
+    date: "30 September 2025",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Rafah",
+    factory: "Glassware Manufacturing",
+    requestType: "glass",
+    quantity: "18 kg",
+    date: "30 October 2025",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Deir al-Balah",
+    factory: "Plastic Packaging Ltd.",
+    requestType: "plastic",
+    quantity: "6 kg",
+    date: "30 November 2025",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Ar-Ram",
+    factory: "Metal Recycling Center",
+    requestType: "metal",
+    quantity: "7 kg",
+    date: "30 December 2025",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Khan Younis",
+    factory: "Paperboard Co.",
+    requestType: "paper",
+    quantity: "5 kg",
+    date: "30 January 2026",
+    progress: generateRandomProgress(),
+  },
+  {
+    city: "Anabta",
+    factory: "Glass Bottle Manufacturing",
+    requestType: "glass",
+    quantity: "150 kg",
+    date: "30 February 2026",
     progress: generateRandomProgress(),
   },
   {
     city: "Nablus",
-    factory: "Glassworks Company",
-    requestType: "glass",
-    quantity: "2000 kg",
-    date: "10 march 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Jericho",
-    factory: "Recycling Plant",
-    requestType: "others",
-    quantity: "500 kg",
-    date: "30 march 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Bethlehem",
-    factory: "Ceramics Co.",
-    requestType: "others",
-    quantity: "300 kg",
-    date: "20 may 2026",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Jenin",
-    factory: "Aluminum Works",
-    requestType: "metal",
-    quantity: "150 kg",
-    date: "1 january 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Tulkarm",
-    factory: "Packaging Solutions",
+    factory: "Plastic Extrusion Company",
     requestType: "plastic",
-    quantity: "80 kg",
-    date: "17 june 2020",
+    quantity: "90 kg",
+    date: "30 March 2026",
     progress: generateRandomProgress(),
   },
   {
-    city: "Qalqilya",
-    factory: "Fiberboard Industries",
-    requestType: "paper",
-    quantity: "60 kg",
-    date: "14 may 2012",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Beit Sahour",
-    factory: "Glass Bottle Co.",
-    requestType: "glass",
+    city: "Qabatiya",
+    factory: "Metal Sheet Fabrication",
+    requestType: "metal",
     quantity: "100 kg",
-    date: "11 february 2010",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Bethlehem",
-    factory: "Ceramics Co.",
-    requestType: "others",
-    quantity: "300 kg",
-    date: "11 december 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Jenin",
-    factory: "Aluminum Works",
-    requestType: "metal",
-    quantity: "150 kg",
-    date: "13 july 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Tulkarm",
-    factory: "Packaging Solutions",
-    requestType: "plastic",
-    quantity: "80 kg",
-    date: "25 april 2018",
+    date: "30 April 2026",
     progress: generateRandomProgress(),
   },
 ];
@@ -331,6 +322,7 @@ const Posts = () => {
   };
 
   const onSortClick = (e) => {
+    e.preventDefault();
     const selectedSortCraiteria = e.target.text;
     if (selectedSortCraiteria === "none") {
       setFilter((prev) => ({ ...prev, sortType: "" }));
@@ -366,9 +358,26 @@ const Posts = () => {
     { label: "Jenin", value: "Jenin" },
   ];
 
+  const sortChoices = [
+    { label: "None", value: "" },
+    { label: "Latest", value: "Latest" },
+    { label: "Earliest", value: "Earliest" },
+  ];
+
   return (
-    <div className="container" aria-label="Page navigation example">
-      <div className="row ">
+    <div className="container">
+      <div className="row mt-7 ">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Recycling
+            </li>
+          </ol>
+        </nav>
+        <Banner />
         <PostModal />
         <div className={classes.almostCompletedDemands}>
           <h3>Almost Completed Demands</h3>
@@ -386,13 +395,14 @@ const Posts = () => {
                 progress={post.progress}
               />
             ))}
-
-            <h4>All Recycling Factories' Material demands</h4>
-            <h6>
-              <small>
-                here you can browse what each company demand of material is
-              </small>
-            </h6>
+            <div className="mt-6">
+              <h4>All Recycling Factories' Material demands</h4>
+              <h6>
+                <small>
+                  here you can browse what each company demand of material is
+                </small>
+              </h6>
+            </div>
             <div className={classes.menus}>
               <div className={`${classes.filterContainer}`}>
                 <DropdownMenu
@@ -411,33 +421,11 @@ const Posts = () => {
                   onChange={onQuantityChange}
                 />
                 <div className={classes.sort}>
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Sort by:
-                    </button>
-                    <ul class="dropdown-menu" onClick={onSortClick}>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          None
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          Latest
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          Earliest
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                  <DropdownMenu
+                    title="Sort by:"
+                    choices={sortChoices}
+                    onChange={onSortClick}
+                  />
                 </div>
               </div>
             </div>

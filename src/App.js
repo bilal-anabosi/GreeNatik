@@ -23,6 +23,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import SinglePost from './pages/SinglePost.jsx';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/blog-category" element={<BlogCategory />} />
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
+          <Route path="/singlepost" element={<SinglePost />} />
 
         </Routes>
       </Router>

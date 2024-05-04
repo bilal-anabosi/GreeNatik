@@ -1,8 +1,8 @@
 .ss .breadcrumb-item{
-    font-size: larger;
     margin-left: 10px;
     margin-bottom: -50px;
     font-family: 'Inter', sans-serif;
+    font-size: 16px;
     }
 .ss .breadcrumb-item :first-child a {
     text-decoration: none; 

@@ -1,22 +1,13 @@
-.newcard{
-    background-color: #F7F7F7;
-    padding: 30px;
-    border-radius: 27px;
-    box-shadow: 0 4px 8px rgba(51, 50, 50, 0.1);
-    border: none;
-    width: 100%;
-    height: 300px;
-  }
-
-  .special-h2{
+.j h2{
     color: #000;
     font-family: 'Poppins', sans-serif;
     font-weight: bolder;
     margin-top: 80px;
     text-align: center;
+    font-size: xx-large;
   }
  
-  .special-h4{
+.j h4{
     color: #797878;
     font-family: 'Poppins', sans-serif;
     font-size: 22px;
@@ -24,49 +15,17 @@
     margin-bottom: 60px;
     font-weight: lighter;
 }
-.special-h5{
-    font-family: 'DM Sans', sans-serif;
-    color: #262626;
-    font-size: 30px;
-    text-align: center;
-    margin-top: 0px;
+.card-image {
+ width: 200px; /* تغيير عرض الصورة */
+  height: 200px;
+  padding: 50px;
+background-color: #efefef;
+border-radius: 20%;
 }
-
-.special-h1{
-    font-family: 'DM Sans', sans-serif;
-    color: #262626;
-    font-size: 30px;
-    text-align: center;
-    margin-left: -420px;
-}
-.clicked {
-    background-color: #efefef;
-    border: 0.5px solid #D7D7D7;
-    transition : box-shadow 0.3s ease;
-    box-shadow: 0 0 10px 5px #dedede(0, 255, 0, 0.7); 
-}
-@media screen and (min-width: 350px) and (max-width: 700px) {
-
-    .special-h1{
-        font-size: 30px;
-        text-align: center;
-        margin-left: -20px;
-    }
-    .special-h5{
-        text-align: center;
-    }
-    .card {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      
-
-}
-@media screen and (min-width: 760px) and (max-width: 1027px) {
-
-    .special-h1{
-        font-size: 30px;
-        text-align: center;
-        margin-left: -20px;
-    }
+.text-inheritt{
+  font-size: 30px;
+  font-family: 'DM Sans', sans-serif;
+  color: #262626;
+  text-align: center;
+  
 }

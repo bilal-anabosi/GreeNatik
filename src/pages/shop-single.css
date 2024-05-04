@@ -191,6 +191,11 @@
 
     border: 1px solid #e0e0e0;
     border-radius: 1em;
+    transition: .3s;
+}
+
+.related_item:hover {
+    border-color:#0aad0a;
 }
 
 .related_item img {

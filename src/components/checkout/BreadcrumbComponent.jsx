@@ -3,7 +3,7 @@ import React from 'react';
 const BreadcrumbComponent = () => {
   return (
  
-          <nav aria-label="breadcrumb">
+          <nav aria-label="breadcrumb" style={{  padding: "10px 10px" }}>
             <ol className="breadcrumb mb-0">
               <li className="breadcrumb-item"><a href="#!">Home</a></li>
               <li className="breadcrumb-item"><a href="#!">Shop</a></li>

@@ -1,11 +1,10 @@
 import React from 'react';
 
-
-const Order = ({ items }) => {
-  const totalPrice = items.reduce((acc, item) => acc + item.price, 0);
+const Order = ({ items, discountAmount, subtotal }) => {
   const serviceFee = 3.00;
-  const subtotal = totalPrice + serviceFee;
- 
+  const totalAfterDiscount = subtotal + serviceFee - discountAmount;
+  const totalBeforeDiscount = subtotal + serviceFee;
+
   return (
     <div className="mt-4 mt-lg-0" style={{ maxWidth: '800px' }}>
       <div className="card shadow-sm">
@@ -33,7 +32,7 @@ const Order = ({ items }) => {
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>Item Subtotal</div>
-              <div className="fw-bold">${totalPrice.toFixed(2)}</div>
+              <div className="fw-bold">${subtotal.toFixed(2)}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
@@ -42,11 +41,16 @@ const Order = ({ items }) => {
               <div className="fw-bold">${serviceFee.toFixed(2)}</div>
             </div>
           </li>
-          {/* Subtotal */}
+          <li className="list-group-item px-4 py-3">
+            <div className="d-flex align-items-center justify-content-between">
+              <div>SubTotal</div>
+              <div className="fw-bold">${totalBeforeDiscount.toFixed(2)}</div>
+            </div>
+          </li>
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between fw-bold">
-              <div>Subtotal</div>
-              <div>${subtotal.toFixed(2)}</div>
+              <div>Total after Discount</div>
+              <div>${totalAfterDiscount.toFixed(2)}</div>
             </div>
           </li>
         </ul>

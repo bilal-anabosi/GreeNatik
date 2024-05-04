@@ -206,7 +206,6 @@
 
 .related_item span {
     font-size: 1em;
-    color: #5c6c75;
 }
 
 .related_row {
@@ -259,6 +258,21 @@
 
 .description span {
     margin-bottom: 1.5em;
+}
+
+.price-tag-small {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    font-weight: 500 !important;
+    font-size: 1.2em;
+    color: #000 !important;
+}
+
+.price-tag-small span:nth-child(2) {
+    color: #5c6c75;
+    text-decoration: line-through;
 }
 
 @media only screen and (max-width: 1400px) {

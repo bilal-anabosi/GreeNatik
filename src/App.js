@@ -17,6 +17,7 @@ import AllBlogs from './pages/blog/AllBlogs';
 import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
 import Posts from "./pages/postsPage/Posts.jsx";
+import ShopSingle from './pages/shop-single.jsx';
 
 import {
   BrowserRouter as Router,
@@ -49,6 +50,7 @@ function App() {
           <Route path="/blog-category" element={<BlogCategory />} />
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
+          <Route path="/shop-single" element={<ShopSingle />} />
 
         </Routes>
       </Router>

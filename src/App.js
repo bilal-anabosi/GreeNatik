@@ -17,7 +17,8 @@ import AllBlogs from './pages/blog/AllBlogs';
 import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
 import Posts from "./pages/postsPage/Posts.jsx";
-
+import FoodWare from './pages/FoodWare.jsx';
+import Leaderboard from './pages/Leaderboard.jsx';
 import {
   BrowserRouter as Router,
   Route,
@@ -51,7 +52,9 @@ function App() {
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
           <Route path="/singlepost" element={<SinglePost />} />
-
+          <Route path='/FoodWare' element={<FoodWare/>}/>
+          <Route path="/Leaderboard" element={<Leaderboard />} />
+          
         </Routes>
       </Router>
     </>

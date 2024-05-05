@@ -1,0 +1,227 @@
+.HomeShopFoodWaer{
+  margin-left: -90px;
+  width: 1710px;
+ 
+}
+
+.eman-Text-one-Current{
+margin-top: -270px;
+  margin-left: 120px;
+}
+.eman-Text-two-Current{
+  margin-top: -80px;
+  margin-left: 120px;
+
+  }
+.board-carddd{
+margin-top: 20px;
+  border-color: white;
+}
+.navvvbarrtwo{
+  margin-left: 60px;
+  margin-right: 80px;
+}
+.icone-leader{
+  width: 70px;
+margin-top: -340px;
+margin-left: 300px;}
+.ddd{
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ebeceb;
+  border-radius: 11px;
+  height: 300px;
+  margin-top: -220px;
+}
+.dropdowne-onthlyy{
+margin-top: 200px;
+
+}
+
+.warrning{
+  margin-left: 110px;
+}
+.left-image {
+  width: 20%;
+}
+.gG{
+  display: flex;
+  align-items: center;
+ 
+}
+.aA{
+  display: flex;
+  align-items: center;
+  margin-left: 45px;
+  margin-top: -20px;
+}
+.taskss{
+  margin-left: 20px;
+  margin-top: 23px;
+  
+}
+.card-nameee{
+  margin-left: 20px;
+}
+
+
+.left-image img {
+  width: 100%;
+  display: block;
+}
+.card-ptss{
+  margin-left: 105px;
+  margin-top: -20px;
+ 
+}
+.DDropddowne{
+  margin-top: 10px;
+  margin-left: 1180px;
+
+}
+.Pointss{
+margin-left: 30px;
+margin-top: 25px;
+}
+.DrobdowneLeader{
+  background-color: #F1F3F2;
+  border-color: #F1F3F2;
+  color: black;
+}
+.eman-contai-current{
+  margin-top: -100px;
+}
+.table {
+   
+    border: 1px solid black;
+    width: 91.5%;
+    height: 50%;
+    border-color: #dae1dd ;
+margin-top: 340px;
+   
+ 
+  }
+ 
+
+
+  
+  
+  
+  .containerrrrr {
+    display: flex;
+  }
+
+  .textBoard{
+    margin-left: 30px;
+    margin-top: 40px;
+  }
+  .carddddd {
+  
+    height: 1px;
+    margin-right: 10px;
+    margin-bottom: 300px;
+
+  }
+ .eman-homeShop{
+    margin-left: 55px;
+  }
+  @media (min-width: 499px) and (max-width: 835px){
+   .HomeShopFoodWaer{
+    margin-bottom: 260px;
+   }
+    .board-carddd-body{
+      margin-top:-260px;
+    }
+.card-ptss{
+  margin-left: 55px;
+  margin-top: -7px;
+
+}
+.aA{
+  margin-left: -10px;
+}
+.table{
+  margin-top: 30px;
+  margin-left: 50px;
+}
+.eman-Text-two-Current{
+  margin-left: 50px;
+  margin-top: 10px;
+}
+.eman-Text-one-Current{
+  margin-left: 50px;
+}
+.dropdown-monthly{
+  margin-left: 50px;
+}
+
+  }
+  @media (min-width: 359px) and (max-width:798px){
+    .HomeShopFoodWaer{
+      margin-bottom: 260px;
+     }
+      .board-carddd-body{
+        margin-top:-260px;
+        
+      }
+  
+    .eman-Text-two-Current{
+      margin-left: 20px;
+      margin-top: -180px;
+    }
+    .table{
+      margin-top: -70px;
+     
+    }
+    .card-ptss{
+      margin-left:120px;
+    }
+  
+
+  }
+  @media (min-width: 850px) and (max-width:1199px){
+    .HomeShopFoodWaer{
+      margin-bottom: 260px;
+     }
+      .board-carddd-body{
+        margin-top:-260px;
+      }
+.card-ptss{
+  margin-left: 90px;
+  margin-top: 0px;
+}
+.aA{
+  margin-left: 10Px;
+}
+.table{
+  margin-top: 50px;
+  margin-left: 90px;
+}
+.icone-leader{
+  margin-left:10px ;
+}
+ 
+
+
+}
+
+  @media (min-width: 1401px) and (max-width:2000px){
+    .HomeShopFoodWaer{
+      margin-bottom: 250px;
+     }
+      .board-carddd-body{
+        margin-top:-260px;
+      }
+.ttt{
+  margin-top: -300px;
+  margin-left: 110px;
+}
+
+.textGlobalRanking{
+  margin-left: 5px;
+}
+
+  }
+  @media (min-width: 140px) and (max-width:1500px){
+  .DDropddowne{
+margin-left: -1px;
+  }}

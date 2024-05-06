@@ -14,13 +14,13 @@ function Leaderboard  ()  {
 <div className="container mt-5">
       <div className="row">
         <div className="col-md-4 ">
-          <Board  title="Joined members " number="369+" icon="\pics\Screenshot 2024-05-03 223843.png" />
+          <Board  title="Joined members " number="369+" icon="\img\Screenshot 2024-05-03 230248.png" />
         </div>
         <div className="col-md-4">
-          <Board title="Achieved Goals" number="732+" icon="\pics\Screenshot 2024-05-03 230248.png" />
+          <Board title="Achieved Goals" number="732+" icon="\img\Screenshot 2024-05-03 223843.png" />
         </div>
         <div className="col-md-4">
-          <Board title="Remaining time to completion🔥"title2=" day : Hour : Minute"  icon="\pics\Screenshot 2024-05-03 232803.png" countt="12 : 6 : 42" />
+          <Board title="Remaining time to completion🔥"title2=" day : Hour : Minute"  icon="\img\Screenshot 2024-05-03 232803.png" countt="12 : 6 : 42" />
         
 
         </div>
@@ -36,13 +36,13 @@ function Leaderboard  ()  {
 
       <div className="row">
         <div className="col-md-4">
-          <CurrentLeaders tasks="13" points="450" pts="56782" img="\pics\Screenshot 2024-05-04 170459.png" icon="\img\Screenshot 2024-05-04 124913.png" name="Wahiba Jalal" />
+          <CurrentLeaders tasks="13" points="450" pts="56782" img="\img\Screenshot 2024-05-04 170459.png" icon="\img\Screenshot 2024-05-04 124913.png" name="Wahiba Jalal" />
         </div>
         <div className="col-md-4">
-          <CurrentLeaders tasks="13" points="410" pts="54612" img="\pics\Screenshot 2024-05-04 170506.png"icon =" \img\Screenshot 2024-05-04 124918.png" name="Abboud Samir" />
+          <CurrentLeaders tasks="13" points="410" pts="54612" img="\img\Screenshot 2024-05-04 170506.png"icon =" \img\Screenshot 2024-05-04 124918.png" name="Abboud Samir" />
         </div>
         <div className="col-md-4">
-          <CurrentLeaders tasks="11" points="398" pts="50962" img="\pics\Screenshot 2024-05-04 170510.png"icon ="\img\Screenshot 2024-05-04 124927.png"name="Tamara Selsal" />
+          <CurrentLeaders tasks="11" points="398" pts="50962" img="\img\Screenshot 2024-05-04 170510.png"icon ="\img\Screenshot 2024-05-04 124927.png"name="Tamara Selsal" />
         </div>
       </div>
    

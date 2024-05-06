@@ -60,7 +60,7 @@ function Home() {
         <div className="d-none d-xl-block d-xxl-none" style={{height: 490}} />
         <div className="d-none d-lg-block d-xl-none" style={{height: 400}} />
         {/* Right features list */}
-        <div className="text-center text-sm-start mb-5 mx-auto me-sm-0 pb-lg-2 pb-xl-4 aos-init" style={{maxWidth: 340}} data-aos="fade-left" data-aos-offset={250} data-aos-delay={400} data-aos-easing="ease-out-back" data-disable-parallax-down="lg">
+        <div className="text-center text-sm-start mb-5 mx-auto me-sm-0 ms-md-5 pb-lg-2 pb-xl-4 aos-init" style={{maxWidth: 340}} data-aos="fade-left" data-aos-offset={250} data-aos-delay={400} data-aos-easing="ease-out-back" data-disable-parallax-down="lg">
           <div className="d-table bg-light bg-opacity-10 rounded-1 p-2 mx-auto mx-sm-0 mb-3 mb-lg-4">
             <svg className="d-block m-1 text-primary" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M11.9986 0C5.38318 0 0 5.38318 0 11.9986C0 18.6141 5.38041 24 11.9986 24C18.6168 24 23.9972 18.6168 23.9972 12.0014C23.9972 5.38595 18.6141 0 11.9986 0ZM16.7837 17.0052C16.5095 17.3541 16.1025 17.5396 15.6899 17.5396C15.3936 17.5396 15.0945 17.4427 14.8397 17.2489L10.6861 14.0173C10.3482 13.7542 10.1516 13.3499 10.1516 12.9235V6.92281C10.1516 6.15853 10.7719 5.53825 11.5362 5.53825C12.3005 5.53825 12.9207 6.15853 12.9207 6.92281V12.2451L16.54 15.0613C17.1437 15.5292 17.2517 16.4015 16.7837 17.0052Z" />
@@ -69,7 +69,7 @@ function Home() {
           <h2 className="h4 text-white mb-2 mb-lg-3">something</h2>
           <p className="text-white opacity-80 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem corporis earum voluptatibus esse pariatur quaerat tempora fuga facere obcaecati illo? Temporibus, praesentium alias reprehenderit iure repellendus cumque obcaecati necessitatibus in.</p>
         </div>
-        <div className="text-center text-sm-start mb-5 mx-auto me-sm-0 pb-lg-2 pb-xl-4 aos-init" style={{maxWidth: 340}} data-aos="fade-left" data-aos-offset={200} data-aos-delay={600} data-aos-easing="ease-out-back" data-disable-parallax-down="lg">
+        <div className="text-center text-sm-start mb-5 mx-auto me-sm-0 ms-md-5 pb-lg-2 pb-xl-4 aos-init" style={{maxWidth: 340}} data-aos="fade-left" data-aos-offset={200} data-aos-delay={600} data-aos-easing="ease-out-back" data-disable-parallax-down="lg">
           <div className="d-table bg-light bg-opacity-10 rounded-1 p-2 mx-auto mx-sm-0 mb-3 mb-lg-4">
             <svg className="d-block m-1 text-primary" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M19.9524 20.9857C17.8306 22.8676 15.057 24 12.0132 24C5.38642 24 0 18.6128 0 11.985C0 5.60651 4.98548 0.379975 11.2624 0V5.02678C7.74852 5.39775 5.005 8.38048 5.005 11.985C5.005 15.8493 8.14795 18.9942 12.0132 18.9942C13.6755 18.9942 15.2072 18.413 16.4085 17.4428L19.9524 20.9857Z" />

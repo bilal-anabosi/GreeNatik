@@ -1,7 +1,5 @@
 
 import './App.css';
-import Leaderboard from './pages/Leaderboard.jsx';
-import FoodWare from './pages/FoodWare.jsx'
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
@@ -33,13 +31,9 @@ function App() {
       <Navbar />
       <Router>
         <Routes>
-        <Route path="/Leaderboard" element={<Leaderboard />} />
-        <Route path="/FoodWare" element={<FoodWare/>}/>
-        
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
@@ -56,7 +50,6 @@ function App() {
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
           <Route path="/singlepost" element={<SinglePost />} />
-
         </Routes>
       </Router>
     </>

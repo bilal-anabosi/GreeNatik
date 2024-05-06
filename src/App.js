@@ -18,6 +18,7 @@ import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
 import Posts from "./pages/postsPage/Posts.jsx";
 import ShopSingle from './pages/shop-single.jsx'
+import CreatePost from './pages/dashboard/post.jsx';
 
 import {
   BrowserRouter as Router,
@@ -51,6 +52,8 @@ function App() {
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
           <Route path="/shop-single" element={<ShopSingle />} />
+
+          <Route path="/dashboard/post" element={<CreatePost />} />
 
         </Routes>
       </Router>

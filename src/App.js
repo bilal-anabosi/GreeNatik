@@ -1,5 +1,7 @@
 
 import './App.css';
+import Leaderboard from './pages/Leaderboard.jsx';
+import FoodWare from './pages/FoodWare.jsx'
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
@@ -31,6 +33,9 @@ function App() {
       <Navbar />
       <Router>
         <Routes>
+        <Route path="/Leaderboard" element={<Leaderboard />} />
+        <Route path="/FoodWare" element={<FoodWare/>}/>
+        
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />

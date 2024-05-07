@@ -25,6 +25,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import PostsList from './pages/dashboard/post-list.jsx';
 
 function App() {
   return (
@@ -54,7 +55,8 @@ function App() {
           <Route path="/shop-single" element={<ShopSingle />} />
 
           <Route path="/dashboard/post" element={<CreatePost />} />
-
+          <Route path="/dashboard/post/list" element={<PostsList />} />
+          
         </Routes>
       </Router>
     </>

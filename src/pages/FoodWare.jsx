@@ -30,16 +30,16 @@ function FoodWide () {
   <div className="container container-2twoo Carddd">
   <div className="row">
     <div className="col-sm-3">
-      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'\img\category-instant-food.jpg'} /></div>
+      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img='\img\product-single-img-1.jpg'/></div>
     </div>
     <div className="col-sm-3">
-      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'\img\category-instant-food.jpg'} /></div>
+      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img='\img\product-single-img-1.jpg'/></div>
     </div>
     <div className="col-sm-3">
-      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'\img\category-instant-food.jpg'} /></div>
+      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img='\img\product-single-img-1.jpg' /></div>
     </div>
     <div className="col-sm-3">
-      <div className="card"> <CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'\img\category-instant-food.jpg'} /></div>
+      <div className="card"> <CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img='\img\product-single-img-1.jpg'/></div>
     </div>
   </div>
 </div>
@@ -47,16 +47,16 @@ function FoodWide () {
 <div className="container container-3threee Carddd">
   <div className="row">
     <div className="col-sm-3">
-      <div className="card"><CardWide number1={'$55'} Sale={"Sale"} number2={'$33'}text1={"rr"} text2={"ddd"} img={'\img\category-instant-food.jpg'} /></div>
+      <div className="card"><CardWide number1={'$55'} Sale={"Sale"} number2={'$33'}text1={"rr"} text2={"ddd"} img='\img\product-single-img-1.jpg' /></div>
     </div>
     <div className="col-sm-3">
-      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'\img\category-instant-food.jpg'} /></div>
+      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img='\img\product-single-img-1.jpg' /></div>
     </div>
     <div className="col-sm-3">
-      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'\img\category-instant-food.jpg'} /></div>
+      <div className="card"><CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img='\img\product-single-img-1.jpg'/></div>
     </div>
     <div className="col-sm-3">
-      <div className="card"> <CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img={'\img\category-instant-food.jpg'} /></div>
+      <div className="card"> <CardWide number1={'$55'} number2={'$33'}text1={"rr"} text2={"ddd"} img='\img\product-single-img-1.jpg' /></div>
     </div>
   </div>
 </div>

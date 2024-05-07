@@ -20,6 +20,7 @@ import Posts from "./pages/postsPage/Posts.jsx";
 import SinglePost from './pages/SinglePost.jsx';
 import Wishlist from './pages/Wishlist.jsx';
 import Wide from './pages/Wide';
+import LeaderBoard from './pages/LeaderBoard';
 import {
   BrowserRouter as Router,
   Route,
@@ -54,7 +55,7 @@ function App() {
           <Route path="/singlepost" element={<SinglePost />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/wide" element={<Wide />} />
-
+          <Route path="/leaderboard" element={<LeaderBoard />} />
         </Routes>
       </Router>
     </>

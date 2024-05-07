@@ -17,13 +17,14 @@ import AllBlogs from './pages/blog/AllBlogs';
 import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
 import Posts from "./pages/postsPage/Posts.jsx";
-
+import SinglePost from './pages/SinglePost.jsx';
+import Wishlist from './pages/Wishlist.jsx';
 import {
   BrowserRouter as Router,
   Route,
   Routes,
 } from "react-router-dom";
-import SinglePost from './pages/SinglePost.jsx';
+
 
 function App() {
   return (
@@ -50,6 +51,8 @@ function App() {
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
           <Route path="/singlepost" element={<SinglePost />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+
         </Routes>
       </Router>
     </>

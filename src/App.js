@@ -17,8 +17,14 @@ import AllBlogs from './pages/blog/AllBlogs';
 import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
 import Posts from "./pages/postsPage/Posts.jsx";
+
 import ShopSingle from './pages/shop-single.jsx'
 import CreatePost from './pages/dashboard/post.jsx';
+
+import SinglePost from './pages/SinglePost.jsx';
+import Wishlist from './pages/Wishlist.jsx';
+import Wide from './pages/Wide';
+import LeaderBoard from './pages/LeaderBoard';
 
 import {
   BrowserRouter as Router,
@@ -26,6 +32,7 @@ import {
   Routes,
 } from "react-router-dom";
 import PostsList from './pages/dashboard/post-list.jsx';
+
 
 function App() {
   return (
@@ -36,7 +43,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
@@ -53,10 +59,13 @@ function App() {
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
           <Route path="/shop-single" element={<ShopSingle />} />
-
           <Route path="/dashboard/post" element={<CreatePost />} />
           <Route path="/dashboard/post/list" element={<PostsList />} />
-          
+          <Route path="/singlepost" element={<SinglePost />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/wide" element={<Wide />} />
+          <Route path="/leaderboard" element={<LeaderBoard />} />
+
         </Routes>
       </Router>
     </>

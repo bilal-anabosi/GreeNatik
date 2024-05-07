@@ -57,9 +57,9 @@ const SideBarCart = () => {
         />
       </div>
       <div className="offcanvas-body">
-        <p>
+        
           <h6>Your items:</h6>
-        </p>
+        
         <ul className="list-group list-group-flush">
           {products.map((product, index) => (
             <Product

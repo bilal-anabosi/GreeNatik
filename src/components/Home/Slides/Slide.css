@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    margin-top: -120px;
+    margin-top: -100px;
 }
 .image-container {
     width: 100%;
@@ -126,6 +126,11 @@
 }
   /* Media Query for smaller screens */
 @media screen and (max-width: 576px) {
+
+    .slideshow-inner {
+        margin-top: -10px;
+    }
+
     .title {
         font-size: 2.5vw !important;
         margin-left: 35px;
@@ -187,6 +192,9 @@
     }
 }
 @media screen and (min-width: 576px) and (max-width: 768px) {
+    .slideshow-inner {
+        margin-top: -10px;
+    }
     .title {
       font-size: 1.3rem !important; 
     }
@@ -228,6 +236,9 @@
     }
 }
 @media screen and (min-width: 700px) and (max-width: 1000px) {
+    .slideshow-inner {
+        margin-top: -10px;
+    }
     .title1 {
         font-size: 2.3rem !important;
         margin-left: -400px;
@@ -255,6 +266,9 @@
     }
 }
 @media screen and (min-width: 600px) and (max-width: 800px) {
+    .slideshow-inner {
+        margin-top: -10px;
+    }
     .title1 {
         font-size: 2rem !important;
         margin-left: -380px;
@@ -290,6 +304,9 @@
         margin-top: -66px;
     }}
 @media screen and (min-width: 580px) and (max-width: 600px) {
+    .slideshow-inner {
+        margin-top: -10px;
+    }
     .title1 {
         font-size: 1.5rem !important;
         margin-left: -320px;

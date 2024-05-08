@@ -6,7 +6,6 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import SignUpPage from './pages/account/Pages/SignUpPage.jsx'
 import LoginPage from './pages/account/Pages/LoginPage.jsx'
-import SignupFactory from './pages/account/Pages/SignupFactory.jsx'
 import VerifyPage from './pages/account/Pages/VerifyPage.jsx'
 import SetPasswordPage from './pages/account/Pages/SetPasswordPage.jsx'
 import ForgetPage from './pages/account/Pages/ForgetPage.jsx'
@@ -50,7 +49,6 @@ function App() {
           <Route path='/verify' element={<VerifyPage />} />
           <Route path='/set-password' element={<SetPasswordPage />} />
           <Route path='/sign-up' element={<SignUpPage />} />
-          <Route path='/SignupFactory' element={<SignupFactory />} />
           <Route path='/AccessDenied' element={<AccessDenied />} />
           <Route path='/Error404' element={<Error404 />} />
           <Route path="/store" element={<Store />} />

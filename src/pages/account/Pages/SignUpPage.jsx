@@ -38,11 +38,7 @@ export default function SignUpPage() {
                 <Typography variant="body1" gutterBottom style={{color:'#5F6C74', fontSize:'15px'}} >
                 sign up to enjoy the feature of GreeNtik
                 </Typography>
-
-                <Link component={RouterLink} to='/SignupFactory' style={{textDecoration: "none"}} >
-                    Signup Factory
-                </Link>
-
+                
                 <div style={{width:'300px'}} className='signup'>
                 <SignUpForm/>
 

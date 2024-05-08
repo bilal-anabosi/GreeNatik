@@ -10,13 +10,15 @@ const attributes = [
         validation: yup.string().required('Required'),
     },
     {
-        'id':'dateOfBirth',
-        'name':'dateOfBirth',
-        'label':'Date of Birth',
-        'type':'date',
-        validation: yup.string().required('Required'),
-        'initialValue' : Date.now()
-
+        'id':'role',
+        'name':'role',
+        'label':'Role',
+        'type':'select',
+        'options':[
+            {value:'admin',label:'Admin'},
+            {value:'user',label:'User'}
+        ],
+        validation:yup.string().required('Required'),
     },
     {
         id: 'email',

@@ -31,25 +31,18 @@ function Home() {
         <div className="d-none d-lg-block d-xl-none" style={{height: 200}} />
         {/* Left features list */}
         <div className="text-center text-sm-start mb-5 mx-auto mx-sm-0 pb-lg-2 pb-xl-4 aos-init" style={{maxWidth: 340}} data-aos="fade-right" data-aos-offset={300} data-aos-easing="ease-out-back" data-disable-parallax-down="lg">
-          <div className="d-table bg-light bg-opacity-10 rounded-1 p-2 mx-auto mx-sm-0 mb-3 mb-lg-4" >
-            <svg className="d-block m-1 text-primary" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.0005 7.99608C11.897 7.99608 11.795 7.97508 11.699 7.93308L5.4485 5.18358C5.177 5.06358 5 4.79508 5 4.49658C5 4.19808 5.1755 3.92958 5.4485 3.80958L11.699 1.06007C11.891 0.97607 12.1115 0.97607 12.3035 1.06007L18.554 3.80958C18.8255 3.92958 19.0025 4.19808 19.0025 4.49658C19.0025 4.79508 18.827 5.06358 18.554 5.18358L12.3035 7.93308C12.206 7.97508 12.104 7.99608 12.0005 7.99608Z" />
-              <path d="M12.907 9.3054C12.616 9.4329 12.313 9.4959 12.001 9.4959C11.689 9.4959 11.386 9.43291 11.098 9.30691L7 7.50391V8.19241C7 8.80291 7.3195 9.3759 7.831 9.6879C9.2725 10.5624 10.636 10.9989 11.9995 10.9989C13.363 10.9989 14.7265 10.5609 16.168 9.6879C16.681 9.3759 16.999 8.80291 16.999 8.19241V7.50391L12.907 9.3054Z" />
-              <path d="M22.2495 4.99909H20.949C20.79 5.87959 20.2095 6.62959 19.38 7.00009H22.0005V19.0001H1.9995V7.00009H4.62C3.7905 6.62959 3.21 5.87959 3.0495 5.00059H1.7505C0.7905 4.99909 0 5.78959 0 6.74959V19.2491C0 20.2091 0.7905 20.9996 1.7505 20.9996H10.0005V22.9991H8.001C7.4505 22.9991 7.0005 23.4491 7.0005 23.9996C7.0005 24.5501 7.4505 25.0001 8.001 25.0001H16.0005C16.551 25.0001 17.001 24.5501 17.001 23.9996C17.001 23.4491 16.551 22.9991 16.0005 22.9991H14.001V20.9996H22.251C23.211 20.9996 24.0015 20.2091 24.0015 19.2491V6.74959C24 5.78959 23.2095 4.99909 22.2495 4.99909Z" />
-            </svg>
+          <div className="d-table bg-light bg-opacity-10 rounded-1 p-2 mx-auto mx-sm-0 mb-3 mb-lg-4 d-block m-1 text-primary "width={24} height={24} >
+          <h1><i className="bi bi-shop" style={{color:'green'}}></i></h1>
           </div>
-          <h2 className="h4 text-white mb-2 mb-lg-3">something</h2>
-          <p className="text-white opacity-80 mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, harum exercitationem! Exercitationem odio, pariatur sunt magnam, accusamus voluptatem quod ratione temporibus excepturi rerum magni odit nobis officiis molestias eos mollitia!</p>
+          <h2 className="h4 text-white mb-2 mb-lg-3">Green Product Marketplace</h2>
+          <p className="text-white opacity-80 mb-0">Our platform is dedicated to offering a meticulously selected range of products that are eco-friendly, sustainable, and ethically produced. Each item in our catalog has passed rigorous standards for environmental and social responsibility. Detailed product descriptions provide full transparency about the origin, materials, and the sustainable practices behind each product.</p>
         </div>
         <div className="text-center text-sm-start mb-5 mx-auto mx-sm-0 pb-lg-2 pb-xl-4 aos-init" style={{maxWidth: 340}} data-aos="fade-right" data-aos-delay={200} data-aos-offset={250} data-aos-easing="ease-out-back" data-disable-parallax-down="lg">
           <div className="d-table bg-light bg-opacity-10 rounded-1 p-2 mx-auto mx-sm-0 mb-3 mb-lg-4">
-            <svg className="d-block m-1 text-primary" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.4995 10.9995C13.916 10.9995 11 13.9155 11 17.499C11 21.0825 13.9145 24 17.4995 24C21.0845 24 23.999 21.084 23.999 17.5005C23.999 13.917 21.083 10.9995 17.4995 10.9995ZM21.803 15H19.9985V13.1955C20.7485 13.632 21.3665 14.2515 21.803 15ZM22.499 17.5005C22.499 17.8425 22.4645 18.177 22.3985 18.501H20V16.5H22.3985C22.4645 16.824 22.499 17.157 22.499 17.5005ZM12.4985 17.5005C12.4985 17.1585 12.533 16.824 12.599 16.5H14.999V18.4995H12.6005C12.5345 18.177 12.4985 17.8425 12.4985 17.5005ZM16.499 16.5H18.4985V18.4995H16.499V16.5ZM18.4985 12.6015V15H16.499V12.6015C16.8215 12.5355 17.156 12.501 17.4995 12.501C17.843 12.501 18.176 12.5355 18.4985 12.6015ZM14.999 13.1955V15H13.1945C13.631 14.2515 14.2505 13.632 14.999 13.1955ZM13.1945 19.9995H14.999V21.804C14.2505 21.3675 13.631 20.7495 13.1945 19.9995ZM16.499 22.3995V20.001H18.4985V22.3995C18.176 22.4655 17.8415 22.5 17.4995 22.5C17.1575 22.5 16.823 22.4655 16.499 22.3995ZM19.9985 21.804V19.9995H21.803C21.3665 20.7495 20.7485 21.3675 19.9985 21.804Z" />
-              <path d="M16.0005 4.0005H15V1.0005C15 0.45 14.55 0 13.9995 0H3C2.1795 0 1.4205 0.3405 0.8805 0.8805C0.3405 1.4205 0 2.1705 0 3V19.0005C0 20.6505 1.35 22.0005 3 22.0005H10.29C9.4695 20.7 9 19.1505 9 17.5005C9 12.981 12.54 9.27 16.9995 9.0105V5.001C16.9995 4.4505 16.5495 4.0005 16.0005 4.0005ZM13.0005 4.0005H3C2.4495 4.0005 1.9995 3.5505 1.9995 3C1.9995 2.4495 2.4495 1.9995 3 1.9995H13.0005V4.0005Z" />
-            </svg>
+          <h1><i className="bi bi-box2-fill" style={{color:'green'}}></i></h1>
           </div>
-          <h2 className="h4 text-white mb-2 mb-lg-3">something</h2>
-          <p className="text-white opacity-80 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, porro aspernatur. Maiores blanditiis, velit, ipsum sequi dolorum amet ratione hic tenetur eius numquam eaque quia? Aperiam quis voluptatum laborum distinctio.</p>
+          <h2 className="h4 text-white mb-2 mb-lg-3">Sustainable Packaging Solutions</h2>
+          <p className="text-white opacity-80 mb-0">Commit to using 100% recyclable, biodegradable, or compostable packaging for all products. This feature can be highlighted on all product pages to reassure customers that the entire shopping experience is designed to minimize environmental impact.</p>
         </div>
       </div>
       {/* Right column */}
@@ -62,27 +55,22 @@ function Home() {
         {/* Right features list */}
         <div className="text-center text-sm-start mb-5 mx-auto me-sm-0 ms-md-5 pb-lg-2 pb-xl-4 aos-init" style={{maxWidth: 340}} data-aos="fade-left" data-aos-offset={250} data-aos-delay={400} data-aos-easing="ease-out-back" data-disable-parallax-down="lg">
           <div className="d-table bg-light bg-opacity-10 rounded-1 p-2 mx-auto mx-sm-0 mb-3 mb-lg-4">
-            <svg className="d-block m-1 text-primary" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.9986 0C5.38318 0 0 5.38318 0 11.9986C0 18.6141 5.38041 24 11.9986 24C18.6168 24 23.9972 18.6168 23.9972 12.0014C23.9972 5.38595 18.6141 0 11.9986 0ZM16.7837 17.0052C16.5095 17.3541 16.1025 17.5396 15.6899 17.5396C15.3936 17.5396 15.0945 17.4427 14.8397 17.2489L10.6861 14.0173C10.3482 13.7542 10.1516 13.3499 10.1516 12.9235V6.92281C10.1516 6.15853 10.7719 5.53825 11.5362 5.53825C12.3005 5.53825 12.9207 6.15853 12.9207 6.92281V12.2451L16.54 15.0613C17.1437 15.5292 17.2517 16.4015 16.7837 17.0052Z" />
-            </svg>
+          <h1><i className="bi bi-recycle" style={{color:'green'}}></i></h1>
           </div>
-          <h2 className="h4 text-white mb-2 mb-lg-3">something</h2>
-          <p className="text-white opacity-80 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem corporis earum voluptatibus esse pariatur quaerat tempora fuga facere obcaecati illo? Temporibus, praesentium alias reprehenderit iure repellendus cumque obcaecati necessitatibus in.</p>
+          <h2 className="h4 text-white mb-2 mb-lg-3">Recycle and Reward Program</h2>
+          <p className="text-white opacity-80 mb-0">Encourage users to participate in an eco-friendly lifecycle by providing a platform for them to return used products. In exchange, they receive credits or discounts on future purchases. This feature not only promotes recycling but also fosters a circular economy where waste is minimized, and resources are reused.</p>
         </div>
         <div className="text-center text-sm-start mb-5 mx-auto me-sm-0 ms-md-5 pb-lg-2 pb-xl-4 aos-init" style={{maxWidth: 340}} data-aos="fade-left" data-aos-offset={200} data-aos-delay={600} data-aos-easing="ease-out-back" data-disable-parallax-down="lg">
           <div className="d-table bg-light bg-opacity-10 rounded-1 p-2 mx-auto mx-sm-0 mb-3 mb-lg-4">
-            <svg className="d-block m-1 text-primary" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.9524 20.9857C17.8306 22.8676 15.057 24 12.0132 24C5.38642 24 0 18.6128 0 11.985C0 5.60651 4.98548 0.379975 11.2624 0V5.02678C7.74852 5.39775 5.005 8.38048 5.005 11.985C5.005 15.8493 8.14795 18.9942 12.0132 18.9942C13.6755 18.9942 15.2072 18.413 16.4085 17.4428L19.9524 20.9857Z" />
-              <path d="M24.0042 12.7358C23.8436 15.4797 22.7534 17.9818 21.0205 19.9253L17.4766 16.3808C18.298 15.3701 18.8386 14.1085 18.9782 12.7358H24.0042Z" />
-              <path d="M23.998 11.234H18.9719C18.6311 7.97046 16.0287 5.36621 12.7656 5.02678V0C18.7917 0.360451 23.6376 5.20701 23.998 11.234Z" />
-            </svg>
+          <h1><i className="bi bi-book" style={{color:'green'}}></i></h1>
           </div>
-          <h2 className="h4 text-white mb-2 mb-lg-3">something</h2>
-          <p className="text-white opacity-80 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad porro qui, inventore consectetur nemo consequatur aliquam nam a repellendus accusamus quae labore veritatis cupiditate illum voluptates eum illo ratione vel.</p>
+          <h2 className="h4 text-white mb-2 mb-lg-3">Inspiring Blogs</h2>
+          <p className="text-white opacity-80 mb-0">offering a wealth of knowledge and resources for anyone interested in embracing a more sustainable lifestyle. Regular updates include a diverse range of content from eco-friendly living tips and product reviews to deep dives into sustainability practices and profiles on innovations in the green sector. </p>
         </div>
       </div>
     </div>
   </div>
+  
 </section>
 
 </>

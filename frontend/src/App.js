@@ -31,6 +31,7 @@ import {
   Routes,
 } from "react-router-dom";
 import PostsList from './pages/dashboard/post-list.jsx';
+import Test from './pages/Test';
 
 
 function App() {
@@ -63,6 +64,8 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/wide" element={<Wide />} />
           <Route path="/leaderboard" element={<LeaderBoard />} />
+          <Route path="/test" element={<Test />} />
+          
 
         </Routes>
       </Router>

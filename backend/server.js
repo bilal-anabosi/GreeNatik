@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 4000;
 
 connectDB();
 app.use(cors({
-    origin: 'https:http://localhost:4000'
+
 }));
 
 app.use('/api/products', productRoutes);

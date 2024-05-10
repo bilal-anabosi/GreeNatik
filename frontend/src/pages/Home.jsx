@@ -64,7 +64,7 @@ function Home() {
           <div className="d-table bg-light bg-opacity-10 rounded-1 p-2 mx-auto mx-sm-0 mb-3 mb-lg-4">
           <h1><i className="bi bi-book" style={{color:'green'}}></i></h1>
           </div>
-          <h2 className="h4 text-white mb-2 mb-lg-3">Inspiring Blogs</h2>
+          <h2 className="h4 text-white mb-2 mb-lg-3"> Blogs</h2>
           <p className="text-white opacity-80 mb-0">offering a wealth of knowledge and resources for anyone interested in embracing a more sustainable lifestyle. Regular updates include a diverse range of content from eco-friendly living tips and product reviews to deep dives into sustainability practices and profiles on innovations in the green sector. </p>
         </div>
       </div>

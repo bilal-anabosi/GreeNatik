@@ -23,7 +23,7 @@ export default function SignUpPage() {
             <div className="row">
 
             
-            <img height={400} width={370} src='./img/Group 2.png' className='col-md-6 mt-5 pe-5' />
+            <img height={500} width={370} src='./img/Group 2.png' className='col-md-6 mt-5 pe-5' />
             
             
             <div className='  col-md-6'>

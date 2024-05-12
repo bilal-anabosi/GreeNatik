@@ -11,7 +11,7 @@ function AccessDenied(){
         <Link component={RouterLink} to='/sign-up' style={{textDecoration: "none"}} >
                     Signup 
         </Link>
-         or 
+         or
          <Link component={RouterLink} to='/login' style={{textDecoration: "none"}} >
                     Login 
         </Link> 

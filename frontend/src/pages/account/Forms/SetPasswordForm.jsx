@@ -1,29 +1,72 @@
-import FormGenerator from './FormGenerator'
-import * as yup from 'yup'
+import FormGenerator from './FormGenerator';
+import * as yup from 'yup';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
 
-const attributes = [
+const SetPasswordForm = () => {
+  const navigate = useNavigate();
+
+
+  const onSubmit = async (userData) => {
+    try {
+      const { data,status } = await axios.patch(
+        `http://localhost:4000/user/forgetpassword`,
+        userData
+      );
+      console.log(data);
+      if (status === 200) {
+        toast.success("Password updated", {
+          position: "top-right",
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        if (data.user && data.user.role === 'admin') { // Check if user object exists
+          navigate('/all-posts');
+        } else {
+          navigate('/store');
+        }
+      }
+    } catch (error) {
+      console.error('Error during password update:', error);
+      toast.error('An error occurred during password update');
+    }
+  };
+
+
+  const attributes = [
     {
-        name: 'password',
-        id: 'password',
-        label: 'enter new password',
-        type: 'password',
-        validation: yup.string().required("password is required").min(3,"must be at least 3 char").max(20,"max is 20")
+      id: 'email',
+      name: 'email',
+      label: 'Email',
+      type: 'text',
+      validation: yup.string().email('Invalid email').required('Required'),
     },
     {
-        id: 'check-password',
-        name: 'checkPassword',
-        label: 're-enter password',
-        type: 'password',
-        validation: yup.string().required('Required').oneOf([yup.ref('password'), null], 'Passwords must match'),
-    }
-]
-export default function SetPasswordForm() {
-    
-    const onSubmit = (data) => {
-        console.log(data);
-        
-    }
-    return (
-        <FormGenerator onSubmit={onSubmit} attributes={attributes}/>
-    )
-}
+      id: 'password',
+      name: 'password',
+      label: 'Enter new password',
+      type: 'password',
+      validation: yup.string().required('Password is required').min(3, 'Must be at least 3 characters').max(20, 'Maximum length is 20 characters'),
+    },
+    {
+      id: 'verify-code',
+      name: 'code',
+      label: 'Verify code',
+      type: 'text',
+      validation: yup.string().required('Code is required').min(4, 'Must be at least 4 characters').max(5, 'Maximum length is 5 characters'),
+    },
+  ];
+
+
+
+  return <FormGenerator onSubmit={onSubmit} attributes={attributes} />;
+};
+
+export default SetPasswordForm;

@@ -6,7 +6,6 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import SignUpPage from './pages/account/Pages/SignUpPage.jsx'
 import LoginPage from './pages/account/Pages/LoginPage.jsx'
-import VerifyPage from './pages/account/Pages/VerifyPage.jsx'
 import SetPasswordPage from './pages/account/Pages/SetPasswordPage.jsx'
 import ForgetPage from './pages/account/Pages/ForgetPage.jsx'
 import AccessDenied from './pages/account/Pages/AccessDined';
@@ -47,7 +46,7 @@ function App() {
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/forget' element={<ForgetPage />} />
-          <Route path='/verify' element={<VerifyPage />} />
+          
           <Route path='/set-password' element={<SetPasswordPage />} />
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/AccessDenied' element={<AccessDenied />} />

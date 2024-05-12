@@ -12,6 +12,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded());
 const PORT = process.env.PORT || 4000;
 
 connectDB();

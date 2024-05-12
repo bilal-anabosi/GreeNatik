@@ -1,14 +1,12 @@
-/* eslint-disable react/prop-types */
-
+import { useFormikContext } from 'formik';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 
-
-export default function ChoicesInput({ name, options, ...props }) {
-  const { setFieldValue } = useFormikContext(); 
+export default function ChoicesInput({ id, title, type = "text",name, options, label, ...props }) {
+  const { setFieldValue } = useFormikContext();
   const [field] = useField(name);
 
   const handleChange = (event) => {
@@ -18,7 +16,7 @@ export default function ChoicesInput({ name, options, ...props }) {
 
   return (
     <FormControl fullWidth>
-      <InputLabel id={`${name}-label`}>{props.label}</InputLabel>
+      <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <Select
         labelId={`${name}-label`}
         id={name}

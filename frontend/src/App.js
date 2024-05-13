@@ -32,6 +32,8 @@ import {
 } from "react-router-dom";
 import PostsList from './pages/dashboard/post-list.jsx';
 import Test from './pages/Test';
+import ProductsPage from './pages/ProductsPage';
+import CreateProductForm from './pages/CreateProductForm';
 
 
 function App() {
@@ -65,8 +67,9 @@ function App() {
           <Route path="/wide" element={<Wide />} />
           <Route path="/leaderboard" element={<LeaderBoard />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/dashboard/products" element={<ProductsPage />} />
+          <Route path="/dashboard/add-products" element={<CreateProductForm />} />
           
-
         </Routes>
       </Router>
     </>

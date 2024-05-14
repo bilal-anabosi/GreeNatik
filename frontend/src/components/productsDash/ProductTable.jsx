@@ -21,13 +21,13 @@ const ProductTable = ({ products }) => {
               <td>
                 <img src={product.image} alt="" className="icon-shape icon-md" />
               </td>
-              <td><a href="#" className="text-reset">{product.name}</a></td>
+              <td><a href="#" className="text-reset">{product.title}</a></td>
               <td>{product.category}</td>
               <td>
-                <span className={`badge bg-light-${product.status === 'Active' ? 'primary' : product.status === 'Deactive' ? 'danger' : 'warning'} text-dark-${product.status === 'Active' ? 'primary' : product.status === 'Deactive' ? 'danger' : 'warning'}`}>{product.status}</span>
+                <span className={`badge bg-light-${product.status === 'Active' ? 'primary' : product.status === 'Disabled' ? 'danger' : 'warning'} text-dark-${product.status === 'Active' ? 'primary' : product.status === 'Disabled' ? 'danger' : 'warning'}`}>{product.status}</span>
               </td>
-              <td>{product.price}</td>
-              <td>{product.createdAt}</td>
+              <td>{product.regularPrice}</td>
+              <td>{new Date(product.createdAt).toLocaleDateString()}</td>
               <td>
                 <div className="dropdown">
                   <a href="#" className="text-reset" data-bs-toggle="dropdown" aria-expanded="false">

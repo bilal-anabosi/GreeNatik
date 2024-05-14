@@ -22,7 +22,7 @@ function ProductList() {
             {products.length > 0 ? (
                 products.map(product => (
                     <div key={product._id}>
-                        {product.name} - ${product.price}
+                        {product.title} - ${product.salePrice}
                     </div>
                 ))
             ) : (

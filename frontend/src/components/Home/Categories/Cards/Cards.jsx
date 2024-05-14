@@ -5,7 +5,7 @@ import './Cards.css';
 const Cards = () => {
   return (
 <div className="j">
-  <div classname="categories-container">
+  <div className="categories-container">
     <h2 className="special-h2">Categories</h2>
     <h4 className="special-h4">Find what you are looking for</h4>
 </div>

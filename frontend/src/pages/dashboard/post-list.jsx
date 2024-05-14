@@ -105,15 +105,15 @@ export default function PostsList() {
                             <input type="text" placeholder="Search Products" />
                         </div>
 
-                        <div class="table-responsive custom-table-responsive">
-                            <table class="table custom-table">
+                        <div className="table-responsive custom-table-responsive">
+                            <table className="table custom-table">
                                 <thead>
                                     <tr>
 
                                         <th scope="col">
-                                            <label class="control control--checkbox">
-                                                <input type="checkbox" class="js-check-all" />
-                                                <div class="control__indicator"></div>
+                                            <label className="control control--checkbox">
+                                                <input type="checkbox" className="js-check-all" />
+                                                <div className="control__indicator"></div>
                                             </label>
                                         </th>
 
@@ -131,9 +131,9 @@ export default function PostsList() {
                                             <Fragment>
                                                 <tr scope="item_row">
                                                     <th scope="row">
-                                                        <label class="control control--checkbox">
+                                                        <label className="control control--checkbox">
                                                             <input type="checkbox" />
-                                                            <div class="control__indicator"></div>
+                                                            <div className="control__indicator"></div>
                                                         </label>
                                                     </th>
                                                     <td>
@@ -151,7 +151,7 @@ export default function PostsList() {
                                                     <td>{item.price}</td>
                                                     <td>{item.create_at}</td>
                                                 </tr>
-                                                <tr class="spacer"><td colspan="100"></td></tr>
+                                                <tr className="spacer"><td colspan="100"></td></tr>
                                             </Fragment>
                                         ))
                                     }

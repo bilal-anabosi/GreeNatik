@@ -6,7 +6,7 @@ const SelectOption = ({ handleSelectChange }) => {
       <select className="form-select" onChange={handleSelectChange}>
         <option value="">All Status</option>
         <option value="Active">Active</option>
-        <option value="Deactive">Deactive</option>
+        <option value="Disabled">Disabled</option>
         <option value="Draft">Draft</option>
       </select>
     </div>

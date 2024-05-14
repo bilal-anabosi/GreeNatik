@@ -20,6 +20,10 @@ const userSchema = new Schema({
         default: 'user',
         enum: ['user', 'admin'],
     },
+    address: {
+        type: String,
+        required: true,
+    },
     sendCode: {
         type: String,
         default: null,

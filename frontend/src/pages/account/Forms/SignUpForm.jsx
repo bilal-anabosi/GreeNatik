@@ -18,20 +18,11 @@ const SignUpForm = () => {
   const onSubmit = async (userData) => {
     try {
       const { data,status} = await axios.post(`http://localhost:4000/user/signup`, userData);
-
+      
       if (status === 201) {
-        toast.success('Account Created Successfully, make sure to verify your email', {
-          position: 'top-right',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-        });
+        
 
-        // Navigate based on selected role
+        
         console.log(data.user)
         if (data.user.role === 'admin') {
           navigate('/all-posts');
@@ -77,6 +68,13 @@ const SignUpForm = () => {
         { value: 'admin', label: 'Admin' },
         { value: 'user', label: 'User' },
       ],
+      validation: yup.string().required('Required'),
+    },
+    {
+      id: 'address',
+      name: 'address',
+      label: 'Address',
+      type: 'text',
       validation: yup.string().required('Required'),
     },
   ];

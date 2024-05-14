@@ -19,26 +19,6 @@ const ProductStatus = ({ onChange, inStock }) => {
                 <label className="form-check-label" htmlFor="flexSwitchStock">In Stock</label>
               </div>
               <div className="mb-3">
-                <label className="form-label">Product Code</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Product Code"
-                  onChange={onChange}
-                  name="productCode"
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Product SKU</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Product SKU"
-                  onChange={onChange}
-                  name="productSKU"
-                />
-              </div>
-              <div className="mb-3">
                 <label className="form-label" id="productSKU">Status</label>
                 <br />
                 <div className="form-check form-check-inline">

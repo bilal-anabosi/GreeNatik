@@ -1,122 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageHeader from '../components/productsDash/PageHeader';
 import SearchForm from '../components/productsDash/SearchForm';
 import SelectOption from '../components/productsDash/SelectOption';
 import ProductTable from '../components/productsDash/ProductTable';
 import Pagination from '../components/productsDash/Pagination';
+import axios from 'axios'; // Import Axios
 
 const ProductsPage = () => {
-  // Sample product data
-  const products = [
-    {
-      id: 1,
-      image: '../img/product-single-img-1.jpg',
-      name: "Haldiram's Sev Bhujia",
-      category: "Snack & Munchies",
-      status: "Active",
-      price: "$18.00",
-      createdAt: "24 Nov 2022"
-    },
-    {
-      id: 2,
-      image: '../img/product-single-img-2.jpg',
-      name: "NutriChoice Digestive",
-      category: "Bakery & Biscuits",
-      status: "Active",
-      price: "$24.00",
-      createdAt: "20 Nov 2022"
-    },
-    {
-      id: 3,
-      image: '../img/product-single-img-3.jpg',
-      name: "Cadbury 5 Star Chocolate",
-      category: "Snack & Munchies",
-      status: "Active",
-      price: "$3.00",
-      createdAt: "14 Nov 2022"
-    },
-    // Add more product objects
-    {
-      id: 4,
-      image: '../img/product-single-img-4.jpg',
-      name: "Onion Flavour Potato",
-      category: "Snack & Munchies",
-      status: "Draft",
-      price: "$13.00",
-      createdAt: "08 Nov 2022"
-    },
-    {
-      id: 5,
-      image: '../img/product-single-img-2.jpg',
-      name: "Salted Instant Popcorn",
-      category: "Instant Food",
-      status: "Draft",
-      price: "$9.00",
-      createdAt: "09 Nov 2022"
-    },
-    {
-      id: 6,
-      image: '../img/product-single-img-1.jpg',
-      name: "Blueberry Greek Yogurt",
-      category: "Dairy, Bread & Eggs",
-      status: "Deactive",
-      price: "$11.00",
-      createdAt: "02 Nov 2022"
-    },
-    {
-      id: 7,
-      image: '../img/product-single-img-4.jpg',
-      name: "Britannia Cheese Slices",
-      category: "Dairy, Bread & Eggs",
-      status: "Active",
-      price: "$24.00",
-      createdAt: "15 Oct 2022"
-    },
-    {
-      id: 8,
-      image: '../img/product-single-img-3.jpg',
-      name: "Blueberry Greek Yogurt",
-      category: "Instant Food",
-      status: "Deactive",
-      price: "$12.00",
-      createdAt: "24 Oct 2022"
-    },
-    {
-      id: 9,
-      image: '../img/product-single-img-2.jpg',
-      name: "Slurrp Millet Chocolate",
-      category: "Instant Food",
-      status: "Active",
-      price: "$8.00",
-      createdAt: "08 Oct 2022"
-    },
-    {
-      id: 10,
-      image: '../img/product-single-img-1.jpg',
-      name: "Amul Butter - 500 g",
-      category: "Instant Food",
-      status: "Active",
-      price: "$8.00",
-      createdAt: "09 Oct 2022"
-    },
-    {
-        id: 11,
-        image: '../img/product-single-img-4.jpg',
-        name: "skin care - 500 g",
-        category: "Instant Food",
-        status: "Active",
-        price: "$8.00",
-        createdAt: "09 Oct 2022"
-      }
-    // Add more product objects if needed
-  ];
 
+  const [products, setProducts] = useState([]);
   // State for search query, selected option, and pagination
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState(''); // Initialize with empty string for default
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
-
+  // Fetch products from the backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        // Retrieve the authentication token from local storage or cookie
+        const authToken = localStorage.getItem('userToken'); // Adjust this according to your authentication setup
+  
+        // If authToken exists, include it in the request headers
+        if (authToken) {
+          const response = await axios.get('http://localhost:4000/api/products', {
+            headers: {
+              Authorization: `group__${authToken}`
+            }
+          });
+  
+          setProducts(response.data.products);
+        } else {
+          // Handle case where authToken is missing (e.g., user not logged in)
+          console.error('Authentication token not found');
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+  
+    fetchProducts();
+  }, []); // Empty dependency array to ensure the effect runs only once
   // Function to handle search input change
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -131,7 +55,7 @@ const ProductsPage = () => {
 
   // Filter products based on search query and selected option
   const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
     (selectedOption === '' || product.status.toLowerCase() === selectedOption.toLowerCase())
   );
 

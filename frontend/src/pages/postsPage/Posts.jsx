@@ -368,11 +368,11 @@ const Posts = () => {
     <div className="container">
       <div className="row mt-7 ">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item">
               <a href="#">Home</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">
+            <li className="breadcrumb-item active" aria-current="page">
               Recycling
             </li>
           </ol>

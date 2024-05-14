@@ -1,42 +1,52 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true, // this field is mandatory
-        trim: true, // trims whitespace from the ends
-    },
-    description: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    price: {
-        type: Number,
-        required: true,
-        min: [0, 'Price cannot be negative'] // validation to ensure price is not negative
-    },
-    inStock: {
-        type: Boolean,
-        default: true // products are in stock by default
-    },
-    category: {
-        type: String,
-        required: true,
-        enum: ['Electronics', 'Clothing', 'Accessories', 'Books', 'Home & Kitchen'], // Only these categories are allowed
-    },
-    imageUrl: {
-        type: String,
-        required: true
-    },
-    createdDate: {
-        type: Date,
-        default: Date.now // default to the current date and time
-    },
-    tags: [{
-        type: String
-    }]
+  title: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    enum: ['FoodWare', 'Gardening', 'Pets','Shopping bags','Office','Skin care','Electronics','Clothing','Home'],
+    required: true
+  }, 
+  longDescription: {
+    type: String,
+    required: true
+  },
+  sizes: [{
+    size: String,
+    quantity: Number,
+    unit: {
+      type: String,
+      enum: ['clothing', 'kg', 'g', 'mL', 'L', 'number']
+    }
+  }],
+  images: [String],
+  regularPrice: Number,
+  salePrice: Number,
+  inStock: {
+    type: Boolean,
+    default: true
+  },
+  status: {
+    type: String,
+    enum: ['Active', 'Disabled'],
+    default: 'Active'
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now // Set default value to current date/time
+  }
+}, {
+  timestamps: true
 });
+
 
 const Product = mongoose.model('Product', productSchema);
 

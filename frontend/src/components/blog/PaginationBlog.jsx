@@ -7,7 +7,7 @@ function PaginationBlog() {
         <ul className="pagination">
           <li className="page-item disabled">
             <a className="page-link mx-1" href="#!" aria-label="Previous">
-              <i class="bi bi-chevron-left"></i>
+              <i className="bi bi-chevron-left"></i>
             </a>
           </li>
           <li className="page-item"><a className="page-link mx-1 active" href="#!">1</a></li>
@@ -16,7 +16,7 @@ function PaginationBlog() {
           <li className="page-item"><a className="page-link mx-1" href="#!">12</a></li>
           <li className="page-item">
             <a className="page-link mx-1" href="#!" aria-label="Next">
-              <i class="bi bi-chevron-right"></i>
+              <i className="bi bi-chevron-right"></i>
             </a>
           </li>
         </ul>

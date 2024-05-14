@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ProductInformation from '../components/addProcduct/ProductInformation';
 import ProductStatus from '../components/addProcduct/ProductStatus';
 import ProductPrice from '../components/addProcduct/ProductPrice';
+import Header from '../components/addProcduct/Header'
 
 const CreateProductForm = () => {
     const [formData, setFormData] = useState({
@@ -31,6 +32,7 @@ const CreateProductForm = () => {
 
     return (
         <div className="container">
+            <Header/>
             <div className="row">
                 <div className="col-lg-9 col-12"> {/* 3/4 of the screen */}
                     

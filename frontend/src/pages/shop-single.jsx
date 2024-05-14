@@ -60,7 +60,7 @@ export default function ShopSingle() {
                             <span onClick={() => setAmount(amount + 1)}>+</span>
                         </div>
                         <div className="button">
-                            <i class="bi bi-bag"></i>
+                            <i className="bi bi-bag"></i>
                             <span>Add to Cart</span>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ function Item() {
                     <span>35$</span>
                 </div>
                 <div className="button-small">
-                    <i class="bi bi-plus"></i>
+                    <i className="bi bi-plus"></i>
                     <span>Add</span>
                 </div>
             </div>

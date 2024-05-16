@@ -1,81 +1,28 @@
 import React from 'react';
-import ProductCard from '../NewProduct/ProductCard'; 
+import { useState, useEffect } from 'react';
+import ProductCards from '../../../../wide/ProductCards'; 
 import '../Products.css';
 import Slider from 'react-slick'; // Import Slick Slider
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import axios from 'axios';
 
 const Best = () => {
 
-    // Sample data for products
-    const products = [
-        { 
-            id: 1, 
-            imageUrl: '/pics/productimg1.png', 
-            productName: "Haldiram's Sev Bhujia", 
-            productRating: '4.5(149)', 
-            productPrice:'24$',
-            sale: false ,
-            rating:'4.5'
-        },
-        { 
-            id: 1, 
-            imageUrl: '/pics/productimg1.png', 
-            productName: "Haldiram's Sev Bhujia", 
-            productRating: '4.5(149)', 
-            productPrice:'24$',
-            sale: false ,
-            rating:'4.5'
-        },{ 
-            id: 1, 
-            imageUrl: '/pics/productimg2.png', 
-            productName: "Haldiram's Sev Bhujia", 
-            productRating: '4.5(149)', 
-            productPrice:'24$',
-            sale: false ,
-            rating:'4.5'
-        },{ 
-            id: 1, 
-            imageUrl: '/pics/productimg3.png', 
-            productName: "Haldiram's Sev Bhujia", 
-            productRating: '4.5(149)', 
-            productPrice:'24$',
-            sale: false ,
-            rating:'4.5'
-        },{ 
-            id: 1, 
-            imageUrl: '/pics/productimg4.png', 
-            productName: "Haldiram's Sev Bhujia", 
-            productRating: '4.5(149)', 
-            productPrice:'24$',
-            sale: false ,
-            rating:'4.5'
-        },{ 
-            id: 1, 
-            imageUrl: '/pics/productimg1.png', 
-            productName: "Haldiram's Sev Bhujia", 
-            productRating: '4.5(149)', 
-            productPrice:'24$',
-            sale: false ,
-            rating:'4.5'
-        },{ 
-            id: 1, 
-            imageUrl: '/pics/productimg2.png', 
-            productName: "Haldiram's Sev Bhujia", 
-            productRating: '4.5(149)', 
-            productPrice:'24$',
-            sale: false ,
-            rating:'4.5'
-        },{ 
-            id: 1, 
-            imageUrl: '/pics/productimg3.png', 
-            productName: "Haldiram's Sev Bhujia", 
-            productRating: '4.5(149)', 
-            productPrice:'24$',
-            sale: false ,
-            rating:'4.5'
-        },
-    ];
+    const [topSellingProducts, settopSellingProducts] = useState([]);
+      
+    useEffect(() => {
+      async function fetchtopSellingProducts() {
+        try {
+          const response = await axios.get('http://localhost:4000/store/top-products');
+          settopSellingProducts(response.data.topSellingProducts);
+        } catch (error) {
+          console.error('Error fetching top selling products sale:', error);
+        }
+      }
+  
+      fetchtopSellingProducts();
+    }, []);
 
     // Slick Slider settings
     const sliderSettings = {
@@ -104,17 +51,17 @@ const Best = () => {
                                 <div className="container">
                                     {/* Wrap the product cards with the Slick Slider */}
                                     <Slider {...sliderSettings}>
-                                        {products.map(product => (
-                                            <ProductCard
-                                                key={product.id}
-                                                imageUrl={product.imageUrl}
-                                                productName={product.productName}
-                                                productRating={product.productRating}
-                                                currentPrice={product.currentPrice}
-                                                originalPrice={product.originalPrice} 
-                                                sale={product.sale}
-                                                rating={product.rating} 
-                                                productPrice={product.productPrice}
+                                        {topSellingProducts.map((product, index) => (
+                                            <ProductCards
+                                            key={index}
+                                            title={product.title}
+                                            isOnSale={product.isOnSale}
+                                            rating={product.rating}
+                                            regularPrice={product.regularPrice}
+                                            salePrice={product.salePrice}
+                                            imageUrl={product.imageUrl}
+                                            category={product.category}
+                                            inStock={product.inStock}
                                             />
                                         ))}
                                     </Slider>

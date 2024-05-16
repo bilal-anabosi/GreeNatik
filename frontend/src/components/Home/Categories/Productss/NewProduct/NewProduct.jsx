@@ -1,40 +1,25 @@
 import React from 'react';
-import ProductCard from './ProductCard'; 
+import { useState, useEffect } from 'react';
 import '../Products.css';
+import ProductCards from '../../../../wide/ProductCards';
+import axios from 'axios';
+
 const NewProduct = () => {
 
-  // Sample data for products
-    const products = [
-    { 
-        id: 1, 
-        imageUrl: '/pics/productimg1.png', 
-        productName: "Haldiram's Sev Bhujia", 
-        productRating: '4.5(149)', 
-        productPrice:'24$',
-        sale: false ,
-        rating:'4.5'
-    },
-    { 
-        id: 2, 
-        imageUrl: '/pics/productimg2.png', 
-        productName: "Haldiram's Sev Bhujia", 
-        productRating: '4(149)', 
-        currentPrice: '$20', 
-        originalPrice: '$24', 
-        sale: true,
-        rating:'4'
-    },
-    { id: 3, 
-        rating:'4.5',
-        imageUrl: '/pics/productimg3.png', productName: "Haldiram's Sev Bhujia", productRating: '4.5(149)', productPrice: '$18' },
-    { id: 4, 
-        rating:'4',
-        imageUrl: '/pics/productimg4.png', productName: "Haldiram's Sev Bhujia", productRating: '4(149)', productPrice: '$10' },
-    { id: 5, 
-        rating:'4.5',
-        
-        imageUrl: '/pics/productimg1.png', productName: "Haldiram's Sev Bhujia", productRating: '4.5(149)', productPrice: '$18' },
-];
+    const [latestProducts, setLatestProducts] = useState([]);
+        useEffect(() => {
+            async function fetchLatestProducts() {
+                try {
+                    const response = await axios.get('http://localhost:4000/store/latest-products');
+                        setLatestProducts(response.data.latestProducts);
+            } 
+            catch (error) {
+                console.error('Error fetching latest products:', error);
+            }
+        }
+
+fetchLatestProducts();
+}, []);
 
 return (
     <div className="kk">
@@ -64,19 +49,19 @@ return (
             <div className="col">
                 <div className="container">
                     <div className="row row-cols-2 row-cols-xl-5 row-cols-md-3 g-4">
-    {products.map(product => (
-        <ProductCard
-            key={product.id}
-            imageUrl={product.imageUrl}
-            productName={product.productName}
-            productRating={product.productRating}
-            currentPrice={product.currentPrice}
-            originalPrice={product.originalPrice} 
-            sale={product.sale}
-            rating={product.rating} 
-            productPrice={product.productPrice}
-        />
-    ))}
+                    {latestProducts.map((product, index) => (
+                <ProductCards
+                    key={index}
+                    title={product.title}
+                    isOnSale={product.isOnSale}
+                    rating={product.rating}
+                    regularPrice={product.regularPrice}
+                    salePrice={product.salePrice}
+                    imageUrl={product.imageUrl}
+                    category={product.category}
+                    inStock={product.inStock}
+                />
+            ))}
     </div>
 </div>
 </div></div></div></div></section></div>

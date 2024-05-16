@@ -5,6 +5,8 @@ const cors = require('cors');
 const productRouter = require('./routes/productRoutes');
 const userRouter = require('./routes/user.router.js');
 const profileRouter = require('./profile/profile.router.js');
+const PostRoutes = require('./routes/singlepostRoutes.js');
+const StoreRoutes = require('./routes/StoreRoutes');
 
 const connectDB = require('./DB/connection');
 const { authenticateToken } = require('./middelware/auth');
@@ -24,6 +26,8 @@ app.use(cors());
 app.use('/user', userRouter);
 app.use('/profile', profileRouter);
 app.use('/api/products', authenticateToken, productRouter);
+app.use('/posts', PostRoutes);
+app.use('/store',StoreRoutes );
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

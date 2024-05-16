@@ -20,7 +20,29 @@ const getProducts = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
-
+const createProduct = async (req, res) => {
+  try {
+    // Ensure user is authenticated
+    console.log('Request Body:', req.body);
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    
+    // Create the product with the request body and assign the owner
+    const productData = { ...req.body, owner: req.user.id };
+    const newProduct = new Product(productData);
+    
+    // Save the product
+    const savedProduct = await newProduct.save();
+    
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    console.error('Error creating product:',error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 module.exports = {
   getProducts,
+  createProduct,
 };
+

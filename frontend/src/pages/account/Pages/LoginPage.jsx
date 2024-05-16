@@ -7,8 +7,11 @@ import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import SignInWithGoogle from '../SignInWithGoogle.jsx';
 import './Pages.css'
+import { Logout } from '../Inputs/logout.jsx';
 
 export default function LoginPage() {
+
+   
     return (
         
         <Container sx={{
@@ -55,6 +58,7 @@ export default function LoginPage() {
                     <Link component={RouterLink} to='/sign-up' style={{textDecoration: "none"}}>
                         Sign up
                     </Link>
+                    <Logout/>
                 </Typography>
             
             </Stack>

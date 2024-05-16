@@ -5,7 +5,7 @@ const sendemail = require('../utilts/email.js');
 
 const signup = async (req, res) => {
 
-    const { username, email, password,role } = req.body;
+    const { username, email, password,role,address } = req.body;
 
     const user = await userModel.findOne({ email });
 
@@ -13,7 +13,7 @@ const signup = async (req, res) => {
         return res.json({ message: "Email already exists" });
     }
     const hashedPassword = bcrypt.hashSync(password, parseInt(process.env.SALTROUND));
-    const createUser = await userModel.create({ username, email, password: hashedPassword,role });
+    const createUser = await userModel.create({ username, email, password: hashedPassword,role,address });
     await sendemail(email, `Welcome`, `<h2>Hello ${username}</h2>`);
     return res.status(201).json({ message: "Success", user: createUser });
 };

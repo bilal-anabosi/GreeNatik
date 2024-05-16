@@ -39,6 +39,10 @@ const productSchema = new mongoose.Schema({
     ref: 'user',
     required: true
   },
+  salesCount: {
+    type: Number,
+    default: 0
+  },
   createdAt: {
     type: Date,
     default: Date.now // Set default value to current date/time

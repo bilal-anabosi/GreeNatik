@@ -1,68 +1,26 @@
 import React from 'react';
-import Offers from './Offers'; 
+import { useState, useEffect } from 'react';
 import '../Products.css';
+import ProductCards from '../../../../wide/ProductCards';
+import axios from 'axios';
+
 const OfferCard = () => {
-// Sample data for products
-const prod = [
-    { 
-    Id: 1, 
-    textOffer: "",
-    Offer: "25%",
-    imagesrc: '/pics/productimg1.png', 
-    TitleName: "Haldiram's Sev Bhujia", 
-    Rate: '4.4(3,149)', 
-    Price: '15$',
-    NumProduct: 12,
-    Rating: 4.4
-    },
-    { 
-    Id: 2, 
-    textOffer: "Buy 1 Get 4.00$ Off",
-    Offer: "",
-    imagesrc: '/pics/productimg2.png', 
-    TitleName: "Haldiram's Sev Bhujia", 
-    Rate: '4.7(1,149)', 
-    Price: '32$',
-    NumProduct: 34,
-    Rating: 4.7
-    },
-    { 
-    Id: 3, 
-    textOffer: "",
-    Offer: "22%",
-    imagesrc: '/pics/productimg3.png', 
-    TitleName: "Haldiram's Sev Bhujia", 
-    Rate: '4.7(1,130)',
-    OriginalPrice: '$28',
-    OfferPrice: '$25', 
-    NumProduct: 8,
-    Rating: 4.7
-    },
-    { 
-    Id: 4, 
-    textOffer: "",
-    Offer: "16%",
-    imagesrc: '/pics/productimg4.png', 
-    TitleName: "Haldiram's Sev Bhujia", 
-    Rate: '4.5(212)', 
-    OriginalPrice: '$38',
-    OfferPrice: '$34', 
-    NumProduct: 67,
-    Rating: 4.5
-    },
-    { 
-    Id: 4, 
-    textOffer: "",
-    Offer: "",
-    imagesrc: '/pics/productimg1.png', 
-    TitleName: "Haldiram's Sev Bhujia", 
-    Rate: '4.3(68)', 
-    OriginalPrice: '$29',
-    OfferPrice: '$22', 
-    NumProduct: 44,
-    Rating: 4.3
+
+    const [LatestProductsWithSale, setLatestProductsWithSale] = useState([]);
+
+    useEffect(() => {
+        async function fetchLatestProductsWithSale() {
+        try {
+            const response = await axios.get('http://localhost:4000/store/sale-products');
+            setLatestProductsWithSale(response.data.latestProductsWithSale);
+        } 
+        catch (error) {
+            console.error('Error fetching latest products sale:', error);
+        }
     }
-];
+        fetchLatestProductsWithSale();
+}, []);
+
 return (
 <div>
     <div className="kk">
@@ -85,22 +43,19 @@ return (
             </div>
         </div>
     <div className="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-0 border border-2 border-danger rounded-3 custom-border">
-{prod.map(product => (
-    <div key={product.Id} className="col mb-lg-0">
-        <Offers
-        textOffer={product.textOffer}
-        Offer={product.Offer}
-        imagesrc={product.imagesrc}
-        OfferPrice={product.OfferPrice}
-        OriginalPrice={product.OriginalPrice}
-        Price={product.Price}
-        TitleName={product.TitleName}
-        Rate={product.Rate}
-        Rating={product.Rating}
-        NumProduct={product.NumProduct}
-        />
-    </div>
-))}
+    {LatestProductsWithSale.map((product, index) => (
+                <ProductCards
+                    key={index}
+                    title={product.title}
+                    isOnSale={product.isOnSale}
+                    rating={product.rating}
+                    regularPrice={product.regularPrice}
+                    salePrice={product.salePrice}
+                    imageUrl={product.imageUrl}
+                    category={product.category}
+                    inStock={product.inStock}
+                />
+            ))}
     </div>
 </div></section></div></div>
 );

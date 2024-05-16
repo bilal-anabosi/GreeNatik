@@ -1,19 +1,19 @@
 import React from 'react';
 
-const ProductCard = ({ name, isOnSale, rating, price, salePrice, imageUrl, category }) => {
+const ProductCards = ({ title, rating, regularPrice, salePrice, imageUrl, category, inStock }) => {
     return (
        <div className="card card-product">
           <div className="card-body">
             {/* badge */}
             <div className="text-center position-relative">
-              {isOnSale && (
+              {salePrice && (
                 <div className="position-absolute top-0 start-0">
                   <span className="badge bg-danger">Sale</span>
                 </div>
               )}
               <a href="shop-single.html">
                 {/* img */}
-                <img src={imageUrl} alt={`${name} Image`} className="mb-3 img-fluid" />
+                <img src={imageUrl} alt={`${title} Image`} className="mb-3 img-fluid" />
               </a>
               {/* action btn */}
               <div className="card-product-action">
@@ -24,21 +24,33 @@ const ProductCard = ({ name, isOnSale, rating, price, salePrice, imageUrl, categ
             <div className="text-small mb-1">
               <a href="#!" className="text-decoration-none text-muted"><small>{category}</small></a>
             </div>
-            <h2 className="fs-6"><a href="shop-single.html" className="text-inherit text-decoration-none">{name}</a></h2>
+            <h2 className="fs-6"><a href="shop-single.html" className="text-inherit text-decoration-none">{title}</a></h2>
+
+           <div>
+  {/* rating */}
+  <small className="text-warning">
+    {Array.from({ length: 5 }, (_, i) => (
+      <i className={"bi " + (i < Math.floor(rating) ? "bi-star-fill" : (i < rating ? "bi-star-half" : "bi-star"))} />
+    ))}
+  </small>
+  {rating !== undefined && (
+    <span className="text-muted small">{rating.toFixed(1)}({149})</span>
+  )}
+</div>
+
             <div>
-              {/* rating */}
-              <small className="text-warning">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <i className={"bi " + (i < Math.floor(rating) ? "bi-star-fill" : (i < rating ? "bi-star-half" : "bi-star"))} />
-                ))}
-              </small>
-              <span className="text-muted small">{rating.toFixed(1)}({149})</span> {/* Assuming static number of reviews for example */}
+            {inStock ? (
+                <span className="text-uppercase small text-primary">In Stock</span>
+              ) : (
+                <span className="text-uppercase small text-danger">Out of Stock</span>
+              )}
             </div>
+
             {/* price */}
             <div className="d-flex justify-content-between align-items-center mt-3">
               <div>
-                <span className="text-dark">${price}</span>
-                {isOnSale && <span className="text-decoration-line-through text-muted">${salePrice}</span>}
+                <span className="text-dark">${salePrice  ? salePrice : regularPrice}</span>
+                {salePrice && <span className="text-decoration-line-through text-muted">${regularPrice}</span>}
               </div>
               {/* btn */}
               <div>
@@ -56,4 +68,4 @@ const ProductCard = ({ name, isOnSale, rating, price, salePrice, imageUrl, categ
     );
 };
 
-export default ProductCard;
+export default ProductCards;

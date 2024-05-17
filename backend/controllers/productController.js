@@ -28,13 +28,12 @@ const createProduct = async (req, res) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
     
-    // Create the product with the request body and assign the owner
-    const productData = { ...req.body, owner: req.user.id };
+    const sizes = JSON.parse(req.body.sizes);
+    const images = req.files.map(file => file.path);
+    const productData = { ...req.body, owner: req.user.id, sizes, images };
     const newProduct = new Product(productData);
-    
-    // Save the product
+
     const savedProduct = await newProduct.save();
-    
     res.status(201).json(savedProduct);
   } catch (error) {
     console.error('Error creating product:',error);

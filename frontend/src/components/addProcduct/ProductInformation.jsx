@@ -1,32 +1,28 @@
-import React, {useState} from 'react';
-const ProductInformation = ({ onChange }) => {
+import React, { useState } from 'react';
 
-    const [sizes, setSizes] = useState([{ size: '', quantity: '', unit: '' }]);
-    const [images, setImages] = useState([]);
-  
-    const handleSizeChange = (index, event) => {
-      const { name, value } = event.target;
-      const newSizes = [...sizes];
-      newSizes[index][name] = value;
-      setSizes(newSizes);
-      onChange({ target: { name: 'sizes', value: newSizes } }); // Propagate the change event to the parent component
-    };
-  
-    const addSize = () => {
-      if (sizes.length < 3) {
-        setSizes([...sizes, { size: '', quantity: '', unit: '' }]);
-      }
-    };
-    const handleImageChange = (event) => {
-      const fileList = event.target.files;
-      const imagesArray = [];
-      for (let i = 0; i < Math.min(fileList.length, 4); i++) {
-        imagesArray.push(URL.createObjectURL(fileList[i]));
-      }
-      setImages(imagesArray);
-      onChange({ target: { name: 'images', value: fileList } }); // Propagate the change event to the parent component
-    };
-  
+const ProductInformation = ({ onChange }) => {
+  const [sizes, setSizes] = useState([{ size: '', quantity: '', unit: '' }]);
+  const [images, setImages] = useState([]);
+
+  const handleSizeChange = (index, event) => {
+    const { name, value } = event.target;
+    const newSizes = [...sizes];
+    newSizes[index][name] = value;
+    setSizes(newSizes);
+    onChange({ target: { name: 'sizes', value: newSizes } });
+  };
+
+  const addSize = () => {
+    if (sizes.length < 3) {
+      setSizes([...sizes, { size: '', quantity: '', unit: '' }]);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImages(files);
+    onChange({ target: { name: 'images', value: files } });
+  };
 
   return (
     <div className="container">
@@ -42,7 +38,7 @@ const ProductInformation = ({ onChange }) => {
                     type="text"
                     className="form-control"
                     placeholder="Product Name"
-                    required=""
+                    required
                     onChange={onChange}
                     name="title"
                   />
@@ -53,8 +49,9 @@ const ProductInformation = ({ onChange }) => {
                     className="form-select"
                     onChange={onChange}
                     name="category"
+                    required
                   >
-                    <option defaultValue="none">Product Category</option>
+                    <option value="" disabled selected>Select Category</option>
                     <option value="FoodWare">FoodWare</option>
                     <option value="Gardening">Gardening</option>
                     <option value="Pets">Pets</option>
@@ -70,10 +67,11 @@ const ProductInformation = ({ onChange }) => {
                   <label className="form-label">Description</label>
                   <textarea
                     className="form-control"
-                    placeholder="add your Description here"
+                    placeholder="Add your description here"
                     rows="3"
                     onChange={onChange}
                     name="longDescription"
+                    required
                   ></textarea>
                 </div>
                 <div className="mb-3 col-lg-12">
@@ -86,7 +84,7 @@ const ProductInformation = ({ onChange }) => {
                           type="text"
                           className="form-control"
                           placeholder="Size"
-                          required=""
+                          required
                           name="size"
                           value={size.size}
                           onChange={(e) => handleSizeChange(index, e)}
@@ -99,15 +97,15 @@ const ProductInformation = ({ onChange }) => {
                           name="unit"
                           value={size.unit}
                           onChange={(e) => handleSizeChange(index, e)}
+                          required
                         >
-                          <option defaultValue="none">Select Unit</option>
-                          <option value="clothing">clothing</option>
+                          <option value="" disabled selected>Select Unit</option>
+                          <option value="clothing">Clothing</option>
                           <option value="kg">Kg</option>
                           <option value="g">g</option>
                           <option value="mL">mL</option>
                           <option value="L">L</option>
-                          <option value="number">number</option>
-                          
+                          <option value="number">Number</option>
                         </select>
                       </div>
                       <div className="mb-3 col-lg-3">
@@ -116,7 +114,7 @@ const ProductInformation = ({ onChange }) => {
                           type="number"
                           className="form-control"
                           placeholder="Quantity"
-                          required=""
+                          required
                           name="quantity"
                           value={size.quantity}
                           onChange={(e) => handleSizeChange(index, e)}
@@ -130,24 +128,15 @@ const ProductInformation = ({ onChange }) => {
                     </button>
                   )}
                 </div>
-                <div className="mb-3 col-lg-12 mt-5">
-                  <h4 className="mb-3 h5">Product Images</h4>
+                <div className="mb-3 col-lg-12">
+                  <label className="form-label">Upload Images</label>
                   <input
                     type="file"
-                    accept="image/*"
                     className="form-control"
-                    onChange={handleImageChange}
-                    name="images"
                     multiple
+                    onChange={handleImageChange}
+                    required
                   />
-                  <div className="row mt-3">
-                    {images.map((image, index) => (
-                      <div key={index} className="col-lg-3">
-                        <img src={image} alt={`Product Image ${index + 1}`} className="img-fluid" />
-                      </div>
-                    ))}
-                  </div>
-                  <small className="form-text text-muted">You can upload up to 4 images.</small>
                 </div>
               </div>
             </div>

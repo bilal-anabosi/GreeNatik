@@ -20,32 +20,46 @@ const CreateProductForm = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const token = localStorage.getItem('userToken');
-            const response = await axios.post('http://localhost:4000/api/products', formData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `group__${token}`
-                }
-            });
+        const data = new FormData();
     
-            if (response.status === 201) {
-                console.log('Product created successfully');
-                // Redirect or show success message
-            } else {
-                console.error('Error creating product:', response.data);
-                // Handle specific error scenario based on response status or data
-            }
-        } catch (error) {
-            console.error('Error creating product:', error);
-            // Handle network error or other exceptions
+        for (const key in formData) {
+          if (key === 'images') {
+            formData.images.forEach((image) => {
+              data.append('images', image);
+            });
+          } else if (key === 'sizes') {
+            data.append(key, JSON.stringify(formData[key]));
+          } else {
+            data.append(key, formData[key]);
+          }
         }
-    };
-    const handleInputChange = (e) => {
+    
+    
+        try {
+          const token = localStorage.getItem('userToken');
+          const response = await axios.post('http://localhost:4000/api/products', data, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Authorization': `group__${token}`
+            }
+          });
+    
+          if (response.status === 201) {
+            console.log('Product created successfully');
+            // Redirect or show success message
+          } else {
+            console.error('Error creating product:', response.data);
+          }
+        } catch (error) {
+          console.error('Error creating product:', error);
+        }
+      };
+
+      const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         const inputValue = type === 'checkbox' ? checked : value;
         setFormData({ ...formData, [name]: inputValue });
-    };
+      };
 
     return (
         <div className="container">

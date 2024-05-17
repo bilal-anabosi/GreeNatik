@@ -13,7 +13,7 @@ function Profile() {
   const handleItemClick = (item) => {
     setActiveItem(item);
   };
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   if (Loading) {
     return <p>Loading ...</p>

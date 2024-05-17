@@ -20,11 +20,12 @@ const productSchema = new mongoose.Schema({
     unit: {
       type: String,
       enum: ['clothing', 'kg', 'g', 'mL', 'L', 'number']
-    }
+    },
+    regularPrice: Number,
+  salePrice: Number,
   }],
   images: [String],
-  regularPrice: Number,
-  salePrice: Number,
+  
   inStock: {
     type: Boolean,
     default: true

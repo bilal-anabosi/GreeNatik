@@ -19,6 +19,7 @@ export default function UserContextProvider({ children }) {
       setLoading(false);
     }
   }
+  
 
   useEffect(() => {
     getUserData();

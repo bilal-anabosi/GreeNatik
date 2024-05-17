@@ -7,10 +7,12 @@ import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import SignInWithGoogle from '../SignInWithGoogle.jsx';
 import './Pages.css'
+import React from 'react';
 import { Logout } from '../Inputs/logout.jsx';
 
 export default function LoginPage() {
 
+    
    
     return (
         

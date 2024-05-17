@@ -1,5 +1,6 @@
 import FormGenerator from './FormGenerator';
 import * as yup from 'yup';
+import React, { useState } from 'react';
 import { useContext } from 'react'; 
 import { UserContext } from '../context/User.jsx';
 import { useNavigate } from 'react-router-dom';
@@ -25,29 +26,18 @@ export default function LoginForm() {
   
       if (status === 200) {
         localStorage.setItem('userToken', data.token);
-        toast.success('Log in is successful', {
-          position: 'top-right',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-        });
+        
   
-        if (data.user && data.user.role === 'admin') { // Check if user object exists
+        if (data.user && data.user.role === 'admin') { 
           navigate('/all-posts');
-        } else {
+        }  else {
           navigate('/store');
         }
       }
-       else if (status === 401) {
-        toast.error(data.message);
-      }
+       
     } catch (error) {
       console.error('Error during login:', error);
-      toast.error('An error occurred during login');
+      
     }
   };
   
@@ -68,7 +58,10 @@ export default function LoginForm() {
       type: 'password',
       validation: yup.string().required('password is required').min(3, 'must be at least 3 char').max(20, 'max is 20'),
     },
+    
+    
   ];
 
+  
   return <FormGenerator onSubmit={onSubmit} attributes={attributes} />;
 }

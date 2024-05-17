@@ -10,7 +10,7 @@ async function sendemail(to, subject, html) {
     });
     
     const info = await transporter.sendMail({
-        from: `roaa_shop <${process.env.EMILSENDER}>`,
+        from: `GreeNatik website <${process.env.EMILSENDER}>`,
         to,
         subject,
         html,

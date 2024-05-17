@@ -31,6 +31,7 @@ import {
 } from "react-router-dom";
 import PostsList from './pages/dashboard/post-list.jsx';
 import Test from './pages/Test';
+import Profile from './pages/account/Pages/profile/Profile.jsx';
 
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/forget' element={<ForgetPage />} />
-          
+          <Route path='/profile' element={<Profile />} />
           <Route path='/set-password' element={<SetPasswordPage />} />
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/AccessDenied' element={<AccessDenied />} />

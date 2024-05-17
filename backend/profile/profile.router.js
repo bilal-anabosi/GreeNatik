@@ -1,17 +1,25 @@
 const { Router } = require("express");
-const controller = require('../profile/profile.controller');
+const {getProfile,editProfile} = require('../profile/profile.controller');
 const auth = require('../middelware/auth.js');
-
+const fileupload = require("../utilts/multer.js");
+const multer = require("multer");
+const path = require("path");
 
 const router = Router();
 
-router.get('/',auth.authenticateToken,controller.profile);
-//router.get('/a',auth.authenticateToken,auth.authorizeRoles(['admin']),controller.(req,res)=>{
-   // return res.json ({massage:"done"})
-//});
 
+const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+var storage = multer.diskStorage({
+destination: function (req, file, cb) {
+   cb(null, './uploads/')
+},
+filename: function (req, file, cb) {
+   cb(null, uniqueSuffix + path.extname(file.originalname)) 
+}
+})
 
-
-
+ const upload = multer({ storage: storage })
+router.get('/', auth.authenticateToken,getProfile);
+router.put('/', auth.authenticateToken,multer( {storage:storage}).single('img'), editProfile);
 
 module.exports = router;

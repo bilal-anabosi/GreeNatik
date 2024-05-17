@@ -24,6 +24,11 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    
+    image:{
+        type: Object,
+
+    },
     sendCode: {
         type: String,
         default: null,

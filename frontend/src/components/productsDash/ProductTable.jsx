@@ -26,7 +26,7 @@ const ProductTable = ({ products }) => {
               <td>
                 <span className={`badge bg-light-${product.status === 'Active' ? 'primary' : product.status === 'Disabled' ? 'danger' : 'warning'} text-dark-${product.status === 'Active' ? 'primary' : product.status === 'Disabled' ? 'danger' : 'warning'}`}>{product.status}</span>
               </td>
-              <td>{product.regularPrice}</td>
+              <td>{product.sizes[0].regularPrice}</td>
               <td>{new Date(product.createdAt).toLocaleDateString()}</td>
               <td>
                 <div className="dropdown">

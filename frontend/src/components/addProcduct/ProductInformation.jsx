@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
 const ProductInformation = ({ onChange }) => {
-  const [sizes, setSizes] = useState([{ size: '', quantity: '', unit: '' }]);
+  const [sizes, setSizes] = useState([
+    { size: '', quantity: '', unit: '', regularPrice: '', salePrice: '' }
+  ]);
   const [images, setImages] = useState([]);
 
   const handleSizeChange = (index, event) => {
@@ -14,7 +16,7 @@ const ProductInformation = ({ onChange }) => {
 
   const addSize = () => {
     if (sizes.length < 3) {
-      setSizes([...sizes, { size: '', quantity: '', unit: '' }]);
+      setSizes([...sizes, { size: '', quantity: '', unit: '', regularPrice: '', salePrice: '' }]);
     }
   };
 
@@ -75,10 +77,10 @@ const ProductInformation = ({ onChange }) => {
                   ></textarea>
                 </div>
                 <div className="mb-3 col-lg-12">
-                  <h4 className="mb-3 h5">Sizes and Quantity</h4>
+                  <h4 className="mb-3 h5">Sizes, Quantity, and Pricing</h4>
                   {sizes.map((size, index) => (
                     <div key={index} className="row">
-                      <div className="mb-3 col-lg-3">
+                      <div className="mb-3 col-lg-2">
                         <label className="form-label">Size</label>
                         <input
                           type="text"
@@ -90,7 +92,7 @@ const ProductInformation = ({ onChange }) => {
                           onChange={(e) => handleSizeChange(index, e)}
                         />
                       </div>
-                      <div className="mb-3 col-lg-3">
+                      <div className="mb-3 col-lg-2">
                         <label className="form-label">Unit</label>
                         <select
                           className="form-select"
@@ -108,7 +110,7 @@ const ProductInformation = ({ onChange }) => {
                           <option value="number">Number</option>
                         </select>
                       </div>
-                      <div className="mb-3 col-lg-3">
+                      <div className="mb-3 col-lg-2">
                         <label className="form-label">Quantity</label>
                         <input
                           type="number"
@@ -117,6 +119,30 @@ const ProductInformation = ({ onChange }) => {
                           required
                           name="quantity"
                           value={size.quantity}
+                          onChange={(e) => handleSizeChange(index, e)}
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-3">
+                        <label className="form-label">Regular Price</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="$0.00"
+                          required
+                          name="regularPrice"
+                          value={size.regularPrice}
+                          onChange={(e) => handleSizeChange(index, e)}
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-3">
+                        <label className="form-label">Sale Price</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="$0.00"
+                          required
+                          name="salePrice"
+                          value={size.salePrice}
                           onChange={(e) => handleSizeChange(index, e)}
                         />
                       </div>

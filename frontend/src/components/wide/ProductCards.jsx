@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductCards = ({ title, rating, regularPrice, salePrice, imageUrl, category, inStock }) => {
+const ProductCards = ({ title, rating, regularPrice, salePrice, images, category, inStock }) => {
     return (
        <div className="card card-product">
           <div className="card-body">
@@ -13,7 +13,7 @@ const ProductCards = ({ title, rating, regularPrice, salePrice, imageUrl, catego
               )}
               <a href="shop-single.html">
                 {/* img */}
-                <img src={imageUrl} alt={`${title} Image`} className="mb-3 img-fluid" />
+                <img  src={images[0] ? `http://localhost:4000/${images[0]}` : 'path/to/default-image.jpg'} alt={`${title} Image`} className="mb-3 img-fluid" />
               </a>
               {/* action btn */}
               <div className="card-product-action">

@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 // Make sure the path matches the location of your productRoutes file
 
 const productRouter = require('./routes/productRoutes');
@@ -22,6 +23,7 @@ const PORT = process.env.PORT || 4000;
 connectDB();
 app.use(cors());
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/user', userRouter);
 app.use('/profile', profileRouter);

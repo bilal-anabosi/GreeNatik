@@ -19,7 +19,7 @@ const ProductTable = ({ products }) => {
           {products.map((product) => (
             <tr key={product.id}>
               <td>
-                <img src={product.image} alt="" className="icon-shape icon-md" />
+                <img  src={product.images[0] ? `http://localhost:4000/${product.images[0]}` : 'path/to/default-image.jpg'} alt="" className="icon-shape icon-md" />
               </td>
               <td><a href="#" className="text-reset">{product.title}</a></td>
               <td>{product.category}</td>

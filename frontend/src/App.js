@@ -23,6 +23,8 @@ import SinglePost from './pages/SinglePost.jsx';
 import Wishlist from './pages/Wishlist.jsx';
 import Wide from './pages/Wide';
 import LeaderBoard from './pages/LeaderBoard';
+import EditProductPage from './pages/editProduct/EditProductPage';
+
 
 import {
   BrowserRouter as Router,
@@ -68,6 +70,8 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/dashboard/products" element={<ProductsPage />} />
           <Route path="/dashboard/add-products" element={<CreateProductForm />} />
+          <Route exact path="/dashboard/EditProductPage/:productId" element={<EditProductPage/>} />
+          
           
         </Routes>
       </Router>

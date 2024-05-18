@@ -1,6 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ProductTable = ({ products }) => {
+  const handleEditClick = (productId) => {
+    window.location.href = `EditProductPage/${productId}`;
+  };
+
   return (
     <div className="table-responsive">
       <table className="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
@@ -17,9 +22,9 @@ const ProductTable = ({ products }) => {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id}>
+            <tr key={product._id}>
               <td>
-                <img  src={product.images[0] ? `http://localhost:4000/${product.images[0]}` : 'path/to/default-image.jpg'} alt="" className="icon-shape icon-md" />
+                <img src={product.images[0] ? `http://localhost:4000/${product.images[0]}` : 'path/to/default-image.jpg'} alt="" className="icon-shape icon-md" />
               </td>
               <td><a href="#" className="text-reset">{product.title}</a></td>
               <td>{product.category}</td>
@@ -29,25 +34,9 @@ const ProductTable = ({ products }) => {
               <td>{product.sizes[0].regularPrice}</td>
               <td>{new Date(product.createdAt).toLocaleDateString()}</td>
               <td>
-                <div className="dropdown">
-                  <a href="#" className="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i className="feather-icon icon-more-vertical fs-5"></i>
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        <i className="bi bi-trash me-3"></i>
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        <i className="bi bi-pencil-square me-3"></i>
-                        Edit
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                <button className="btn btn-link text-reset" onClick={() => handleEditClick(product._id)}>
+                  Edit
+                </button>
               </td>
             </tr>
           ))}
@@ -55,6 +44,10 @@ const ProductTable = ({ products }) => {
       </table>
     </div>
   );
-}
+};
+
+ProductTable.propTypes = {
+  products: PropTypes.array.isRequired,
+};
 
 export default ProductTable;

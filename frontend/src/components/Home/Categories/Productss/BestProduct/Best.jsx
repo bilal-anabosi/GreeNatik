@@ -51,19 +51,21 @@ const Best = () => {
                                 <div className="container">
                                     {/* Wrap the product cards with the Slick Slider */}
                                     <Slider {...sliderSettings}>
-                                        {topSellingProducts.map((product, index) => (
-                                            <ProductCards
-                                            key={index}
-                                            title={product.title}
-                                            isOnSale={product.isOnSale}
-                                            rating={product.rating}
-                                            regularPrice={product.regularPrice}
-                                            salePrice={product.salePrice}
-                                            imageUrl={product.imageUrl}
-                                            category={product.category}
-                                            inStock={product.inStock}
-                                            />
-                                        ))}
+                                        {topSellingProducts.map((product, index) => {
+                                            const firstSize = product.sizes && product.sizes[0] ? product.sizes[0] : {};
+                                            return (
+                                                <ProductCards
+                                                    key={index}
+                                                    title={product.title}
+                                                    rating={product.rating}
+                                                    regularPrice={firstSize.regularPrice}
+                                                    salePrice={firstSize.salePrice}
+                                                    images={product.images}
+                                                    category={product.category}
+                                                    inStock={product.inStock}
+                                                />
+                                            );
+                                        })}
                                     </Slider>
                                 </div>
                             </div>

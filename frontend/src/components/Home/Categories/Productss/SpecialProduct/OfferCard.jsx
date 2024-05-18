@@ -43,19 +43,21 @@ return (
             </div>
         </div>
     <div className="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-0 border border-2 border-danger rounded-3 custom-border">
-    {LatestProductsWithSale.map((product, index) => (
-                <ProductCards
-                    key={index}
-                    title={product.title}
-                    isOnSale={product.isOnSale}
-                    rating={product.rating}
-                    regularPrice={product.regularPrice}
-                    salePrice={product.salePrice}
-                    imageUrl={product.imageUrl}
-                    category={product.category}
-                    inStock={product.inStock}
-                />
-            ))}
+    {LatestProductsWithSale.map((product, index)=> {
+                                            const firstSize = product.sizes && product.sizes[0] ? product.sizes[0] : {};
+                                            return (
+                                                <ProductCards
+                                                    key={index}
+                                                    title={product.title}
+                                                    rating={product.rating}
+                                                    regularPrice={firstSize.regularPrice}
+                                                    salePrice={firstSize.salePrice}
+                                                    images={product.images}
+                                                    category={product.category}
+                                                    inStock={product.inStock}
+                                                />
+                                            );
+                                        })}
     </div>
 </div></section></div></div>
 );

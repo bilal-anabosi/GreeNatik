@@ -49,19 +49,21 @@ return (
             <div className="col">
                 <div className="container">
                     <div className="row row-cols-2 row-cols-xl-5 row-cols-md-3 g-4">
-                    {latestProducts.map((product, index) => (
-                <ProductCards
-                    key={index}
-                    title={product.title}
-                    isOnSale={product.isOnSale}
-                    rating={product.rating}
-                    regularPrice={product.regularPrice}
-                    salePrice={product.salePrice}
-                    imageUrl={product.imageUrl}
-                    category={product.category}
-                    inStock={product.inStock}
-                />
-            ))}
+                    {latestProducts.map((product, index) => {
+                                            const firstSize = product.sizes && product.sizes[0] ? product.sizes[0] : {};
+                                            return (
+                                                <ProductCards
+                                                    key={index}
+                                                    title={product.title}
+                                                    rating={product.rating}
+                                                    regularPrice={firstSize.regularPrice}
+                                                    salePrice={firstSize.salePrice}
+                                                    images={product.images}
+                                                    category={product.category}
+                                                    inStock={product.inStock}
+                                                />
+                                            );
+                                        })}
     </div>
 </div>
 </div></div></div></div></section></div>

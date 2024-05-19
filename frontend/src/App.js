@@ -15,7 +15,7 @@ import AllBlogs from './pages/blog/AllBlogs';
 import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
 import Posts from "./pages/postsPage/Posts.jsx";
-
+import Profile from './pages/account/Pages/profile/Profile.jsx';
 import ShopSingle from './pages/shop-single.jsx'
 import CreatePost from './pages/dashboard/post.jsx';
 
@@ -50,7 +50,7 @@ function App() {
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/forget' element={<ForgetPage />} />
-          
+          <Route path='/profile' element={<Profile />} />
           <Route path='/set-password' element={<SetPasswordPage />} />
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/AccessDenied' element={<AccessDenied />} />

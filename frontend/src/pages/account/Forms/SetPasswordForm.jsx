@@ -17,16 +17,7 @@ const SetPasswordForm = () => {
       );
       console.log(data);
       if (status === 200) {
-        toast.success("Password updated", {
-          position: "top-right",
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        
         if (data.user && data.user.role === 'admin') { // Check if user object exists
           navigate('/all-posts');
         } else {
@@ -35,7 +26,6 @@ const SetPasswordForm = () => {
       }
     } catch (error) {
       console.error('Error during password update:', error);
-      toast.error('An error occurred during password update');
     }
   };
 

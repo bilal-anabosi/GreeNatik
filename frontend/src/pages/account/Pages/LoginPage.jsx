@@ -6,8 +6,9 @@ import { Link as RouterLink} from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import SignInWithGoogle from '../SignInWithGoogle.jsx';
+import React from 'react';
+
 import './Pages.css'
-import { Logout } from '../Inputs/logout.jsx';
 
 export default function LoginPage() {
 
@@ -41,7 +42,7 @@ export default function LoginPage() {
 
                 <LoginForm/>
 
-                <Link component={RouterLink} to='/forget' style={{textDecoration: "none"}}>
+                <Link component={RouterLink} to='/forget' style={{textDecoration: "none",alignItems:'center',justifyContent:'center',display:'flex'}}>
                     Forgot your password? 
                 </Link>
 
@@ -58,7 +59,7 @@ export default function LoginPage() {
                     <Link component={RouterLink} to='/sign-up' style={{textDecoration: "none"}}>
                         Sign up
                     </Link>
-                    <Logout/>
+                    
                 </Typography>
             
             </Stack>

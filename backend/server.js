@@ -1,24 +1,27 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-// Make sure the path matches the location of your productRoutes file
+const bodyParser = require('body-parser');
+require('dotenv').config();
 
+// Import your route handlers
 const productRouter = require('./routes/productRoutes');
 const userRouter = require('./routes/user.router.js');
 const profileRouter = require('./profile/profile.router.js');
 const PostRoutes = require('./routes/singlepostRoutes.js');
 const StoreRoutes = require('./routes/StoreRoutes');
-const WishlistRoutes=require('./routes/wishlistRoutes.js')
-const connectDB = require('./DB/connection');
+const WishlistRoutes = require('./routes/wishlistRoutes.js');
+const connectDB = require('./DB/connection.js');
 const { authenticateToken } = require('./middelware/auth');
-require('dotenv').config();
-
 
 const app = express();
-
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 4000;
+
+const pth = path.join(__dirname, 'uploads');
+app.use(express.static(pth));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json()); 
 
 connectDB();
 app.use(cors());
@@ -29,9 +32,9 @@ app.use('/user', userRouter);
 app.use('/profile', profileRouter);
 app.use('/api/products', authenticateToken, productRouter);
 app.use('/posts', PostRoutes);
-app.use('/store',StoreRoutes );
-app.use('/wishlist',WishlistRoutes)
+app.use('/store', StoreRoutes);
+app.use('/wishlist', WishlistRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -11,7 +11,7 @@ function Error404() {
           <p>We can't find the page you are looking for.<br/>Check out our help center or head back to the home page.</p>
           <button type="button" className="btn btn-lg " style={{ background: '#071E2A', color: 'white', border: 'none',marginRight:'10px' }}>Help center </button>
         <button type="button" className="btn btn-primary btn-lg" style={{ background: '#4EA933', color: 'white', border: 'none' }}> 
-        <Link component={RouterLink} to='/home' style={{textDecoration: "none", color:'white'}} >
+        <Link component={RouterLink} to='/' style={{textDecoration: "none", color:'white'}} >
         Back to Home     
         </Link></button>
         </div>

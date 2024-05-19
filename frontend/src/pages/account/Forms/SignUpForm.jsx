@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import FormGenerator from './FormGenerator';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -14,26 +15,22 @@ const initialValues = {
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (userData) => {
     try {
-      const { data,status} = await axios.post(`http://localhost:4000/user/signup`, userData);
+      const { data, status } = await axios.post(`http://localhost:4000/user/signup`, userData);
       
       if (status === 201) {
-        
-
-        
-        console.log(data.user)
-        if (data.user.role === 'admin') {
-          navigate('/all-posts');
-        } else {
-          navigate('/store');
-        }
-      }else if(status === 401){
-        toast.error(data.message)
+        console.log(data.user);
+        toast.success('Signup successful!');
+        navigate('/login');
+      } else if (status === 401) {
+        toast.error(data.message);
       }
     } catch (error) {
       console.error('Error:', error);
+      setErrorMessage('An error occurred while signing up.');
     }
   };
 
@@ -79,7 +76,11 @@ const SignUpForm = () => {
     },
   ];
 
-  return <FormGenerator attributes={attributes} onSubmit={onSubmit} />
+  return (
+    <div>
+      <FormGenerator attributes={attributes} onSubmit={onSubmit} />
+    </div>
+  );
 };
 
 export default SignUpForm;

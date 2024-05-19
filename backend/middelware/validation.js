@@ -16,7 +16,7 @@ function validation2(Schema) {
         });
 
         if (validationArr.length > 0) {
-            return res.json({ message: "Validation error", validationArr });
+            return res.status(400).json({ message: "Validation error", validationArr });
         }
         next();
     };

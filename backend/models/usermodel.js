@@ -20,9 +20,14 @@ const userSchema = new Schema({
         default: 'user',
         enum: ['user', 'admin'],
     },
+
     address: {
         type: String,
         required: true,
+    },
+    image:{
+        type: Object,
+
     },
     sendCode: {
         type: String,

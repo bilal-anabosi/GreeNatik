@@ -15,7 +15,7 @@ const signup = async (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, parseInt(process.env.SALTROUND));
     const createUser = await userModel.create({ username, email, password: hashedPassword,role,address });
     await sendemail(email, `Welcome`, `<h2>Hello ${username}</h2>`);
-    return res.status(201).json({ message: "Success", user: createUser });
+    return res.status(201).json({ message: "Success", user: createUser });
 };
 
 const login = async (req, res) => {

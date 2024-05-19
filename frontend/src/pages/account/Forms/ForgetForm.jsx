@@ -20,21 +20,10 @@ export default function ForgetForm() {
       if (status === 200) {
         console.log(data.user)
 
-        toast.success('input code', {
-          position: 'top-right',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-        });
         navigate('/set-password');
       }
     } catch (error) {
       console.error('Error during login:', error);
-      toast.error('An error occurred during login');
     }
   }
 

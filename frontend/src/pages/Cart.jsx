@@ -1,32 +1,120 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Product from "../components/Product";
-const products = [
-  {
-    imgSrc: "./pics/cartPage/cat.png",
-    title: "heey",
-    price: 4,
-    newPrice: 2,
-  },
-  {
-    imgSrc: "./pics/cartPage/cat.png",
-    title: "wewewewe",
-    price: 40,
-    // newPrice: 21,
-  },
-  {
-    imgSrc: "./pics/cartPage/cat.png",
-    title: "wewewewe",
-    price: 21,
-    newPrice: 6,
-  },
-  {
-    imgSrc: "./pics/cartPage/cat.png",
-    title: "wewewewe",
-    price: 23,
-    newPrice: 11,
-  },
-];
+
 const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const token = localStorage.getItem("userToken");
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const fetchCartItems = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/cart", {
+        headers: {
+          Authorization: `group__${token}`,
+        },
+      });
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      setCartItems(response.data);
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchCartItems();
+    }
+  }, [token]);
+
+  const calculateCartTotal = (items) => {
+    let total = 0;
+    items.forEach((item) => {
+      const price = item.salePrice || item.regularPrice;
+      total += price * item.quantity;
+    });
+    return total;
+  };
+
+  useEffect(() => {
+    const totalPrice = calculateCartTotal(cartItems);
+    setTotalPrice(totalPrice);
+  }, [cartItems]);
+
+  const addToCart = async (productId, quantity, size) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/cart/add",
+        {
+          productId,
+          quantity,
+          size,
+        },
+        {
+          headers: {
+            Authorization: `group__${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        fetchCartItems();
+      } else {
+        console.error("Failed to add item to cart");
+      }
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
+  };
+
+  const removeFromCart = async (productId, size) => {
+    try {
+      const response = await axios.delete("http://localhost:4000/cart/delete", {
+        headers: {
+          Authorization: `group__${token}`,
+        },
+        data: {
+          productId,
+          size,
+        },
+      });
+
+      if (response.status === 200) {
+        fetchCartItems();
+      } else {
+        console.error("Failed to remove item from cart");
+      }
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    }
+  };
+  const updateCartItemQuantity = async (productId, size, quantity) => {
+    try {
+      const response = await axios.put(
+        "http://localhost:4000/cart/update",
+        {
+          productId,
+          size,
+          quantity,
+        },
+        {
+          headers: {
+            Authorization: `group__${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        fetchCartItems();
+      } else {
+        console.error("Failed to update item quantity in cart");
+      }
+    } catch (error) {
+      console.error("Error updating item quantity in cart:", error);
+    }
+  };
   return (
     <div>
       <div>
@@ -38,10 +126,10 @@ const Cart = () => {
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb mb-0">
                       <li className="breadcrumb-item">
-                        <a href="#!">Home</a>
+                        <a href="/">Home</a>
                       </li>
                       <li className="breadcrumb-item">
-                        <a href="#!">Shop</a>
+                        <a href="/store">Shop</a>
                       </li>
                       <li
                         className="breadcrumb-item active"
@@ -70,62 +158,83 @@ const Cart = () => {
                 <div className="col-lg-8 col-md-7">
                   <div className="py-3">
                     <ul className="list-group list-group-flush">
-                      {products.map((product, index) => (
-                        <Product
-                          key={index}
-                          imgSrc={product.imgSrc}
-                          title={product.title}
-                          price={product.price}
-                          newPrice={product.newPrice}
-                        />
-                      ))}
+                      {cartItems.length === 0 ? (
+                        <p>No items in cart</p>
+                      ) : (
+                        cartItems.map((item) => {
+                          const productProps = {
+                            key: item.productId,
+                            imgSrc: item.images,
+                            title: item.title,
+                            price: item.regularPrice,
+                            productId: item.id,
+                            size: item.sizes,
+                            onDelete: removeFromCart,
+                            addToCart: addToCart,
+                            updateCartItemQuantity: updateCartItemQuantity,
+                            quantity: item.quantity,
+                          };
+
+                          if (item.salePrice > 0) {
+                            productProps.newPrice = item.salePrice;
+                          }
+
+                          return <Product {...productProps} />;
+                        })
+                      )}
                     </ul>
                     {/* btn */}
-                    <div className="d-flex justify-content-between mt-4">
-                      <a href="#!" className="btn btn-primary">
+                    <div className="d-flex justify-content-between mt-7">
+                      <a href="/store" className="btn btn-primary">
                         Continue Shopping
                       </a>
                     </div>
                   </div>
                 </div>
-                <div className="col-12 col-lg-4 col-md-5">
-                  <div className="mb-5 card mt-6">
-                    <div className="card-body p-6">
-                      <h2 className="h5 mb-4">Summary</h2>
-                      <div className="card mb-2">
-                        <ul className="list-group list-group-flush">
-                          <li className="list-group-item d-flex justify-content-between align-items-start">
-                            <div className="me-auto">
-                              <div>Item Subtotal</div>
-                            </div>
-                            <span>$70.00</span>
-                          </li>
-                          <li className="list-group-item d-flex justify-content-between align-items-start">
-                            <div className="me-auto">
-                              <div>Service Fee</div>
-                            </div>
-                            <span>$3.00</span>
-                          </li>
-                          <li className="list-group-item d-flex justify-content-between align-items-start">
-                            <div className="me-auto">
-                              <div className="fw-bold">Subtotal</div>
-                            </div>
-                            <span className="fw-bold">$67.00</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="d-grid mb-1 mt-4">
-                        <button
-                          className="btn btn-primary btn-lg d-flex justify-content-between align-items-center"
-                          type="submit"
-                        >
-                          Go to Checkout
-                          <span className="fw-bold">$67.00</span>
-                        </button>
+                {cartItems.length !== 0 ? (
+                  <div className="col-12 col-lg-4 col-md-5">
+                    <div className="mb-5 card mt-6">
+                      <div className="card-body p-6">
+                        <h2 className="h5 mb-4">Summary</h2>
+                        <div className="card mb-2">
+                          <ul className="list-group list-group-flush">
+                            <li className="list-group-item d-flex justify-content-between align-items-start">
+                              <div className="me-auto">
+                                <div>Item Subtotal</div>
+                              </div>
+                              <span>{totalPrice.toFixed(2)}</span>
+                            </li>
+                            <li className="list-group-item d-flex justify-content-between align-items-start">
+                              <div className="me-auto">
+                                <div>Service Fee</div>
+                              </div>
+                              <span>$2.00</span>
+                            </li>
+                            <li className="list-group-item d-flex justify-content-between align-items-start">
+                              <div className="me-auto">
+                                <div className="fw-bold">Subtotal</div>
+                              </div>
+                              <span className="fw-bold">
+                                {(totalPrice + 2).toFixed(2)}
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="d-grid mb-1 mt-4">
+                          <a
+                            href="/checkout"
+                            className="btn btn-primary btn-lg d-flex justify-content-between align-items-center"
+                            type="submit"
+                          >
+                            Go to Checkout
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             </div>
           </section>

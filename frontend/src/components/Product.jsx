@@ -1,28 +1,61 @@
 import React, { useState } from "react";
-
-const Product = ({ imgSrc, title, price, newPrice }) => {
-  const [quantity, setQuantity] = useState(1);
+import axios from "axios";
+const Product = ({
+  imgSrc,
+  title,
+  price,
+  newPrice,
+  productId,
+  onDelete,
+  size,
+  addToCart,
+  updateCartItemQuantity,
+  quantity: defaultQuantity,
+}) => {
+  const [quantity, setQuantity] = useState(defaultQuantity);
 
   // Function to handle quantity change
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
+
+    updateCartItemQuantity(productId, size, newQuantity);
   };
 
-  // Calculate the total price based on quantity
   const totalPrice = newPrice ? newPrice * quantity : price * quantity;
 
+  const handleAddToCart = () => {
+    addToCart(productId, quantity, size);
+  };
+
+  const handleRemoveClick = () => {
+    onDelete(productId, size);
+  };
   return (
     <li className="list-group-item py-3 py-lg-0 px-0 border-top">
-      <div className="row align-items-center">
+      <div className="row align-items-center mt-4 mb-4 ">
         <div className="col-3 col-md-2">
-          <img src={imgSrc} alt="Ecommerce" className="img-fluid" />
+          <img
+            src={
+              imgSrc
+                ? `http://localhost:4000/${imgSrc}`
+                : "fallback_image_url.jpg"
+            }
+            alt="Ecommerce"
+            className="img-fluid"
+          />
         </div>
         <div className="col-4 col-md-5">
           <a href="#!" className="text-inherit">
             <h6 className="mb-0">{title}</h6>
+            <span></span>
           </a>
+          <small> Size: {size}</small>
           <div className="mt-2 small lh-1">
-            <a href="#!" className="text-decoration-none text-inherit">
+            <a
+              href="#!"
+              className="text-decoration-none text-inherit"
+              onClick={handleRemoveClick}
+            >
               <span className="me-1 align-text-bottom">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -104,5 +137,4 @@ const Product = ({ imgSrc, title, price, newPrice }) => {
     </li>
   );
 };
-
 export default Product;

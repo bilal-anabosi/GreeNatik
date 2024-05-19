@@ -26,7 +26,7 @@ const ProductTable = ({ products }) => {
               <td>
                 <img src={product.images[0] ? `http://localhost:4000/${product.images[0]}` : 'path/to/default-image.jpg'} alt="" className="icon-shape icon-md" />
               </td>
-              <td><a href="#" className="text-reset">{product.title}</a></td>
+              <td><a href="#!" className="text-reset">{product.title}</a></td>
               <td>{product.category}</td>
               <td>
                 <span className={`badge bg-light-${product.status === 'Active' ? 'primary' : product.status === 'Disabled' ? 'danger' : 'warning'} text-dark-${product.status === 'Active' ? 'primary' : product.status === 'Disabled' ? 'danger' : 'warning'}`}>{product.status}</span>

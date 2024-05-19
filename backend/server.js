@@ -8,7 +8,7 @@ const userRouter = require('./routes/user.router.js');
 const profileRouter = require('./profile/profile.router.js');
 const PostRoutes = require('./routes/singlepostRoutes.js');
 const StoreRoutes = require('./routes/StoreRoutes');
-
+const WishlistRoutes=require('./routes/wishlistRoutes.js')
 const connectDB = require('./DB/connection');
 const { authenticateToken } = require('./middelware/auth');
 require('dotenv').config();
@@ -30,6 +30,7 @@ app.use('/profile', profileRouter);
 app.use('/api/products', authenticateToken, productRouter);
 app.use('/posts', PostRoutes);
 app.use('/store',StoreRoutes );
+app.use('/wishlist',WishlistRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

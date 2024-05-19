@@ -57,7 +57,7 @@ font-size: 30px;
 }
 .modal-content-new
 {
-background-color: #ffffff;
+background : #ffffff;
 }
 .modal-header {
     border-bottom: none;
@@ -67,7 +67,7 @@ background-color: #ffffff;
 }
 .sos {
     background-image: url("../../../../../public/img/rain-clouds-png-27.png");
-    background-size: cover;
+    background-size: 200%;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 15px;
@@ -75,7 +75,7 @@ background-color: #ffffff;
     max-width: 900px;
     height: 600px;
 }
-.oo .modal-content-body {
+.oo .modal-content-body{
     display: flex;
     align-items: center;
     justify-content: space-between;

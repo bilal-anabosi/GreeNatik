@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './PaymentMethodAccordion.css';
+
 
 function AddressAccordion({ onUpdate }) {
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -232,7 +234,7 @@ function AddressAccordion({ onUpdate }) {
       </div>
       <div className="modal fade" id="deleteModal" tabIndex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div className="modal-dialog">
-          <div className="modal-content-new">
+          <div className="modal-content-nnew">
             <div className="modal-header">
               <h5 className="modal-title" id="deleteModalLabel">Delete address</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

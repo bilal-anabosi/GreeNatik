@@ -89,7 +89,6 @@ router.post("/add", authenticateToken, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-
 router.delete("/delete", authenticateToken, async (req, res) => {
   try {
     const { productId, size } = req.body;

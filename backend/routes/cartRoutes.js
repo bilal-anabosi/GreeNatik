@@ -53,7 +53,7 @@ router.get("/", authenticateToken, async (req, res) => {
 });
 router.post("/add", authenticateToken, async (req, res) => {
   try {
-    const { productId, quantity, size } = req.body;
+    const { productId, quantity = 1, size } = req.body;
     const userId = req.user.id;
     const user = await User.findById(userId);
     if (!user) {
@@ -76,7 +76,7 @@ router.post("/add", authenticateToken, async (req, res) => {
 
     if (existingCartItem) {
       // If product with the same size exists thenn update the quantity
-      existingCartItem.quantity = quantity;
+      existingCartItem.quantity += quantity;
     } else {
       user.cart.push({ productId, size, quantity });
     }

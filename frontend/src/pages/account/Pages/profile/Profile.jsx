@@ -5,6 +5,7 @@ import { Formik, Form, Field } from "formik";
 import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
+import OrderList from "../../../../components/Orders/OrderList.jsx";
 
 function Profile() {
   const { userData, Loading, setUserData } = useContext(UserContext);
@@ -166,7 +167,7 @@ function Profile() {
               )}
 
               {activeItem === "orders" && (
-                <p className="card-text">Content for orders</p>
+                <OrderList/>
               )}
 
               {activeItem === "points" && (

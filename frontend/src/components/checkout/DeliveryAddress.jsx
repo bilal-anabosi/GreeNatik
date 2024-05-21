@@ -43,6 +43,7 @@ function AddressAccordion({ onUpdate }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     setNewAddress({
       ...newAddress,
       [name]: value,
@@ -65,9 +66,11 @@ function AddressAccordion({ onUpdate }) {
   
   
     const updatedAddressData = [...addressData, {
-      type: `${newAddress.type}`,
-      name: `${newAddress.firstName} ${newAddress.lastName}`,
-      address: `${newAddress.addressLine1}${newAddress.addressLine2 ? `, ${newAddress.addressLine2}` : ''}`,
+      type: newAddress.type,
+      firstName : newAddress.firstName,
+      lastName : newAddress.lastName,
+      addressLine1: newAddress.addressLine1,
+      addressLine2:newAddress.addressLine2,
       city: newAddress.city,
       state: newAddress.state,
       zip: newAddress.zipCode,
@@ -208,14 +211,14 @@ function AddressAccordion({ onUpdate }) {
                     className="form-check-input"
                     type="radio"
                     name="flexRadioDefault"
-                    id={`${address.type.toLowerCase()}Radio`}
+                    id={address.type}
                     checked={selectedAddress === index}
                     onChange={() => handleAddressSelection(index)}
                   />
-                  <label className={`form-check-label ${isAddDeliveryAddressClicked ? 'text-success' : 'text-dark'}`} htmlFor={`${address.type.toLowerCase()}Radio`}>{address.type}</label>
+                  <label className={`form-check-label ${isAddDeliveryAddressClicked ? 'text-success' : 'text-dark'}`} htmlFor={address.type}>{address.type}</label>
                 </div>
                 <address>
-                  <strong>{address.name}</strong>
+                  <strong>{address.firstName} {address.lastName}</strong>
                   <br />
                   {address.address},
                   <br />

@@ -55,7 +55,7 @@ const checkoutSchema = new Schema(
     paymentMethod: {
       type: String,
       required: true,
-      enum: ['cashonDelivery', 'Credit / Debit Card', 'Pay with Payoneer', 'Cash on Delivery']
+      enum: ['cashonDelivery', 'Credit / Debit Card', 'Pay with Payoneer', 'Cash on Delivery','Payment with Paypal']
     },
     totalPoints: {
       type: Number,
@@ -86,9 +86,9 @@ const checkoutSchema = new Schema(
         },
       },
     ],
-    totalAfterDiscount: {
+    total: {
         type: Number,
-        default: 0, 
+        default: 0.0, 
       },
      
     },

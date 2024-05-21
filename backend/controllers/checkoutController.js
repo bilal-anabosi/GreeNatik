@@ -16,7 +16,7 @@ async function createCheckout(req, res) {
       address: address,
       deliveryInstructions: deliveryInstructions,
       paymentMethod: paymentMethod,
-      items: items
+      items: items,
     });
 
     const user = await User.findById(userId);

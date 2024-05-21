@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const WishlistTable = () => {
   const [wishlist, setWishlist] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
   const token = localStorage.getItem('userToken');
 
   useEffect(() => {
@@ -40,18 +41,50 @@ const WishlistTable = () => {
         headers: {
           'Authorization': `group__${token}`,
         },
-      
       });
 
       if (response.status === 200) {
         const updatedWishlist = wishlist.filter((item) => item._id !== id);
         setWishlist(updatedWishlist);
-        console.log(`Item with ID: ${id}  successfully deleted`);
+        console.log(`Item with ID: ${id} successfully deleted`);
       } else {
-        console.error(`Failed to delete item with ID: ${id}  status code: ${response.status}`);
+        console.error(`Failed to delete item with ID: ${id} status code: ${response.status}`);
       }
     } catch (error) {
-      console.error(`Error deleting item with ID: ${id} `, error);
+      console.error(`Error deleting item with ID: ${id}`, error);
+    }
+  };
+
+  const handleAddToCart = async (productId, size, status) => {
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    if (!status) {
+      setErrorMessage('Product is out of stock and cannot be added to cart.');
+      return;
+    }
+
+    const quantity = 1;
+
+    try {
+      const response = await axios.post('http://localhost:4000/cart/add', 
+        { productId, quantity, size },
+        {
+          headers: {
+            'Authorization': `group__${token}`
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Product added to cart successfully');
+      } else {
+        console.error('Failed to add product to cart, status code:', response.status);
+      }
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
     }
   };
 
@@ -107,27 +140,31 @@ const WishlistTable = () => {
                         </span>
                       </td>
                       <td className="align-middle">
-                        <a href="/cart" className="btn btn-primary btn-sm">Add to Cart</a>
+                        <button 
+                        href="/cart"
+                          className="btn btn-primary btn-sm" 
+                          onClick={() => handleAddToCart(item.product._id, item.product.size, item.product.status)}
+                        >
+                          Add to Cart
+                        </button>
                       </td>
                       <td className="align-middle">
-                      <button
-  href="!"
-  className="text-muted"
-  data-bs-toggle="tooltip"
-  data-bs-placement="top"
-  aria-label="Delete"
-  style={{
-    border: 'none',
-    background: 'none',
-    padding: '0',
-    cursor: 'pointer',
-    outline: 'none',
-    boxShadow: 'none' 
-  }}
-  onClick={() => handleDeleteItem(item._id)}
->
-
-
+                        <button
+                          href="!"
+                          className="text-muted"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          aria-label="Delete"
+                          style={{
+                            border: 'none',
+                            background: 'none',
+                            padding: '0',
+                            cursor: 'pointer',
+                            outline: 'none',
+                            boxShadow: 'none' 
+                          }}
+                          onClick={() => handleDeleteItem(item._id)}
+                        >
                           <i className="bi bi-trash"></i>
                         </button>
                       </td>
@@ -137,6 +174,24 @@ const WishlistTable = () => {
               </table>
             </div>
           </div>
+        </div>
+        <div className="mb-3">
+          {/* Display error message box */}
+          {errorMessage && (
+            <div className="toast-container position-fixed bottom-0 end-0 p-3">
+              <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div className="toast-header">
+                  <img src="/favicon.ico" width={32} height={32} className="rounded me-2" alt="" />
+                  <strong className="me-auto">GreeNatik</strong>
+                  <small>Now</small>
+                  <button type="button" className="btn-close" onClick={() => setErrorMessage('')} aria-label="Close"></button>
+                </div>
+                <div className="toast-body">
+                  {errorMessage}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

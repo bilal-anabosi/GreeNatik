@@ -53,12 +53,7 @@ function Checkout() {
     setDiscountAmount(newData.discountAmount || 0);
   };
 
-  const handleTotalAfterDiscountChange = (newTotalAfterDiscount) => {
-    setCheckoutData((prevData) => ({
-      ...prevData,
-      totalAfterDiscount: newTotalAfterDiscount,
-    }));
-  };
+ 
 
   const handleSubmit = async () => {
     const requestData = {
@@ -72,7 +67,6 @@ function Checkout() {
         image: item.images,
         description: item.sizes,
       })),
-      tota: checkoutData.totalAfterDiscount, 
     };
 
     try {
@@ -126,9 +120,7 @@ function Checkout() {
             items={items} 
             discountAmount={discountAmount} 
             serviceFee={3.00}
-            onTotalAfterDiscountChange={handleTotalAfterDiscountChange}
           />
-          console.log({ checkoutData.totalAfterDiscount })
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-const Order = ({ items, discountAmount, serviceFee = 3.00, onTotalAfterDiscountChange }) => {
+const Order = ({ items, discountAmount, serviceFee = 3.00}) => {
   const itemsSubtotal = items.reduce((acc, item) => {
     const itemTotal = (item.regularPrice || 0) * (item.quantity || 0);
     return acc + itemTotal;
@@ -8,13 +8,6 @@ const Order = ({ items, discountAmount, serviceFee = 3.00, onTotalAfterDiscountC
 
   const subTotal = itemsSubtotal + serviceFee;
   const totalAfterDiscount = subTotal - discountAmount;
-
-  useEffect(() => {
-    if (onTotalAfterDiscountChange) {
-      onTotalAfterDiscountChange(totalAfterDiscount);
-    }
-  }, [totalAfterDiscount, onTotalAfterDiscountChange]);
-
   return (
     <div className="mt-4 mt-lg-0" style={{ maxWidth: '800px' }}>
       <div className="card shadow-sm">

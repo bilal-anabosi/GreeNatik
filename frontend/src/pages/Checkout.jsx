@@ -53,9 +53,15 @@ function Checkout() {
     setDiscountAmount(newData.discountAmount || 0);
   };
 
- 
-
   const handleSubmit = async () => {
+    const serviceFee = 3.00;
+    const itemsSubtotal = items.reduce((acc, item) => {
+      const itemTotal = (item.regularPrice || 0) * (item.quantity || 0);
+      return acc + itemTotal;
+    }, 0);
+    const subTotal = itemsSubtotal + serviceFee;
+    const totalAfterDiscount = subTotal - discountAmount;
+
     const requestData = {
       address: checkoutData.address,
       deliveryInstructions: checkoutData.deliveryInstructions,
@@ -67,17 +73,18 @@ function Checkout() {
         image: item.images,
         description: item.sizes,
       })),
+      totalAfterDiscount // Include the total after discount
     };
 
     try {
-      await axios.post('http://localhost:4000/checkout', requestData, {
+      const response = await axios.post('http://localhost:4000/checkout', requestData, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `group__${token}`,
         },
       });
 
-      setErrorMessage('Order placed successfully');
+      setErrorMessage(`Order placed successfully. Order Number: ${response.data.numOrder}`);
     } catch (error) {
       setErrorMessage('Failed to place order');
     }

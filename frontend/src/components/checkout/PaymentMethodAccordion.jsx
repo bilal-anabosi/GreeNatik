@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -6,9 +6,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function PaymentMethodAccordion({ onUpdate }) {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("paypal");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("Cash on Delivery");
   const [expiryDate, setExpiryDate] = useState(null);
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isPaymentMethodSelected, setIsPaymentMethodSelected] = useState(false);
   const validationSchema = (selectedPaymentMethod) => {
     if (selectedPaymentMethod === "creditdebitcard") {
@@ -38,9 +37,7 @@ function PaymentMethodAccordion({ onUpdate }) {
     setSubmitting(false);
   };
 
-  useEffect(() => {
-    setIsAccordionOpen(false);
-  }, []);
+ 
 
   return (
     <div className="accordion-item py-4">
@@ -51,16 +48,13 @@ function PaymentMethodAccordion({ onUpdate }) {
         data-bs-target="#flush-collapseFour"
         aria-expanded="false"
         aria-controls="flush-collapseFour"
-        onClick={() => setIsAccordionOpen(!isAccordionOpen)}
       >
         <i className="bi bi-credit-card-2-front" style={{ color: "gray" }}></i>
         Payment Method
       </a>
       <div
         id="flush-collapseFour"
-        className={`accordion-collapse collapse ${
-          isAccordionOpen ? "show" : ""
-        }`}
+        className="accordion-collapse collapse "
         data-bs-parent="#accordionFlushExample"
         style={{}}
       >
@@ -189,9 +183,9 @@ function PaymentMethodAccordion({ onUpdate }) {
                                 id="expiryDateInput"
                                 value={expiryDate}
                                 onChange={(newValue) => setExpiryDate(newValue)}
-                                renderInput={(params) => (
+                                textField={(props) => (
                                   <input
-                                    {...params}
+                                    {...props}
                                     className="form-control flatpickr flatpickr-input"
                                     type="text"
                                     placeholder="Select Date"
@@ -199,6 +193,7 @@ function PaymentMethodAccordion({ onUpdate }) {
                                   />
                                 )}
                               />
+
                               <div className="position-absolute bottom-0 end-0 p-3 lh-1"></div>
                             </div>
                           </LocalizationProvider>
@@ -233,9 +228,11 @@ function PaymentMethodAccordion({ onUpdate }) {
                             id="payoneer"
                             className="form-check-input"
                             value="payoneer"
-                            checked={selectedPaymentMethod === "payoneer"}
+                            checked={
+                              selectedPaymentMethod === "Pay with Payoneer"
+                            }
                             onChange={() =>
-                              handlePaymentMethodChange("payoneer")
+                              handlePaymentMethodChange("Pay with Payoneer")
                             }
                           />
                           <div className="d-flex flex-column">
@@ -273,23 +270,21 @@ function PaymentMethodAccordion({ onUpdate }) {
                               handlePaymentMethodChange("cashonDelivery")
                             }
                           />
-                               <div className="d-flex flex-column">
+                          <div className="d-flex flex-column">
                             <span
                               htmlFor="creditdebitcard"
                               className="form-check-label ms-2"
                               style={{ fontWeight: "bold" }}
                             >
-                            Cash on Delivery
+                              Cash on Delivery
                             </span>{" "}
                             <p
                               className="mb-0 small"
                               style={{ marginTop: "5px" }}
                             >
-                                                         Pay with cash when your order is delivered.
-
+                              Pay with cash when your order is delivered.
                             </p>
                           </div>
-                         
                         </div>
                       </div>
                     </div>

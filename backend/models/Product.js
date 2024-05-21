@@ -7,9 +7,9 @@ const productSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['FoodWare', 'Gardening', 'Pets','Shopping bags','Office','Skin care','Electronics','Clothing','Home'],
+    enum: ['FoodWare', 'Gardening', 'Pets', 'Shopping bags', 'Office', 'Skin care', 'Electronics', 'Clothing', 'Home'],
     required: true
-  }, 
+  },
   longDescription: {
     type: String,
     required: true
@@ -22,10 +22,10 @@ const productSchema = new mongoose.Schema({
       enum: ['clothing', 'kg', 'g', 'mL', 'L', 'number']
     },
     regularPrice: Number,
-  salePrice: Number,
+    salePrice: Number,
   }],
   images: [String],
-  
+
   inStock: {
     type: Boolean,
     default: true

@@ -60,7 +60,7 @@ function App() {
           <Route path="/blog-category" element={<BlogCategory />} />
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
-          <Route path="/shop-single" element={<ShopSingle />} />
+          <Route path="/shop-single/:id" element={<ShopSingle />} />
           <Route path="/dashboard/post" element={<CreatePost />} />
           <Route path="/dashboard/post/list" element={<PostsList />} />
           <Route path="/singlepost" element={<SinglePost />} />

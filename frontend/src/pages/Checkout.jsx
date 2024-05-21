@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Order from '../components/checkout/Order';
 import BreadcrumbComponent from '../components/checkout/BreadcrumbComponent';
 import DeliveryAddress from '../components/checkout/DeliveryAddress';
@@ -10,47 +11,37 @@ import Discount from '../components/checkout/Discount';
 import './Checkout.css';
 
 function Checkout() {
+  const [items, setItems] = useState([]);
+  const token = localStorage.getItem('userToken');
   const totalPoints = 300;
-  const items = [
-    {
-      name: "Haldiram's Sev Bhujia",
-      description: ".98 / lb",
-      quantity: 1,
-      price: 5.00,
-      image: process.env.PUBLIC_URL + '/pics/productimg1.png'
-    },
-    {
-      name: "NutriChoice Digestive",
-      description: "250g",
-      quantity: 1,
-      price: 20.00,
-      image: process.env.PUBLIC_URL + '/pics/productimg2.png'
-    },
-    {
-      name: "Cadbury 5 Star Chocolate",
-      description: "1 kg",
-      quantity: 1,
-      price: 15.00,
-      image: process.env.PUBLIC_URL + '/pics/productimg3.png'
-    },
-    {
-      name: "Onion Flavour Potato",
-      description: "250g",
-      quantity: 1,
-      price: 15.00,
-      image: process.env.PUBLIC_URL + '/pics/productimg4.png'
-    }
-  ];
 
-  // Calculate totalPrice
-  const totalPrice = items.reduce((acc, item) => acc + item.price, 0);
+  useEffect(() => {
+    const fetchWishlistData = async () => {
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://localhost:4000/cart', {
+          headers: {
+            'Authorization': `group__${token}`
+          }
+        });
+        setItems(response.data);
+      } catch (error) {
+        console.error('Error fetching wishlist:', error);
+      }
+    };
+
+    fetchWishlistData();
+  }, [token]);
 
   const [checkoutData, setCheckoutData] = useState({});
   const [discountAmount, setDiscountAmount] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleUpdateCheckoutData = (newData) => {
-   
     const updatedPoints = newData.selectedPoints > totalPoints ? totalPoints : newData.selectedPoints;
 
     setCheckoutData((prevData) => ({
@@ -62,12 +53,39 @@ function Checkout() {
     setDiscountAmount(newData.discountAmount || 0);
   };
 
-  const handleSubmit = () => {
-    if (checkoutData.selectedPoints > totalPoints) {
-      setErrorMessage("Points used exceed total available points!"); // Display error message
-    } else {
-      console.log("Collected data:", checkoutData);
-      setErrorMessage(""); // Clear error message if no error
+  const handleTotalAfterDiscountChange = (newTotalAfterDiscount) => {
+    setCheckoutData((prevData) => ({
+      ...prevData,
+      totalAfterDiscount: newTotalAfterDiscount,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    const requestData = {
+      address: checkoutData.address,
+      deliveryInstructions: checkoutData.deliveryInstructions,
+      paymentMethod: checkoutData.paymentMethod,
+      items: items.map(item => ({
+        name: item.title,
+        quantity: item.quantity,
+        price: item.regularPrice,
+        image: item.images,
+        description: item.sizes,
+      })),
+      tota: checkoutData.totalAfterDiscount, 
+    };
+
+    try {
+      await axios.post('http://localhost:4000/checkout', requestData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `group__${token}`,
+        },
+      });
+
+      setErrorMessage('Order placed successfully');
+    } catch (error) {
+      setErrorMessage('Failed to place order');
     }
   };
 
@@ -104,11 +122,16 @@ function Checkout() {
           </div>
         </div>
         <div className="main-content" style={{ marginBottom: '20px' }}>
-          <Order items={items} discountAmount={discountAmount} subtotal={totalPrice} />
+          <Order 
+            items={items} 
+            discountAmount={discountAmount} 
+            serviceFee={3.00}
+            onTotalAfterDiscountChange={handleTotalAfterDiscountChange}
+          />
+          console.log({ checkoutData.totalAfterDiscount })
         </div>
       </div>
     </div>
-    
   );
 }
 

@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const Order = ({ items, discountAmount, subtotal }) => {
-  const serviceFee = 3.00;
-  const totalAfterDiscount = subtotal + serviceFee - discountAmount;
-  const totalBeforeDiscount = subtotal + serviceFee;
+const Order = ({ items, discountAmount, serviceFee = 3.00, onTotalAfterDiscountChange }) => {
+  const itemsSubtotal = items.reduce((acc, item) => {
+    const itemTotal = (item.regularPrice || 0) * (item.quantity || 0);
+    return acc + itemTotal;
+  }, 0);
+
+  const subTotal = itemsSubtotal + serviceFee;
+  const totalAfterDiscount = subTotal - discountAmount;
+
+  useEffect(() => {
+    if (onTotalAfterDiscountChange) {
+      onTotalAfterDiscountChange(totalAfterDiscount);
+    }
+  }, [totalAfterDiscount, onTotalAfterDiscountChange]);
 
   return (
     <div className="mt-4 mt-lg-0" style={{ maxWidth: '800px' }}>
@@ -14,17 +24,21 @@ const Order = ({ items, discountAmount, subtotal }) => {
             <li className="list-group-item px-4 py-3" key={index}>
               <div className="row align-items-center">
                 <div className="col-2 col-md-2">
-                  <img src={item.image} alt={item.name} className="img-fluid" />
+                  <img 
+                    src={`http://localhost:4000/${item.images}`}
+                    className="img-fluid"
+                    alt=""
+                  />
                 </div>
                 <div className="col-5 col-md-5">
-                  <h6 className="mb-0">{item.name}</h6>
-                  <span><small className="text-muted">{item.description}</small></span>
+                  <h6 className="mb-0">{item.title || 'Unnamed Item'}</h6>
+                  <span><small className="text-muted">{item.sizes || 'No description'}</small></span>
                 </div>
                 <div className="col-2 col-md-2 text-center text-muted">
-                  <span>{item.quantity}</span>
+                  <span>{item.quantity || 0}</span>
                 </div>
                 <div className="col-3 text-lg-end text-start text-md-end col-md-3">
-                  <span className="fw-bold">${item.price.toFixed(2)}</span>
+                  <span className="fw-bold">${item.regularPrice ? item.regularPrice.toFixed(2) : '0.00'}</span>
                 </div>
               </div>
             </li>
@@ -32,7 +46,7 @@ const Order = ({ items, discountAmount, subtotal }) => {
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>Item Subtotal</div>
-              <div className="fw-bold">${subtotal.toFixed(2)}</div>
+              <div className="fw-bold">${itemsSubtotal.toFixed(2)}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
@@ -44,7 +58,7 @@ const Order = ({ items, discountAmount, subtotal }) => {
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>SubTotal</div>
-              <div className="fw-bold">${totalBeforeDiscount.toFixed(2)}</div>
+              <div className="fw-bold">${subTotal.toFixed(2)}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
@@ -57,6 +71,6 @@ const Order = ({ items, discountAmount, subtotal }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Order;

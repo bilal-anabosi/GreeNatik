@@ -15,6 +15,7 @@ const cartRouter = require("./routes/cartRoutes.js");
 const connectDB = require("./DB/connection.js");
 const { authenticateToken } = require("./middelware/auth");
 const checkoutRoutes=require("./routes/checkoutRoutes");
+const reviewRoutes = require("./routes/reviewsRoutes.js");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -38,6 +39,7 @@ app.use("/store", StoreRoutes);
 app.use("/wishlist", WishlistRoutes);
 app.use("/cart", cartRouter);
 app.use("/checkout",checkoutRoutes);
+app.use("/reviews", reviewRoutes);
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

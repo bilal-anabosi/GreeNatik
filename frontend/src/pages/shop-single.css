@@ -85,6 +85,12 @@
     color: #fff;
 }
 
+.selected_tg {
+    background-color: #0aad0a !important;
+    color: #fff !important;
+    border: 1px solid #0aad0a !important;
+}
+
 .input {
     display: flex;
     align-items: center;
@@ -249,16 +255,27 @@
     margin-top: 5em;
 }
 
+.pro_buttons {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
 .nav_button {
     cursor: pointer;
     font-weight: 500;
     padding: 16px 0;
     white-space: nowrap;
-    border-bottom: 2px solid var(--fc-primary);
-    color: var(--fc-primary);
+    border-bottom: 2px solid transparent;
+    transition: .3s;
     width: fit-content;
 
     margin-bottom: -2em;
+}
+
+.nav_b_selected {
+    border-color: var(--fc-primary);
+    color: var(--fc-primary);
 }
 
 .description span {
@@ -278,6 +295,55 @@
 .price-tag-small span:nth-child(2) {
     color: #5c6c75;
     text-decoration: line-through;
+}
+
+.review_input {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.review_input textarea {
+    width: 100%;
+    height: 100px;
+    padding: 1em;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    resize: none;
+}
+
+.review_stars {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.review_stars i {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    padding: 1em;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 1em;
+}
+
+.review_title {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.review_user {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
 @media only screen and (max-width: 1400px) {

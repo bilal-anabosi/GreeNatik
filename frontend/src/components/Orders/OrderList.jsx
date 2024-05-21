@@ -1,80 +1,102 @@
-import React from "react";
-import Order from "./Order"; 
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const OrderList = () => {
-    const orders = [
-    {
-    images: "img/product-img-1.jpg",
-    ProductTitle: "Product 1",
-    ProductSize: "400g",
-    orderCode: "#ABC123",
-    date: "2024-05-18",
-    price: "$99.99",
-    items: 3
-    },
-    {
-    images: "img/product-img-1.jpg",
-    ProductTitle: "Product 2",
-    ProductSize: "Medium",
-    orderCode: "#DEF456",
-    date: "2024-05-19",
-    price: "$79.99",
-    items: 2
-    },
-    {
-    images: "img/product-img-1.jpg",
-    ProductTitle: "Product 3",
-    ProductSize: "50g",
-    orderCode: "#GHI789",
-    date: "2024-05-20",
-    price: "$59.99",
-    items: 1
-    }
-];
+    const [orders, setOrders] = useState([]);
+    const navigate = useNavigate();
 
-return (
-    <div>
-        <section>
-            <div className="container">
-                <div className="row">
-                <div className="col-lg-9 col-md-8 col-12">
-            <div className="py-6 p-md-6 p-lg-10">
-        <h2 className="mb-6">Your Orders</h2>
-            <div className="table-responsive-xxl border-0">
-                <table className="table mb-0 text-nowrap table-centered">
-                    <thead className="bg-light">
-                        <tr>
-                        <th>&nbsp;</th>
-                        <th>Product</th>
-                        <th>Order</th>
-                        <th>Date</th>
-                        <th>Items</th>
-                        <th>Amount</th>
-                        <th />
-                        </tr>
-                    </thead>
-                        <tbody>
-                        {orders.map((order, index) => (
-                        <Order
-                            key={index}
-                            images={order.images}
-                            ProductTitle={order.ProductTitle}
-                            ProductSize={order.ProductSize}
-                            orderCode={order.orderCode}
-                            date={order.date}
-                            price={order.price}
-                            items={order.items}
-                        />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+    const fetchOrders = useCallback(async () => {
+        const token = localStorage.getItem('userToken');
+        try {
+            const response = await fetch('http://localhost:4000/checkout/details', {
+                headers: {
+                    'Authorization': `group__${token}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch order details');
+            }
+            const data = await response.json();
+            setOrders(data);
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                navigate('/AccessDenied');
+            } else {
+                console.error('Error fetching orders:', error);
+            }
+        }
+    }, [navigate]);
+
+    useEffect(() => {
+        fetchOrders();
+    }, [fetchOrders]);
+
+    return (
+        <div>
+            <section>
+                <div className="container">
+                    {orders.map((order, orderIndex) => (
+                        <div className="row" key={orderIndex}>
+                            <div className="col-lg-9 col-md-8 col-12">
+                                <div className="py-6 p-md-6 p-lg-10">
+                                    <h2 className="mb-1">Order {orderIndex + 1}: {order.numOrder}</h2>
+                                    <h6
+                                        className="mb-6"
+                                        style={{
+                                            padding: '5px 10px',
+                                            borderRadius: '5px',
+                                            display: 'inline-block',
+                                            backgroundColor: order.status === 'delivered' ? 'green' : 'red',
+                                            color: 'white'
+                                        }}
+                                    >
+                                        Status: {order.status}
+                                    </h6>
+                                    <div className="table-responsive-xxl border-0">
+                                        <table className="table mb-0 text-nowrap table-centered">
+                                            <thead className="bg-light">
+                                                <tr>
+                                                    <th>&nbsp;</th>
+                                                    <th>Product</th>
+                                                    <th>Date</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {order.items.map((item, itemIndex) => (
+                                                    <tr key={itemIndex}>
+                                                        <td className="align-middle border-top-0 w-0">
+                                                            <a href="# ">
+                                                                <img src={`http://localhost:4000/${item.image}`} alt="Ecommerce" className="icon-shape icon-xl" />
+                                                            </a>
+                                                        </td>
+                                                        <td className="align-middle border-top-0">
+                                                            <a href="# " className="fw-semibold text-inherit">
+                                                                <h6 className="mb-0">{item.name}</h6>
+                                                            </a>
+                                                            <span><small className="text-muted">{item.description}</small></span>
+                                                        </td>
+                                                        <td className="align-middle border-top-0">{new Date(order.checkoutDate).toLocaleDateString()}</td>
+                                                        <td className="align-middle border-top-0">{item.quantity}</td>
+                                                        <td className="align-middle border-top-0">{(item.price * item.quantity).toFixed(2)}</td>
+                                                    </tr>
+                                                ))}
+                                                <tr>
+                                                    <td colSpan="4" className="text-end fw-bold">Total Amount</td>
+                                                    <td className="fw-bold">{order.items.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
         </div>
-    </div>
-</div>
-</div>
-</section>
-</div>
-);
+    );
 };
+
 export default OrderList;

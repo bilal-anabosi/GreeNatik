@@ -54,6 +54,11 @@ const checkoutSchema = new Schema(
       required: true,
       default: generateOrderNumber
     },
+    status: {
+      type: String,
+      enum: ['not delivered', 'delivered'],
+      default: 'not delivered'
+    },
     total: { type: Number, default: 0.0 }
   },
   {

@@ -32,7 +32,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/user", userRouter);
 app.use("/profile", profileRouter);
-app.use("/api/products", authenticateToken, productRouter);
+app.use("/api/products",productRouter);
 
 app.use("/store", StoreRoutes);
 app.use("/wishlist", WishlistRoutes);

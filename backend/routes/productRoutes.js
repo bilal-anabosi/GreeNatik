@@ -8,7 +8,7 @@ const upload = require('../middelware/upload');
 router.get('/', authenticateToken, authorizeRoles(['admin']), getProducts);
 router.post('/', authenticateToken,authorizeRoles(['admin']), upload.array('images', 10), createProduct);
 // Route to fetch a specific product by ID
-router.get('/:productId', authenticateToken, authorizeRoles(['admin']), getProductById);
+router.get('/:productId', getProductById);
 
 router.put('/:productId', authenticateToken, authorizeRoles(['admin']), upload.array('images', 10), updateProduct);
 

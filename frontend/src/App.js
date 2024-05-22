@@ -61,8 +61,8 @@ function App() {
           <Route path="/Single-blog" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
           <Route path="/shop-single/:id" element={<ShopSingle />} />
-          <Route path="/dashboard/post" element={<CreatePost />} />
-          <Route path="/dashboard/post/list" element={<PostsList />} />
+          <Route path="/dashboard/post" element={<PostsList />} />
+          <Route path="/dashboard/post/add" element={<CreatePost />} />
           <Route path="/singlepost" element={<SinglePost />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/wide" element={<Wide />} />

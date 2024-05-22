@@ -126,8 +126,8 @@ export default function ShopSingle() {
             }
         }).then(({ data }) => {
             setReviews([...reviews, data])
-            setNewReview({ 
-                rating: 0, 
+            setNewReview({
+                rating: 0,
                 comment: '',
                 product: id,
                 user: "" // احتاج هنا احط ايدي اليوزر ماني عارف كيف اجيبه من التوكن
@@ -157,7 +157,7 @@ export default function ShopSingle() {
                         {product.images.map((image, index) =>
                             <img
                                 key={index}
-                                src={image}
+                                src={`http://localhost:4000${image}`}
                                 onClick={() => setSelectedImage(index)}
                                 className={selectedImage === index ? 'selected' : ''}
                             />
@@ -169,9 +169,16 @@ export default function ShopSingle() {
                         <a>{product.category}</a>
                         <h1>{product.title}</h1>
                         <div className='price-tag'>
-                            <span>{product.sizes[selectedSize].salePrice}$</span>
-                            <span>{product.sizes[selectedSize].regularPrice}$</span>
-                            <small>26% Off</small>
+                            {
+                                product.sizes[selectedSize].salePrice ?
+                                    <>
+                                        <span>{product.sizes[selectedSize].salePrice}$</span>
+                                        <span>{product.sizes[selectedSize].regularPrice}$</span>
+                                        <small>{(product.sizes[selectedSize].salePrice * 100) / product.sizes[selectedSize].regularPrice}% Off</small>
+                                    </>
+                                    :
+                                    <span>{product.sizes[selectedSize].regularPrice}$</span>
+                            }
                         </div>
                     </div>
                     <div className="line"></div>
@@ -209,20 +216,12 @@ export default function ShopSingle() {
                     <div className="line"></div>
                     <div className="product_info">
                         <div>
-                            <h5>Product Code:</h5>
-                            <span>FBB00255</span>
-                        </div>
-                        <div>
                             <h5>Availability:</h5>
-                            <span>In Stock</span>
+                            <span>{product.inStock ? "In Stock" : "Out of stock"}</span>
                         </div>
                         <div>
                             <h5>Type:</h5>
-                            <span>Fruits</span>
-                        </div>
-                        <div>
-                            <h5>Shipping:</h5>
-                            <span>01 day shipping</span>
+                            <span>{product.category}</span>
                         </div>
                     </div>
                 </div>
@@ -244,16 +243,8 @@ export default function ShopSingle() {
                 {
                     tab === 0 ?
                         <>
-                            <h3>Nutrient Value & Benefits</h3>
-                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                            <h3>Storage Tips</h3>
-                            <span>Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                            <h3>Unit</h3>
-                            <span>3 units</span>
-                            <h3>Seller</h3>
-                            <span>DMart Pvt. LTD</span>
-                            <h3>Disclaimer</h3>
-                            <span>Image shown is a representation and may slightly vary from the actual product. Every effort is made to maintain accuracy of all information displayed.</span>
+                            <h3>Description</h3>
+                            <span>{product.longDescription}</span>
                         </>
                         :
                         <>

@@ -35,6 +35,7 @@ import PostsList from './pages/dashboard/post-list.jsx';
 import Test from './pages/Test';
 import ProductsPage from './pages/ProductsPage';
 import CreateProductForm from './pages/CreateProductForm';
+import AboutUs from './pages/AboutUs.jsx';
 
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
           <Route path="/dashboard/products" element={<ProductsPage />} />
           <Route path="/dashboard/add-products" element={<CreateProductForm />} />
           <Route exact path="/dashboard/EditProductPage/:productId" element={<EditProductPage/>} />
-          
+          <Route path="/about-us" element={<AboutUs />} />
           
         </Routes>
       </Router>

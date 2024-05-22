@@ -44,6 +44,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  reviews: {
+    type: Number,
+    default: 0
+  },
   createdAt: {
     type: Date,
     default: Date.now // Set default value to current date/time

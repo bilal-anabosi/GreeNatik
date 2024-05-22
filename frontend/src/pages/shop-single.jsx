@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { UserContext } from "./account/context/User";
 import './shop-single.css'
 
 export default function ShopSingle() {
@@ -12,6 +13,7 @@ export default function ShopSingle() {
     let [selectedSize, setSelectedSize] = useState(0)
     let [newReview, setNewReview] = useState({ rating: 0, comment: '' })
     let { id } = useParams()
+    let { userData } = useContext(UserContext);
     let token = localStorage.getItem('userToken');
 
     useEffect(() => {
@@ -31,62 +33,6 @@ export default function ShopSingle() {
             setReviews(data)
         }).catch(err => { })
     }, [])
-
-    // let product = {
-    //     title: "Test",
-    //     category: "FoodWare",
-    //     longDescription: "Laborum Lorem deserunt sunt ad adipisicing ex reprehenderit nostrud nulla. Aliquip aute consequat proident magna duis irure qui eiusmod ad irure velit sint consequat. Id nisi cupidatat exercitation laboris duis. Incididunt deserunt non aute excepteur officia et et officia deserunt ea laboris ullamco. Non Lorem duis velit ut aliquip consequat aute cupidatat minim eiusmod irure commodo amet reprehenderit. Qui enim duis excepteur labore aliqua magna nostrud consequat excepteur.",
-    //     sizes: [{
-    //         size: "M",
-    //         quantity: 10,
-    //         unit: "clothing",
-    //         regularPrice: 32,
-    //         salePrice: 35
-    //     },
-    //     {
-    //         size: "L",
-    //         quantity: 20,
-    //         unit: "clothing",
-    //         regularPrice: 32,
-    //         salePrice: 35
-    //     },
-    //     {
-    //         size: "XL",
-    //         quantity: 30,
-    //         unit: "clothing",
-    //         regularPrice: 32,
-    //         salePrice: 35
-    //     }],
-    //     images: [
-    //         "/img/product-single-img-1.jpg",
-    //         "/img/product-single-img-2.jpg",
-    //         "/img/product-single-img-3.jpg",
-    //         "/img/product-single-img-4.jpg",
-    //     ],
-    //     inStock: true,
-    //     status: 'Active',
-    //     salesCount: 100,
-    //     createdAt: Date.now()
-    // }
-
-    // let reviews = [
-    //     {
-    //         rating: 5,
-    //         comment: "Great product",
-    //         user: {
-    //             username: "John Doe"
-    //         },
-    //         createdAt: Date.now(),
-    //     },
-    //     {
-    //         rating: 4,
-    //         comment: "Good product",
-    //         user: {
-    //             username: "Jane Doe"
-    //         },
-    //         createdAt: Date.now(),
-    //     },
-    // ]
 
     function addToCart() {
         axios.post('http://localhost:4000/cart/add', {
@@ -120,7 +66,12 @@ export default function ShopSingle() {
     }
 
     function addComment() {
-        axios.post(`http://localhost:4000/reviews/${id}`, newReview, {
+        axios.post(`http://localhost:4000/reviews/${id}`, {
+            rating: newReview.rating,
+            comment: newReview.comment,
+            product: id,
+            user: userData._id || userData.id
+        }, {
             headers: {
                 'Authorization': `group__${token}`
             }
@@ -129,8 +80,6 @@ export default function ShopSingle() {
             setNewReview({
                 rating: 0,
                 comment: '',
-                product: id,
-                user: "" // احتاج هنا احط ايدي اليوزر ماني عارف كيف اجيبه من التوكن
             })
         }).catch(err => {
             alert('Error adding review')
@@ -152,12 +101,12 @@ export default function ShopSingle() {
         <div className='single_container'>
             <div className="info">
                 <div className="left">
-                    <img src={product.images[selectedImage]} />
+                    <img src={`http://localhost:4000/${product.images[selectedImage]}`} />
                     <div className="images">
                         {product.images.map((image, index) =>
                             <img
                                 key={index}
-                                src={`http://localhost:4000${image}`}
+                                src={`http://localhost:4000/${image}`}
                                 onClick={() => setSelectedImage(index)}
                                 className={selectedImage === index ? 'selected' : ''}
                             />
@@ -174,7 +123,7 @@ export default function ShopSingle() {
                                     <>
                                         <span>{product.sizes[selectedSize].salePrice}$</span>
                                         <span>{product.sizes[selectedSize].regularPrice}$</span>
-                                        <small>{(product.sizes[selectedSize].salePrice * 100) / product.sizes[selectedSize].regularPrice}% Off</small>
+                                        <small>{(100 - (product.sizes[selectedSize].salePrice * 100) / product.sizes[selectedSize].regularPrice).toFixed(0) || "NuN"}% Off</small>
                                     </>
                                     :
                                     <span>{product.sizes[selectedSize].regularPrice}$</span>
@@ -269,7 +218,7 @@ export default function ShopSingle() {
                                         )}
                                     </div>
                                     <div className="review_input_row">
-                                        <div className="button">
+                                        <div onClick={addComment} className="button">
                                             <span style={{ marginBottom: 0 }}>Submit</span>
                                         </div>
                                     </div>

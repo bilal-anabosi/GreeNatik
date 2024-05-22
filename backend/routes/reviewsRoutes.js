@@ -4,10 +4,10 @@ const { authenticateToken } = require('../middelware/auth');
 const reviewsModel = require('../models/reviewsModel');
 const productModel = require('../models/Product')
 
-router.get('/:productId', authenticateToken, async (req, res) => {
+router.get('/:productId', async (req, res) => {
     try {
         const reviews = await reviewsModel.find({ product: req.params.productId }).populate('user');
-        res.json(reviews ? reviews : []);
+        res.send(reviews ? reviews : []);
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');

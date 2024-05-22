@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { UserContext } from "./account/context/User";
@@ -17,19 +17,11 @@ export default function ShopSingle() {
     let token = localStorage.getItem('userToken');
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/products/${id}`, {
-            headers: {
-                'Authorization': `group__${token}`
-            }
-        }).then(({ data }) => {
+        axios.get(`http://localhost:4000/api/products/${id}`).then(({ data }) => {
             setProduct(data.product)
         }).catch(err => { })
 
-        axios.get(`http://localhost:4000/reviews/${id}`, {
-            headers: {
-                'Authorization': `group__${token}`
-            }
-        }).then(({ data }) => {
+        axios.get(`http://localhost:4000/reviews/${id}`).then(({ data }) => {
             setReviews(data)
         }).catch(err => { })
     }, [])

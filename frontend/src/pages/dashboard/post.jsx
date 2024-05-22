@@ -4,7 +4,7 @@ import './post.css'
 export default function CreatePost() {
     return (
         <div className="newproduct">
-            <h1>Add New Product</h1>
+            <h1>Add New Post</h1>
             <div className="newproduct_container">
                 <Sidebar />
                 <div className="newproduct_box">

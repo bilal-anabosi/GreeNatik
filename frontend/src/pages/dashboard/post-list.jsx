@@ -1,102 +1,36 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Sidebar from '../../components/dashboard/sidebar'
 import './post-list.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 export default function PostsList() {
-    let items = [
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 1",
-            category: "Category 1",
-            status: "Active",
-            price: "100",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 2",
-            category: "Category 2",
-            status: "Active",
-            price: "200",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 3",
-            category: "Category 3",
-            status: "Active",
-            price: "300",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 4",
-            category: "Category 4",
-            status: "Active",
-            price: "400",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 5",
-            category: "Category 5",
-            status: "Active",
-            price: "500",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 6",
-            category: "Category 6",
-            status: "Active",
-            price: "600",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 7",
-            category: "Category 7",
-            status: "Active",
-            price: "700",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 8",
-            category: "Category 8",
-            status: "Active",
-            price: "800",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 9",
-            category: "Category 9",
-            status: "Active",
-            price: "900",
-            create_at: "2021-10-10"
-        },
-        {
-            image: "https://via.placeholder.com/40",
-            name: "Product 10",
-            category: "Category 10",
-            status: "Active",
-            price: "1000",
-            create_at: "2021-10-10"
-        }
-    ]
+    let [posts, setPosts] = useState([])
+    let token = localStorage.getItem('userToken');
+
+    useEffect(() => {
+        axios.get("http://localhost:4000/api/", {
+            headers: {
+                'Authorization': `group__${token}`,
+            }
+        }).then(({ data }) => {
+            setPosts(data.products)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }, [])
+
     return (
         <div className="newproduct">
-            <h1>Product</h1>
+            <h1>Posts List</h1>
             <div className="newproduct_container">
                 <Sidebar />
                 <div className="newproduct_box_container">
                     <div className="newproduct_title">
-                        <h3>Products</h3>
-                        <Link to="/dashboard/post">
+                        <h3>Posts</h3>
+                        <Link to="/dashboard/post/add">
                             <div className='create_button_2'>
-                                <span>Create Product</span>
+                                <span>Create Post</span>
                             </div>
                         </Link>
                     </div>
@@ -127,7 +61,7 @@ export default function PostsList() {
                                 </thead>
                                 <tbody>
                                     {
-                                        items.map(item => (
+                                        posts.map(item => (
                                             <Fragment>
                                                 <tr scope="item_row">
                                                     <th scope="row">
@@ -137,9 +71,9 @@ export default function PostsList() {
                                                         </label>
                                                     </th>
                                                     <td>
-                                                        <img src={item.image} />
+                                                        <img src={item.images[0]} width={40} />
                                                     </td>
-                                                    <td><a href="#">{item.name}</a></td>
+                                                    <td><a href="#">{item.title}</a></td>
                                                     <td>
                                                         {item.category}
                                                     </td>
@@ -148,8 +82,8 @@ export default function PostsList() {
                                                             {item.status}
                                                         </div>
                                                     </td>
-                                                    <td>{item.price}</td>
-                                                    <td>{item.create_at}</td>
+                                                    <td>{item.sizes.map(it => it.regularPrice).join(", ")}</td>
+                                                    <td>{item.createdAt}</td>
                                                 </tr>
                                                 <tr className="spacer"><td colspan="100"></td></tr>
                                             </Fragment>

@@ -20,14 +20,14 @@ export default function ShopSingle() {
     useEffect(() => {
         axios.get(`http://localhost:4000/api/products/${id}`).then(({ data }) => {
             setProduct(data.product)
+
+            axios.get(`http://localhost:4000/by-category?category=${product?.category}`).then(({ data }) => {
+                setRelated(data.products)
+            }).catch(err => { })
         }).catch(err => { })
 
         axios.get(`http://localhost:4000/reviews/${id}`).then(({ data }) => {
             setReviews(data)
-        }).catch(err => { })
-
-        axios.get(`http://localhost:4000/by-category?category=${product?.category}`).then(({ data }) => {
-            setRelated(data.products)
         }).catch(err => { })
     }, [])
 

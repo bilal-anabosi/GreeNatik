@@ -90,6 +90,8 @@ const WishlistTable = () => {
 
       if (response.status === 200) {
         console.log('Product added to cart successfully');
+        navigate('/cart');
+
       } else {
         console.error('Failed to add product to cart, status code:', response.status);
       }
@@ -113,7 +115,7 @@ const WishlistTable = () => {
                   <tr>
                     <th></th>
                     <th>Product</th>
-                    <th>Amount</th>
+                    <th>price</th>
                     <th>Status</th>
                     <th>Actions</th>
                     <th>Remove</th>
@@ -138,10 +140,10 @@ const WishlistTable = () => {
                               {item.product.title}
                             </a>
                           </h5>
-                          <small>{item.product.price}</small>
+                          <small>{item.product.size}</small>
                         </div>
                       </td>
-                      <td className="align-middle">{item.product.amount}</td>
+                      <td className="align-middle">{item.product.price}</td>
                       <td className="align-middle">
                         <span
                           className={`badge ${item.product.status ? "bg-success" : "bg-danger"}`}

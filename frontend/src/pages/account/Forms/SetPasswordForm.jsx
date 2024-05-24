@@ -4,10 +4,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import React, { useState } from 'react';
+
 
 const SetPasswordForm = () => {
   const navigate = useNavigate();
-
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (userData) => {
     try {
@@ -26,6 +28,7 @@ const SetPasswordForm = () => {
       }
     } catch (error) {
       console.error('Error during password update:', error);
+      setErrorMessage('Invalid code');
     }
   };
 
@@ -56,7 +59,18 @@ const SetPasswordForm = () => {
 
 
 
-  return <FormGenerator onSubmit={onSubmit} attributes={attributes} />;
+  return (
+    <div>
+      {errorMessage && (
+        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+          {errorMessage}
+          <button type="button" className="btn-close" onClick={() => setErrorMessage('')} aria-label="Close"></button>
+        </div>
+      )}
+       
+      <FormGenerator onSubmit={onSubmit} attributes={attributes} />
+    </div>
+  );
 };
 
 export default SetPasswordForm;

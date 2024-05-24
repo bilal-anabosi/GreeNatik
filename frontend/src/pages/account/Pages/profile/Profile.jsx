@@ -158,7 +158,7 @@ function Profile() {
                         </div>
                       </div>
                       <div className="form-group mt-3 text-center">
-                        <Logout />
+                        <Logout/>
 
                       </div>
                     </Form>

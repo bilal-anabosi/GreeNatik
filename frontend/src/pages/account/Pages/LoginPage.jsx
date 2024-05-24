@@ -9,6 +9,7 @@ import SignInWithGoogle from '../SignInWithGoogle.jsx';
 import React from 'react';
 
 import './Pages.css'
+import { Logout } from '../Inputs/logout.jsx';
 
 export default function LoginPage() {
 
@@ -57,9 +58,9 @@ export default function LoginPage() {
                 <Typography variant="body2" gutterBottom textAlign='center'>
                     Don&apos;t have an account? 
                     <Link component={RouterLink} to='/sign-up' style={{textDecoration: "none"}}>
-                        Sign up
+                        Sign up 
                     </Link>
-                    
+                   
                 </Typography>
             
             </Stack>

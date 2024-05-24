@@ -32,16 +32,10 @@ const PostModal = () => {
               A RECYCLING FACTORY AND WANT TO JOIN US?
             </p>
             <p className={classes.emailText}>
-              Give us your email to know more about our service and policy
+              Join our recycling community to create posts requesting materials
+              and contribute to environmental conservation.{" "}
+              <a href="/sign-up">Sign up here</a> to make a difference!
             </p>
-            <div className={classes.subscribeForm}>
-              <input
-                className={classes.inputField}
-                placeholder="
-              Enter your email"
-              />
-              <button className={classes.subscribeButton}>Subscribe</button>
-            </div>
           </div>
         </div>
       </div>

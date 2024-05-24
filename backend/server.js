@@ -13,8 +13,9 @@ const WishlistRoutes = require("./routes/wishlistRoutes.js");
 const cartRouter = require("./routes/cartRoutes.js");
 const connectDB = require("./DB/connection.js");
 const { authenticateToken } = require("./middelware/auth");
-const checkoutRoutes=require("./routes/checkoutRoutes");
+const checkoutRoutes = require("./routes/checkoutRoutes");
 const reviewRoutes = require("./routes/reviewsRoutes.js");
+const postsRoutes = require("./routes/postsRoutes.js");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -32,13 +33,14 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/user", userRouter);
 app.use("/profile", profileRouter);
-app.use("/api/products",productRouter);
+app.use("/api/products", productRouter);
 
 app.use("/store", StoreRoutes);
 app.use("/wishlist", WishlistRoutes);
 app.use("/cart", cartRouter);
-app.use("/checkout",checkoutRoutes);
+app.use("/checkout", checkoutRoutes);
 app.use("/reviews", reviewRoutes);
+app.use("/posts", postsRoutes);
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

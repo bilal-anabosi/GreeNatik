@@ -17,201 +17,9 @@ const citiesAndFactories = [
     date: "30 April 2024",
     progress: generateRandomProgress(),
   },
-  {
-    city: "Gaza City",
-    factory: "Metal Fabrication Ltd.",
-    requestType: "metal",
-    quantity: "500 kg",
-    date: "30 May 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Hebron",
-    factory: "Paper Packaging Industries",
-    requestType: "paper",
-    quantity: "400 kg",
-    date: "30 June 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Nablus",
-    factory: "Glassworks Company",
-    requestType: "glass",
-    quantity: "200 kg",
-    date: "30 July 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Jericho",
-    factory: "Recycling Plant",
-    requestType: "others",
-    quantity: "500 kg",
-    date: "30 August 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Bethlehem",
-    factory: "Ceramics Co.",
-    requestType: "others",
-    quantity: "300 kg",
-    date: "30 September 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Jenin",
-    factory: "Aluminum Works",
-    requestType: "metal",
-    quantity: "150 kg",
-    date: "30 October 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Tulkarm",
-    factory: "Packaging Solutions",
-    requestType: "plastic",
-    quantity: "400 kg",
-    date: "30 November 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Qalqilya",
-    factory: "Fiberboard Industries",
-    requestType: "paper",
-    quantity: "60 kg",
-    date: "30 December 2024",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Beit Sahour",
-    factory: "Glass Bottle Co.",
-    requestType: "glass",
-    quantity: "100 kg",
-    date: "30 January 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Bethlehem",
-    factory: "Ceramics Co.",
-    requestType: "others",
-    quantity: "300 kg",
-    date: "30 February 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Jenin",
-    factory: "Aluminum Works",
-    requestType: "metal",
-    quantity: "150 kg",
-    date: "30 March 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Tulkarm",
-    factory: "Packaging Solutions",
-    requestType: "plastic",
-    quantity: "80 kg",
-    date: "30 April 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Qalqilya",
-    factory: "Fiberboard Industries",
-    requestType: "paper",
-    quantity: "60 kg",
-    date: "30 May 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Beit Sahour",
-    factory: "Glass Bottle Co.",
-    requestType: "glass",
-    quantity: "100 kg",
-    date: "30 June 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Salfit",
-    factory: "Plastic Recycling Plant",
-    requestType: "plastic",
-    quantity: "400 kg",
-    date: "30 July 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Tubas",
-    factory: "Metal Casting Foundry",
-    requestType: "metal",
-    quantity: "90 kg",
-    date: "30 August 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Khan Yunis",
-    factory: "Paper Processing Co.",
-    requestType: "paper",
-    quantity: "100 kg",
-    date: "30 September 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Rafah",
-    factory: "Glassware Manufacturing",
-    requestType: "glass",
-    quantity: "18 kg",
-    date: "30 October 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Deir al-Balah",
-    factory: "Plastic Packaging Ltd.",
-    requestType: "plastic",
-    quantity: "6 kg",
-    date: "30 November 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Ar-Ram",
-    factory: "Metal Recycling Center",
-    requestType: "metal",
-    quantity: "7 kg",
-    date: "30 December 2025",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Khan Younis",
-    factory: "Paperboard Co.",
-    requestType: "paper",
-    quantity: "5 kg",
-    date: "30 January 2026",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Anabta",
-    factory: "Glass Bottle Manufacturing",
-    requestType: "glass",
-    quantity: "150 kg",
-    date: "30 February 2026",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Nablus",
-    factory: "Plastic Extrusion Company",
-    requestType: "plastic",
-    quantity: "90 kg",
-    date: "30 March 2026",
-    progress: generateRandomProgress(),
-  },
-  {
-    city: "Qabatiya",
-    factory: "Metal Sheet Fabrication",
-    requestType: "metal",
-    quantity: "100 kg",
-    date: "30 April 2026",
-    progress: generateRandomProgress(),
-  },
 ];
 const Posts = () => {
-  const [originalData, setOriginalData] = useState(citiesAndFactories);
+  const [originalData, setOriginalData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [almostCompletedData, setAlmostCompletedData] = useState([]);
 
@@ -220,11 +28,27 @@ const Posts = () => {
     requestType: "",
     city: "",
     sortType: "",
+    deliveryMethod: "",
   });
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/posts"); // Updated: Fetching data from the API
+        const data = await response.json();
+        setOriginalData(data);
+        setFilteredData(data); // Updated: Setting the fetched data to state
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array to run only once on mount
+  console.log("filteredData", filteredData);
+  useEffect(() => {
     const almostCompletedData = [...originalData]
-      .sort((a, b) => b.progress - a.progress)
+      .sort((a, b) => b.percentage - a.percentage)
       .slice(0, 4);
     setAlmostCompletedData(almostCompletedData);
   }, [originalData]);
@@ -234,7 +58,7 @@ const Posts = () => {
 
     if (filter.quantity) {
       filteredData = filteredData.filter((item) => {
-        const itemQuantity = +{ ...item }.quantity.replace("kg", "").trimEnd();
+        const itemQuantity = { ...item }.quantity;
 
         return (
           itemQuantity >= filter.quantity[0] &&
@@ -246,8 +70,7 @@ const Posts = () => {
 
     if (filter.city) {
       filteredData = filteredData.filter(
-        (item) =>
-          item.city.toLocaleLowerCase() === filter.city.toLocaleLowerCase()
+        (item) => item.city.toLowerCase() === filter.city.toLowerCase()
       );
       console.log("filteredData from city", filteredData);
     }
@@ -255,8 +78,7 @@ const Posts = () => {
     if (filter.requestType) {
       filteredData = filteredData.filter(
         (item) =>
-          item.requestType.toLocaleLowerCase() ===
-          filter.requestType.toLocaleLowerCase()
+          item.requesting.toLowerCase() === filter.requestType.toLowerCase()
       );
 
       console.log("filteredData from requestType", filteredData);
@@ -264,14 +86,24 @@ const Posts = () => {
 
     if (filter.sortType === "Latest") {
       filteredData = filteredData.sort(
-        (a, b) => parseDate(b.date) - parseDate(a.date)
+        (a, b) => parseDate(b?.date) - parseDate(a?.date)
       );
     }
 
     if (filter.sortType === "Earliest") {
       filteredData = filteredData.sort(
-        (a, b) => parseDate(a.date) - parseDate(b.date)
+        (a, b) => parseDate(a?.date) - parseDate(b?.date)
       );
+    }
+
+    if (filter.deliveryMethod) {
+      filteredData = filteredData.filter(
+        (item) =>
+          item.pickUpDetails.toLowerCase() ===
+          filter.deliveryMethod.toLowerCase()
+      );
+
+      console.log("filteredData from requestType", filteredData);
     }
     console.log("final data", filteredData);
     setFilteredData(filteredData);
@@ -281,7 +113,7 @@ const Posts = () => {
     e.preventDefault();
     const value = e.target.text;
 
-    if (value === "all") {
+    if (value === "All") {
       setFilter((prev) => ({ ...prev, quantity: "" }));
       return;
     }
@@ -294,7 +126,7 @@ const Posts = () => {
   const onMaterialChange = (e) => {
     e.preventDefault();
     const material = e.target.text;
-    if (material === "all") {
+    if (material === "All") {
       setFilter((prev) => ({ ...prev, requestType: "" }));
       return;
     }
@@ -302,11 +134,12 @@ const Posts = () => {
     console.log("material", material);
     setFilter((prev) => ({ ...prev, requestType: material }));
   };
+
   const onCityChange = (e) => {
     e.preventDefault();
     const city = e.target.text;
 
-    if (city === "all") {
+    if (city === "All") {
       setFilter((prev) => ({ ...prev, city: "" }));
       return;
     }
@@ -316,9 +149,18 @@ const Posts = () => {
   };
 
   const parseDate = (dateString) => {
-    const [day, month, year] = dateString.split(" ");
-    const date = new Date(`${month} ${day}, ${year}`);
+    const date = new Date(dateString);
     return date;
+  };
+
+  const formateDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+    const formattedDate = `${day} ${month} ${year}`;
+
+    return formattedDate;
   };
 
   const onSortClick = (e) => {
@@ -331,31 +173,52 @@ const Posts = () => {
     console.log("selectedSortCraiteria", selectedSortCraiteria);
     setFilter((prev) => ({ ...prev, sortType: selectedSortCraiteria }));
   };
+  const onDeliveryMethodClick = (e) => {
+    e.preventDefault();
+    const selectedDeliveryMethod = e.target.text;
+    if (selectedDeliveryMethod === "All") {
+      setFilter((prev) => ({ ...prev, deliveryMethod: "" }));
+      return;
+    }
+    console.log("selectedDeliveryMethod", selectedDeliveryMethod);
+    setFilter((prev) => ({ ...prev, deliveryMethod: selectedDeliveryMethod }));
+  };
 
   const quantityChoices = [
-    { label: "all", value: "" },
+    { label: "All", value: "" },
     { label: "5kg-20kg", value: "5-20" },
     { label: "21kg-50kg", value: "21-50" },
     { label: "51kg-100kg", value: "51-100" },
     { label: "101kg-200kg", value: "101-200" },
     { label: "201kg-500kg", value: "201-500" },
+    { label: "501kg-1000kg", value: "501-1000" },
   ];
 
   const materialChoices = [
-    { label: "all", value: "" },
+    { label: "All", value: "" },
     { label: "Plastic", value: "Plastic" },
     { label: "Metal", value: "Metal" },
     { label: "Paper", value: "Paper" },
-    { label: "Glass", value: "Glass" },
+
     { label: "Others", value: "Others" },
   ];
   const cityChoices = [
-    { label: "all", value: "" },
-    { label: "Ramallah", value: "Ramallah" },
+    { label: "All", value: "" },
+    { label: "Jerusalem", value: "Jerusalem" },
     { label: "Gaza City", value: "Gaza City" },
     { label: "Hebron", value: "Hebron" },
-    { label: "Nablus", value: "Nablus" },
+    { label: "Naqab", value: "Naqab" },
     { label: "Jenin", value: "Jenin" },
+    { label: "Nablus", value: "Nablus" },
+    { label: "Rafah", value: "Rafah" },
+    { label: "Ramallah", value: "Ramallah" },
+    { label: "Bethlehem", value: "Bethlehem" },
+    { label: "Tulkarm", value: "Tulkarm" },
+  ];
+  const selectDeliveryMethod = [
+    { label: "All", value: "" },
+    { label: "Pick Up", value: "Pick Up" },
+    { label: "Drop Off", value: "Drop Off" },
   ];
 
   const sortChoices = [
@@ -370,7 +233,7 @@ const Posts = () => {
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <a href="#">Home</a>
+              <a href="/home">Home</a>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
               Recycling
@@ -387,12 +250,16 @@ const Posts = () => {
             {almostCompletedData.map((post, index) => (
               <Post
                 key={index}
+                id={post.id}
+                image={post.ownerImage}
                 city={post.city}
-                factory={post.factory}
-                requestType={post.requestType}
+                requestType={post.requesting}
                 quantity={post.quantity}
-                date={post.date}
-                progress={post.progress}
+                date={formateDate(post.date)}
+                progress={post.percentage}
+                deliveryMethod={post.pickUpDetails}
+                postDetails={post.details}
+                ownerUsername={post.ownerUsername}
               />
             ))}
             <div className="mt-6">
@@ -403,30 +270,41 @@ const Posts = () => {
                 </small>
               </h6>
             </div>
-            <div className={classes.menus}>
-              <div className={`${classes.filterContainer}`}>
+            <div className={`${classes.menus} row`}>
+              <div className="mb-2 col-sm-6 col-lg-3">
                 <DropdownMenu
                   title="Select City"
                   choices={cityChoices}
                   onChange={onCityChange}
                 />
+              </div>
+              <div className="mb-2 col-sm-6 col-lg-3">
                 <DropdownMenu
                   title="Select material"
                   choices={materialChoices}
                   onChange={onMaterialChange}
                 />
+              </div>
+              <div className="mb-2 col-sm-6 col-lg-3">
                 <DropdownMenu
                   title="Quantity"
                   choices={quantityChoices}
                   onChange={onQuantityChange}
                 />
-                <div className={classes.sort}>
-                  <DropdownMenu
-                    title="Sort by:"
-                    choices={sortChoices}
-                    onChange={onSortClick}
-                  />
-                </div>
+              </div>
+              <div className="mb-2 col-sm-6 col-lg-3">
+                <DropdownMenu
+                  title="Delivery method"
+                  choices={selectDeliveryMethod}
+                  onChange={onDeliveryMethodClick}
+                />
+              </div>
+              <div className="col-sm-6 col-lg-3">
+                <DropdownMenu
+                  title="Sort by:"
+                  choices={sortChoices}
+                  onChange={onSortClick}
+                />
               </div>
             </div>
           </div>

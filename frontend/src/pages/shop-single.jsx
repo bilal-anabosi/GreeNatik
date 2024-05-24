@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { UserContext } from "./account/context/User";
 import './shop-single.css'
 
@@ -12,6 +12,7 @@ export default function ShopSingle() {
     let [amount, setAmount] = useState(1)
     let [selectedSize, setSelectedSize] = useState(0)
     let [newReview, setNewReview] = useState({ rating: 0, comment: '' })
+    let [related, setRelated] = useState([])
     let { id } = useParams()
     let { userData } = useContext(UserContext);
     let token = localStorage.getItem('userToken');
@@ -19,6 +20,10 @@ export default function ShopSingle() {
     useEffect(() => {
         axios.get(`http://localhost:4000/api/products/${id}`).then(({ data }) => {
             setProduct(data.product)
+
+            axios.get(`http://localhost:4000/by-category?category=${product?.category}`).then(({ data }) => {
+                setRelated(data.products)
+            }).catch(err => { })
         }).catch(err => { })
 
         axios.get(`http://localhost:4000/reviews/${id}`).then(({ data }) => {
@@ -243,11 +248,11 @@ export default function ShopSingle() {
             <div className="related_items">
                 <h1>Related Items</h1>
                 <div className="related_items_list">
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
+                    {
+                        related?.map((item, index) =>
+                            <Item key={index} {...item} />
+                        )
+                    }
                 </div>
             </div>
             <div style={{ height: "3em" }}></div>
@@ -259,21 +264,30 @@ export default function ShopSingle() {
         )
 }
 
-function Item() {
+function Item(props) {
     return (
         <div className='related_item'>
-            <img src="/img/product-img-1.jpg" />
-            <span>Snack & Munchies</span>
+            <img src={`http://localhost:4000/${props.images[0]}`} />
+            <span>{props.title}</span>
             <h3>Haldiram's Sev Bhujia</h3>
             <div className='related_row'>
                 <div className='price-tag-small'>
-                    <span>32$</span>
-                    <span>35$</span>
+                    {
+                        props.sizes[0].salePrice ?
+                            <>
+                                <span>{props.sizes[0].salePrice}$</span>
+                                <span>{props.sizes[0].regularPrice}$</span>
+                            </>
+                            :
+                            <span>{props.sizes[0].regularPrice}$</span>
+                    }
                 </div>
-                <div className="button-small">
-                    <i className="bi bi-plus"></i>
-                    <span>Add</span>
-                </div>
+                <Link to={`/shop-single/${props._id}`}>
+                    <div className="button-small">
+                        <i className="bi bi-plus"></i>
+                        <span>Add</span>
+                    </div>
+                </Link>
             </div>
         </div>
     )

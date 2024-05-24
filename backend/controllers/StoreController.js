@@ -50,7 +50,20 @@ const getTopSellingProducts = async (req, res) => {
   }
 };
 
+const getProductsByCategory = async (req, res) => {
+  try {
+    const category = req.query.category;
+    const products = await Product.find({ category }).limit(5);
+
+    res.status(200).json({ products });
+
+  } catch (error) {
+    console.error('Error fetching products by category:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 
 module.exports = {
-  getLatestProducts, getLatestProductsWithSale, getTopSellingProducts
+  getLatestProducts, getLatestProductsWithSale, getTopSellingProducts, getProductsByCategory
 };

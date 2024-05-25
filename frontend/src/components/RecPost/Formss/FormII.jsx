@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './Formss.css';
 import axios from 'axios';
 import Map from './Map';
@@ -8,17 +8,47 @@ const FormII = () => {
     const [quantity, setQuantity] = useState('');
     const [condition, setCondition] = useState('');
     const [notes, setNotes] = useState('');
+
     const [city, setCity] = useState('');
     const [street, setStreet] = useState('');
     const [zip, setZip] = useState('');
+
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
+
     const [errorMsg, setErrorMsg] = useState('');
+    
     const [pickup, setPickup] = useState(true);
     const [dropOff, setDropOff] = useState(false);
-    const locationUrl1 = 'https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d418932.30157428246!2d35.57709594891422!3d32.22224307839886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x151ce0f650425697%3A0x7f0ba930bd153d84!2sNablus!3m2!1d32.222667799999996!2d35.262146099999995!5e0!3m2!1sar!2s!4v1714582625175!5m2!1sar!2s';
+
+    const [maxQuantity, setMaxQuantity] = useState(0);
+    const [points, setPoints] = useState(0); 
+
+    //const locationUrl1 = 'https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d418932.30157428246!2d35.57709594891422!3d32.22224307839886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x151ce0f650425697%3A0x7f0ba930bd153d84!2sNablus!3m2!1d32.222667799999996!2d35.262146099999995!5e0!3m2!1sar!2s!4v1714582625175!5m2!1sar!2s';
+    const [locationUrl, setLocationUrl] = useState('');
+
+    const postId="66521304c1990a1e80de807f";
+    useEffect(() => {
+        const fetchPostDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:4000/posts/${postId}`);
+                if (response.data) {
+                    setMaxQuantity(response.data.quantity);
+
+                    // Assuming the server returns the location URL directly
+                    const locationUrl = response.data.locationUrl; // Adjust this according to the actual structure of the response
+
+                    setLocationUrl(locationUrl);
+                }
+            } catch (error) {
+                console.error('Error fetching post details:', error);
+            }
+        };
+        fetchPostDetails();
+    }, [postId]);
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -42,46 +72,66 @@ const FormII = () => {
         }
     };
 
-    const handleSubmit = async () => {
+    const handleQuantityChange = (e) => {
+        const value = e.target.value;
+        setQuantity(value);
+        const calculatedPoints = value * 200;
+        setPoints(calculatedPoints);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            let formData = {
+            // Validate form data
+            if (!material || !quantity || !condition) {
+                setErrorMessage('Please fill in all required fields');
+                return;
+            }
+
+            if (parseFloat(quantity) > maxQuantity) {
+                setErrorMessage(`Quantity cannot exceed the available amount of ${maxQuantity} kg`);
+                return;
+            }
+
+            // Construct contribution data object
+            const contributionData = {
                 material,
                 quantity,
                 condition,
-                notes
+                notes,
+                address: pickup ? { city, street, zip } : null,
+                date: dropOff ? date : null,
+                time: dropOff ? time : null,
+                points
             };
-    
-            if (pickup) {
-                formData = {
-                    ...formData,
-                    city,
-                    street,
-                    zip
-                };
-            }
-    
-            if (dropOff) {
-                formData = {
-                    ...formData,
-                    date,
-                    time
-                };
-            }
-    
+
+            // Retrieve token from localStorage
             const token = localStorage.getItem('userToken');
             console.log(token);
 
-            const response = await axios.post('http://localhost:4000/posts/forms', formData, {
+            // Submit contribution data to the server with token
+            const response = await axios.post(`http://localhost:4000/posts/${postId}/contributions`, contributionData, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `group__${token}`
+                    'Authorization':  `group__${token}` // user Token
                 }
             });
-            console.log('Response from server:', response.data);
-    
-            if (response.data.success) {
-                setSuccessMessage(response.data.message);
+
+            if (response.status === 201) {
+                setSuccessMessage('Contribution created successfully . You earned ' + points + ' points!');
                 setErrorMessage('');
+                // Reset form fields
+                setMaterial('');
+                setQuantity('');
+                setCondition('');
+                setNotes('');
+                setCity('');
+                setStreet('');
+                setZip('');
+                setDate('');
+                setTime('');
+                setPickup(true);
+                setDropOff(false);
             } else {
                 setErrorMessage(response.data.message || 'Please try again.');
                 setSuccessMessage('');
@@ -115,13 +165,13 @@ const FormII = () => {
                         />
                     </div>
                     <div className="col-sm-6">
-                        <label className="form-label">Quantity <span className="red-txt">*</span></label>
+                        <label className="form-label">Quantity <span className="red-txt">*</span> <span className="point"> Each 1 Kg = 200 points.</span></label>
                         <input
                             type="text"
                             className="form-control"
                             placeholder="In Kg (Kilograms)"
                             value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
+                            onChange={handleQuantityChange}
                         />
                     </div>
                     <div className="col-sm-6">
@@ -259,6 +309,21 @@ const FormII = () => {
                                             </div>
                                         </div>
                                     )}
+                                    {successMessage && (
+                    <div className="toast-container position-fixed bottom-0 end-0 p-3">
+                        <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div className="toast-header">
+                                <img src="/favicon.ico" width={32} height={32} className="rounded me-2" alt="" />
+                                <strong className="me-auto">GreeNatik</strong>
+                                <small className="f-6">Now</small>
+                                <button type="button" className="btn-close" onClick={() => setSuccessMessage('')} aria-label="Close"></button>
+                            </div>
+                            <div className="toast-body">
+                                {successMessage}
+                            </div>
+                        </div>
+                    </div>
+                )}
                                 </div>
                             </div>
                         </form>
@@ -275,9 +340,9 @@ const FormII = () => {
                             <span className="t-text">By clicking submit it means you agree to our <a href="# ">terms and conditions</a></span>
                         </div>
                     </div>
-                    <Map locationUrl={locationUrl1} />
+                    <Map locationUrl={locationUrl} />
+
                 </div>
-                {successMessage && <p className="text-suc">{successMessage}</p>}
             </div>
         </div>
     );

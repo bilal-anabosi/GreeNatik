@@ -15,7 +15,9 @@ const ContributionSchema = new Schema({
   condition: { type: String, required: true },
   notes: { type: String, default: '' },
   address: AddressSchema,
-  date: { type: Date, required: true }
+  date: { type: Date },
+  time: {type: String },
+  points: {type: Number}
 }, { timestamps: true });
 
 const Contribution = mongoose.model('Contribution', ContributionSchema);

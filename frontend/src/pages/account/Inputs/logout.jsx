@@ -6,7 +6,8 @@ export function Logout() {
 
   const handleCilck = () => {
         localStorage.clear();
-        navigate('/login');
+        //window.location.reload();
+        navigate('/login')
       };
 
       return (

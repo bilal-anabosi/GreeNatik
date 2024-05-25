@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Order from '../components/checkout/Order';
 import BreadcrumbComponent from '../components/checkout/BreadcrumbComponent';
@@ -7,55 +7,74 @@ import DeliveryInstructionsAccordion from '../components/checkout/DeliveryInstru
 import PaymentMethodAccordion from '../components/checkout/PaymentMethodAccordion';
 import CheckoutComponent from '../components/checkout/CheckoutComponent';
 import Discount from '../components/checkout/Discount';
-
+import { useNavigate } from 'react-router-dom';
 import './Checkout.css';
 
 function Checkout() {
   const [items, setItems] = useState([]);
   const token = localStorage.getItem('userToken');
   const totalPoints = 300;
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchWishlistData = async () => {
-      if (!token) {
-        console.error('No token found');
-        return;
-      }
+  const fetchWishlistData = useCallback(async () => {
+    if (!token) {
+      navigate('/AccessDenied');
 
-      try {
-        const response = await axios.get('http://localhost:4000/cart', {
-          headers: {
-            'Authorization': `group__${token}`
-          }
-        });
-        setItems(response.data);
-      } catch (error) {
+      return;
+    }
+
+    try {
+      const response = await axios.get('http://localhost:4000/cart', {
+        headers: {
+          'Authorization': `group__${token}`,
+        },
+      });
+      setItems(response.data);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        navigate('/AccessDenied');
+      } else {
         console.error('Error fetching wishlist:', error);
       }
-    };
+    }
+  }, [token, navigate]);
 
+  useEffect(() => {
     fetchWishlistData();
-  }, [token]);
+  }, [fetchWishlistData]);
 
-  const [checkoutData, setCheckoutData] = useState({});
+  const [checkoutData, setCheckoutData] = useState({
+    address: '',
+    deliveryInstructions: '',
+    paymentMethod: '',
+    selectedPoints: 0,
+  });
   const [discountAmount, setDiscountAmount] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isOrderPlaced, setIsOrderPlaced] = useState(false);
 
   const handleUpdateCheckoutData = (newData) => {
     const updatedPoints = newData.selectedPoints > totalPoints ? totalPoints : newData.selectedPoints;
 
-    setCheckoutData((prevData) => ({
-      ...prevData,
-      ...newData,
-      selectedPoints: updatedPoints,
-    }));
+    setCheckoutData((prevData) => {
+      const updatedData = { ...prevData, ...newData, selectedPoints: updatedPoints };
+      return JSON.stringify(prevData) !== JSON.stringify(updatedData) ? updatedData : prevData;
+    });
 
-    setDiscountAmount(newData.discountAmount || 0);
+    if (newData.discountAmount !== undefined) {
+      setDiscountAmount(newData.discountAmount);
+    }
   };
 
- 
-
   const handleSubmit = async () => {
+    const serviceFee = 3.00;
+    const itemsSubtotal = items.reduce((acc, item) => {
+      const itemTotal = (item.regularPrice || 0) * (item.quantity || 0);
+      return acc + itemTotal;
+    }, 0);
+    const subTotal = itemsSubtotal + serviceFee;
+    const totalAfterDiscount = subTotal - discountAmount;
+
     const requestData = {
       address: checkoutData.address,
       deliveryInstructions: checkoutData.deliveryInstructions,
@@ -67,19 +86,33 @@ function Checkout() {
         image: item.images,
         description: item.sizes,
       })),
+      totalAfterDiscount,
     };
 
     try {
-      await axios.post('http://localhost:4000/checkout', requestData, {
+      const response = await axios.post('http://localhost:4000/checkout', requestData, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `group__${token}`,
         },
       });
 
-      setErrorMessage('Order placed successfully');
+      setErrorMessage(`Order placed successfully. Order Number: ${response.data.numOrder}`);
+      setIsOrderPlaced(true);
+      setCheckoutData({
+        address: '',
+        deliveryInstructions: '',
+        paymentMethod: '',
+        selectedPoints: 0,
+      });
+      setItems([]);
+      setDiscountAmount(0);
     } catch (error) {
-      setErrorMessage('Failed to place order');
+      if (error.response && error.response.status === 401) {
+        navigate('/AccessDenied');
+      } else {
+        setErrorMessage('Failed to place order');
+      }
     }
   };
 
@@ -95,25 +128,29 @@ function Checkout() {
           <Discount onUpdate={handleUpdateCheckoutData} totalPoints={totalPoints} />
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <button onClick={handleSubmit} className="btn btn-primary mt-4">Place Order</button>
+            <button
+              onClick={handleSubmit}
+              className="btn btn-primary mt-4"
+              disabled={isOrderPlaced}
+            >
+              {isOrderPlaced ? 'Order Placed' : 'Place Order'}
+            </button>
           </div>
-          <div className="mb-3">
-            {errorMessage && (
-              <div className="toast-container position-fixed bottom-0 end-0 p-3">
-                <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                  <div className="toast-header">
-                    <img src="/favicon.ico" width={32} height={32} className="rounded me-2" alt="" />
-                    <strong className="me-auto">GreeNatik</strong>
-                    <small>Now</small>
-                    <button type="button" className="btn-close" onClick={() => setErrorMessage('')} aria-label="Close"></button>
-                  </div>
-                  <div className="toast-body">
-                    {errorMessage}
-                  </div>
+          {errorMessage && (
+            <div className="toast-container position-fixed bottom-0 end-0 p-3">
+              <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div className="toast-header">
+                  <img src="/favicon.ico" width={32} height={32} className="rounded me-2" alt="" />
+                  <strong className="me-auto">GreeNatik</strong>
+                  <small>Now</small>
+                  <button type="button" className="btn-close" onClick={() => setErrorMessage('')} aria-label="Close"></button>
+                </div>
+                <div className="toast-body">
+                  {errorMessage}
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
         <div className="main-content" style={{ marginBottom: '20px' }}>
           <Order 

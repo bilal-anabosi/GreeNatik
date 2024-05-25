@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Product from "../components/Product";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const token = localStorage.getItem("userToken");
   const [totalPrice, setTotalPrice] = useState(0);
+  const navigate = useNavigate();
 
   const fetchCartItems = async () => {
     try {
@@ -20,14 +22,20 @@ const Cart = () => {
       setCartItems(response.data);
     } catch (error) {
       console.error("Error fetching cart:", error);
+      if (error.response.status === 403) {
+        navigate("/AccessDenied");
+      }
     }
   };
 
   useEffect(() => {
     if (token) {
       fetchCartItems();
+    } else {
+      // Token is missing, navigate to AccessDenied
+      navigate("/AccessDenied");
     }
-  }, [token]);
+  }, [token, navigate]);
 
   const calculateCartTotal = (items) => {
     let total = 0;

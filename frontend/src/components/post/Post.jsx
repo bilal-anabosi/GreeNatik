@@ -1,20 +1,42 @@
 import React from "react";
 import classes from "./Post.module.css";
+import { Link } from "react-router-dom";
 const viewButton = "additional-class";
 
-const post = ({ city, factory, requestType, quantity, date, progress }) => {
+const post = ({
+  city,
+  requestType,
+  quantity,
+  date,
+  progress,
+  image,
+  deliveryMethod,
+  postDetails,
+  ownerUsername,
+  id,
+}) => {
+  const imageUrl = image
+    ? `http://localhost:4000/${image.secure_url}`
+    : "/path/to/fallback_image.jpg";
+
   return (
     <div className="col-12 col-sm-6 col-lg-4  col-xxl-3  mw-20 my-4">
       <div className={classes.postContainer}>
         <div className={classes.info}>
-          <img src="./pics/cartPage/cat.png" className={classes.image} />
-          <span>{city}</span>
-          <h6>{factory}</h6>
+          <img
+            src={image.secure_url}
+            className={classes.image}
+            alt={"factory"}
+          />
+          <h6>Factory: {ownerUsername}</h6>
         </div>
         <div className={classes.details}>
           <span>Requesting: {requestType}</span>
+          <span>City: {city}</span>
 
           <span>Quantity: {quantity}</span>
+          <span>Delivery Method: {deliveryMethod}</span>
+          {requestType === "Others" && <span>Details: {postDetails}</span>}
           <div className="d-flex gap-2 align-items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -45,12 +67,13 @@ const post = ({ city, factory, requestType, quantity, date, progress }) => {
           <div className="progress-bar" style={{ width: progress + "%" }}></div>
         </div>
         <div className={classes.button}>
-          <button
+          <Link
             type="button"
             className={`btn btn-primary btn-sm px-4 rounded-4 py-1 `}
+            to={`/singlepost/${id}`}
           >
             View more
-          </button>
+          </Link>
         </div>
       </div>
     </div>

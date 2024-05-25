@@ -11,7 +11,7 @@ router.get("/", authenticateToken, async (req, res) => {
     const userId = req.user.id; // Authenticated user object
     const user = await User.findById(userId);
     const products = await Product.find({});
-    const userInCartProducts = user.cart.map((cartProduct) => {
+    const userInCartProducts = user.cart?.map((cartProduct) => {
       const matchProduct = products.find((product) => {
         return product?._id.equals(cartProduct.productId);
       });
@@ -31,6 +31,11 @@ router.get("/", authenticateToken, async (req, res) => {
         regularPrice: priceObject?.regularPrice,
       };
     });
+    if (user.role !== "user") {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized: Only users can access carts" });
+    }
 
     if (!Array.isArray(userInCartProducts)) {
       return res.status(404).json({ message: "Cart not found" });
@@ -39,11 +44,6 @@ router.get("/", authenticateToken, async (req, res) => {
       return res.status(404).strictContentLength({ meassage: "Cart is empty" });
     }
     // Check if the authenticated user has the role 'user'
-    if (user.role !== "user") {
-      return res
-        .status(403)
-        .json({ message: "Unauthorized: Only users can access carts" });
-    }
 
     res.json(userInCartProducts);
   } catch (err) {

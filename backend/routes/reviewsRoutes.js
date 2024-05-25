@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const { authenticateToken } = require('../middelware/auth');
 const reviewsModel = require('../models/reviewsModel');
+const productModel = require('../models/Product')
 
-router.get('/:productId', authenticateToken, async (req, res) => {
+router.get('/:productId', async (req, res) => {
     try {
         const reviews = await reviewsModel.find({ product: req.params.productId }).populate('user');
-        res.json(reviews ? reviews : []);
+        res.send(reviews ? reviews : []);
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
@@ -24,6 +25,12 @@ router.post('/:productId', authenticateToken, async (req, res) => {
         });
         await review.save();
         res.json(review);
+
+        let reviewsCount = await reviewsModel.find({ product: req.params.productId }).countDocuments();
+
+        let product = await productModel.findById(req.params.productId);
+        product.rating = (product.rating * (reviewsCount - 1) + rating) / reviewsCount;
+        await product.save();
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');

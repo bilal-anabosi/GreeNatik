@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const WishlistTable = () => {
   const [wishlist, setWishlist] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const token = localStorage.getItem('userToken');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWishlistData = async () => {
       if (!token) {
-        console.error('No token found');
+        navigate('/AccessDenied');
         return;
       }
 
@@ -21,12 +23,16 @@ const WishlistTable = () => {
         });
         setWishlist(response.data.products);
       } catch (error) {
-        console.error('Error fetching wishlist:', error);
+        if (error.response && error.response.status === 401) {
+          navigate('/AccessDenied');
+        } else {
+          console.error('Error fetching wishlist:', error);
+        }
       }
     };
 
     fetchWishlistData();
-  }, [token]);
+  }, [token, navigate]);
 
   const handleDeleteItem = async (id) => {
     if (!token) {
@@ -34,7 +40,7 @@ const WishlistTable = () => {
       return;
     }
 
-    console.log(`Attempting to delete item with ID: ${id} `);
+    console.log(`Attempting to delete item with ID: ${id}`);
 
     try {
       const response = await axios.delete(`http://localhost:4000/wishlist/${id}`, {
@@ -48,10 +54,14 @@ const WishlistTable = () => {
         setWishlist(updatedWishlist);
         console.log(`Item with ID: ${id} successfully deleted`);
       } else {
-        console.error(`Failed to delete item with ID: ${id} status code: ${response.status}`);
+        console.error(`Failed to delete item with ID: ${id}, status code: ${response.status}`);
       }
     } catch (error) {
-      console.error(`Error deleting item with ID: ${id}`, error);
+      if (error.response && error.response.status === 401) {
+        navigate('/AccessDenied');
+      } else {
+        console.error('Error deleting item:', error);
+      }
     }
   };
 
@@ -80,6 +90,8 @@ const WishlistTable = () => {
 
       if (response.status === 200) {
         console.log('Product added to cart successfully');
+        navigate('/cart');
+
       } else {
         console.error('Failed to add product to cart, status code:', response.status);
       }
@@ -103,7 +115,7 @@ const WishlistTable = () => {
                   <tr>
                     <th></th>
                     <th>Product</th>
-                    <th>Amount</th>
+                    <th>price</th>
                     <th>Status</th>
                     <th>Actions</th>
                     <th>Remove</th>
@@ -128,10 +140,10 @@ const WishlistTable = () => {
                               {item.product.title}
                             </a>
                           </h5>
-                          <small>{item.product.price}</small>
+                          <small>{item.product.size}</small>
                         </div>
                       </td>
-                      <td className="align-middle">{item.product.amount}</td>
+                      <td className="align-middle">{item.product.price}</td>
                       <td className="align-middle">
                         <span
                           className={`badge ${item.product.status ? "bg-success" : "bg-danger"}`}
@@ -141,7 +153,6 @@ const WishlistTable = () => {
                       </td>
                       <td className="align-middle">
                         <button 
-                        href="/cart"
                           className="btn btn-primary btn-sm" 
                           onClick={() => handleAddToCart(item.product._id, item.product.size, item.product.status)}
                         >
@@ -150,7 +161,6 @@ const WishlistTable = () => {
                       </td>
                       <td className="align-middle">
                         <button
-                          href="!"
                           className="text-muted"
                           data-bs-toggle="tooltip"
                           data-bs-placement="top"

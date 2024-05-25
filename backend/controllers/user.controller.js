@@ -51,7 +51,7 @@ const forgetpassword = async (req, res) => {
         return  res.status(404).json({ message: "Email not found" });
     }
     if (user.sendCode !== code) {
-        return  res.status(401).json({ message: "invaild token" });
+        return  res.status(401).json({ message: "invaild code" });
     }
     user.password = await bcrypt.hash(password, parseInt(process.env.SALTROUND));
     user.sendCode = null;

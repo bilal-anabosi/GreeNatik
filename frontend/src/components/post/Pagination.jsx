@@ -13,18 +13,32 @@ const Pagination = ({ posts }) => {
     setCurrentPage(pageNumber);
   };
 
+  const formateDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+    const formattedDate = `${day} ${month} ${year}`;
+
+    return formattedDate;
+  };
+
   return (
     <div>
       <div className="row">
         {currentPosts.map((post, index) => (
           <Post
             key={index}
+            id={post.id}
+            image={post.ownerImage}
             city={post.city}
-            factory={post.factory}
-            requestType={post.requestType}
+            requestType={post.requesting}
             quantity={post.quantity}
-            date={post.date}
-            progress={post.progress}
+            date={formateDate(post.date)}
+            progress={post.percentage}
+            deliveryMethod={post.pickUpDetails}
+            postDetails={post.details}
+            ownerUsername={post.ownerUsername}
           />
         ))}
       </div>

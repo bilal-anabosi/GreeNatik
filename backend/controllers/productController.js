@@ -43,22 +43,19 @@ const createProduct = async (req, res) => {
 // Controller function to fetch a specific product by ID
 const getProductById = async (req, res) => {
   try {
-    if (!req.user || req.user.role !== 'admin') {
-      return res.status(403).json({ message: "Not authorized" });
-    }
     const productId = req.params.productId;
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    // Ensure user is authenticated and authorized to access the product
-    
     res.status(200).json({ product });
   } catch (error) {
     console.error('Error fetching product by ID:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 const updateProduct = async (req, res) => {
   try {
     if (!req.user || req.user.role !== 'admin') {

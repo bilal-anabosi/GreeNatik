@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { UserContext } from "./account/context/User";
 import './shop-single.css'
 
 export default function ShopSingle() {
@@ -11,82 +12,24 @@ export default function ShopSingle() {
     let [amount, setAmount] = useState(1)
     let [selectedSize, setSelectedSize] = useState(0)
     let [newReview, setNewReview] = useState({ rating: 0, comment: '' })
+    let [related, setRelated] = useState([])
     let { id } = useParams()
+    let { userData } = useContext(UserContext);
     let token = localStorage.getItem('userToken');
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/products/${id}`, {
-            headers: {
-                'Authorization': `group__${token}`
-            }
-        }).then(({ data }) => {
+        axios.get(`http://localhost:4000/api/products/${id}`).then(({ data }) => {
             setProduct(data.product)
+
+            axios.get(`http://localhost:4000/Store/by-category?category=${data.product?.category}`).then(({ data }) => {
+                setRelated(data.products)
+            }).catch(err => { })
         }).catch(err => { })
 
-        axios.get(`http://localhost:4000/reviews/${id}`, {
-            headers: {
-                'Authorization': `group__${token}`
-            }
-        }).then(({ data }) => {
+        axios.get(`http://localhost:4000/reviews/${id}`).then(({ data }) => {
             setReviews(data)
         }).catch(err => { })
     }, [])
-
-    // let product = {
-    //     title: "Test",
-    //     category: "FoodWare",
-    //     longDescription: "Laborum Lorem deserunt sunt ad adipisicing ex reprehenderit nostrud nulla. Aliquip aute consequat proident magna duis irure qui eiusmod ad irure velit sint consequat. Id nisi cupidatat exercitation laboris duis. Incididunt deserunt non aute excepteur officia et et officia deserunt ea laboris ullamco. Non Lorem duis velit ut aliquip consequat aute cupidatat minim eiusmod irure commodo amet reprehenderit. Qui enim duis excepteur labore aliqua magna nostrud consequat excepteur.",
-    //     sizes: [{
-    //         size: "M",
-    //         quantity: 10,
-    //         unit: "clothing",
-    //         regularPrice: 32,
-    //         salePrice: 35
-    //     },
-    //     {
-    //         size: "L",
-    //         quantity: 20,
-    //         unit: "clothing",
-    //         regularPrice: 32,
-    //         salePrice: 35
-    //     },
-    //     {
-    //         size: "XL",
-    //         quantity: 30,
-    //         unit: "clothing",
-    //         regularPrice: 32,
-    //         salePrice: 35
-    //     }],
-    //     images: [
-    //         "/img/product-single-img-1.jpg",
-    //         "/img/product-single-img-2.jpg",
-    //         "/img/product-single-img-3.jpg",
-    //         "/img/product-single-img-4.jpg",
-    //     ],
-    //     inStock: true,
-    //     status: 'Active',
-    //     salesCount: 100,
-    //     createdAt: Date.now()
-    // }
-
-    // let reviews = [
-    //     {
-    //         rating: 5,
-    //         comment: "Great product",
-    //         user: {
-    //             username: "John Doe"
-    //         },
-    //         createdAt: Date.now(),
-    //     },
-    //     {
-    //         rating: 4,
-    //         comment: "Good product",
-    //         user: {
-    //             username: "Jane Doe"
-    //         },
-    //         createdAt: Date.now(),
-    //     },
-    // ]
 
     function addToCart() {
         axios.post('http://localhost:4000/cart/add', {
@@ -120,17 +63,20 @@ export default function ShopSingle() {
     }
 
     function addComment() {
-        axios.post(`http://localhost:4000/reviews/${id}`, newReview, {
+        axios.post(`http://localhost:4000/reviews/${id}`, {
+            rating: newReview.rating,
+            comment: newReview.comment,
+            product: id,
+            user: userData._id || userData.id
+        }, {
             headers: {
                 'Authorization': `group__${token}`
             }
         }).then(({ data }) => {
             setReviews([...reviews, data])
-            setNewReview({ 
-                rating: 0, 
+            setNewReview({
+                rating: 0,
                 comment: '',
-                product: id,
-                user: "" // احتاج هنا احط ايدي اليوزر ماني عارف كيف اجيبه من التوكن
             })
         }).catch(err => {
             alert('Error adding review')
@@ -152,12 +98,12 @@ export default function ShopSingle() {
         <div className='single_container'>
             <div className="info">
                 <div className="left">
-                    <img src={product.images[selectedImage]} />
+                    <img src={`http://localhost:4000/${product.images[selectedImage]}`} />
                     <div className="images">
                         {product.images.map((image, index) =>
                             <img
                                 key={index}
-                                src={image}
+                                src={`http://localhost:4000/${image}`}
                                 onClick={() => setSelectedImage(index)}
                                 className={selectedImage === index ? 'selected' : ''}
                             />
@@ -169,9 +115,16 @@ export default function ShopSingle() {
                         <a>{product.category}</a>
                         <h1>{product.title}</h1>
                         <div className='price-tag'>
-                            <span>{product.sizes[selectedSize].salePrice}$</span>
-                            <span>{product.sizes[selectedSize].regularPrice}$</span>
-                            <small>26% Off</small>
+                            {
+                                product.sizes[selectedSize].salePrice ?
+                                    <>
+                                        <span>{product.sizes[selectedSize].salePrice}$</span>
+                                        <span>{product.sizes[selectedSize].regularPrice}$</span>
+                                        <small>{(100 - (product.sizes[selectedSize].salePrice * 100) / product.sizes[selectedSize].regularPrice).toFixed(0) || "NuN"}% Off</small>
+                                    </>
+                                    :
+                                    <span>{product.sizes[selectedSize].regularPrice}$</span>
+                            }
                         </div>
                     </div>
                     <div className="line"></div>
@@ -209,20 +162,12 @@ export default function ShopSingle() {
                     <div className="line"></div>
                     <div className="product_info">
                         <div>
-                            <h5>Product Code:</h5>
-                            <span>FBB00255</span>
-                        </div>
-                        <div>
                             <h5>Availability:</h5>
-                            <span>In Stock</span>
+                            <span>{product.inStock ? "In Stock" : "Out of stock"}</span>
                         </div>
                         <div>
                             <h5>Type:</h5>
-                            <span>Fruits</span>
-                        </div>
-                        <div>
-                            <h5>Shipping:</h5>
-                            <span>01 day shipping</span>
+                            <span>{product.category}</span>
                         </div>
                     </div>
                 </div>
@@ -244,16 +189,8 @@ export default function ShopSingle() {
                 {
                     tab === 0 ?
                         <>
-                            <h3>Nutrient Value & Benefits</h3>
-                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                            <h3>Storage Tips</h3>
-                            <span>Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                            <h3>Unit</h3>
-                            <span>3 units</span>
-                            <h3>Seller</h3>
-                            <span>DMart Pvt. LTD</span>
-                            <h3>Disclaimer</h3>
-                            <span>Image shown is a representation and may slightly vary from the actual product. Every effort is made to maintain accuracy of all information displayed.</span>
+                            <h3>Description</h3>
+                            <span>{product.longDescription}</span>
                         </>
                         :
                         <>
@@ -278,7 +215,7 @@ export default function ShopSingle() {
                                         )}
                                     </div>
                                     <div className="review_input_row">
-                                        <div className="button">
+                                        <div onClick={addComment} className="button">
                                             <span style={{ marginBottom: 0 }}>Submit</span>
                                         </div>
                                     </div>
@@ -311,11 +248,11 @@ export default function ShopSingle() {
             <div className="related_items">
                 <h1>Related Items</h1>
                 <div className="related_items_list">
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
+                    {
+                        related?.map((item, index) =>
+                            <Item key={index} {...item} />
+                        )
+                    }
                 </div>
             </div>
             <div style={{ height: "3em" }}></div>
@@ -327,21 +264,30 @@ export default function ShopSingle() {
         )
 }
 
-function Item() {
+function Item(props) {
     return (
         <div className='related_item'>
-            <img src="/img/product-img-1.jpg" />
-            <span>Snack & Munchies</span>
+            <img src={`http://localhost:4000/${props.images[0]}`} />
+            <span>{props.title}</span>
             <h3>Haldiram's Sev Bhujia</h3>
             <div className='related_row'>
                 <div className='price-tag-small'>
-                    <span>32$</span>
-                    <span>35$</span>
+                    {
+                        props.sizes[0].salePrice ?
+                            <>
+                                <span>{props.sizes[0].salePrice}$</span>
+                                <span>{props.sizes[0].regularPrice}$</span>
+                            </>
+                            :
+                            <span>{props.sizes[0].regularPrice}$</span>
+                    }
                 </div>
-                <div className="button-small">
-                    <i className="bi bi-plus"></i>
-                    <span>Add</span>
-                </div>
+                <Link to={`/shop-single/${props._id}`}>
+                    <div className="button-small">
+                        <i className="bi bi-plus"></i>
+                        <span>Add</span>
+                    </div>
+                </Link>
             </div>
         </div>
     )

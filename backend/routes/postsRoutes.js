@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const Post = require("../models/Post");
 const { authenticateToken, authorizeRoles } = require('../middelware/auth');
+const User = require("../models/usermodel");
+const Post = require("../models/Post");
+
 
 router.get("/", async (req, res) => {
   try {
@@ -27,6 +29,7 @@ router.get("/", async (req, res) => {
       details: post.moreDetails,
       date: post.createdAt,
       status: post.postStatus,
+
     }));
 
     res.json(formattedPosts);
@@ -35,6 +38,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 router.post('/', authenticateToken, authorizeRoles(['admin']), async (req, res) => {
   const { title, requesting, quantity, condition, pickUpDetails, postStatus, address } = req.body;
@@ -60,5 +64,6 @@ router.post('/', authenticateToken, authorizeRoles(['admin']), async (req, res) 
     res.status(500).json({ message: "Server error" });
   }
 })
+
 
 module.exports = router;

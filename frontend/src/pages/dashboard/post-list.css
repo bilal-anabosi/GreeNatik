@@ -148,3 +148,15 @@ th, td {
         padding: 20px;
     }
 }
+
+.item_status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    background-color: #0aad0a;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

@@ -5,20 +5,23 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export default function PostsList() {
-    let [posts, setPosts] = useState([])
+    let [posts, setPosts] = useState([]);
+    let [search, setSearch] = useState('');
     let token = localStorage.getItem('userToken');
 
     useEffect(() => {
-        axios.get("http://localhost:4000/api/", {
+        axios.get("http://localhost:4000/posts", {
             headers: {
                 'Authorization': `group__${token}`,
             }
         }).then(({ data }) => {
-            setPosts(data.products)
+            setPosts(data)
         }).catch((err) => {
             console.log(err)
         })
     }, [])
+
+    let filter = search ? posts.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : posts;
 
     return (
         <div className="newproduct">
@@ -36,7 +39,12 @@ export default function PostsList() {
                     </div>
                     <div className="newproduct_box">
                         <div className="search_input">
-                            <input type="text" placeholder="Search Products" />
+                            <input 
+                            type="text" 
+                            placeholder="Search Products"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            />
                         </div>
 
                         <div className="table-responsive custom-table-responsive">
@@ -51,43 +59,49 @@ export default function PostsList() {
                                             </label>
                                         </th>
 
-                                        <th scope="col">Image</th>
                                         <th scope="col">Product Name</th>
-                                        <th scope="col">Category</th>
+                                        <th scope="col">Requesting</th>
+                                        <th scope="col">Quantity</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Price</th>
+                                        <th scope="col">PickUp Details</th>
                                         <th scope="col">Create at</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        posts.map(item => (
-                                            <Fragment>
-                                                <tr scope="item_row">
-                                                    <th scope="row">
-                                                        <label className="control control--checkbox">
-                                                            <input type="checkbox" />
-                                                            <div className="control__indicator"></div>
-                                                        </label>
-                                                    </th>
-                                                    <td>
-                                                        <img src={item.images[0]} width={40} />
-                                                    </td>
-                                                    <td><a href="#">{item.title}</a></td>
-                                                    <td>
-                                                        {item.category}
-                                                    </td>
-                                                    <td>
-                                                        <div className="item_status">
-                                                            {item.status}
-                                                        </div>
-                                                    </td>
-                                                    <td>{item.sizes.map(it => it.regularPrice).join(", ")}</td>
-                                                    <td>{item.createdAt}</td>
-                                                </tr>
-                                                <tr className="spacer"><td colspan="100"></td></tr>
-                                            </Fragment>
-                                        ))
+                                        filter.map(item => {
+                                            var date = new Date(item.date || Date.now());
+
+                                            return (
+                                                <Fragment>
+                                                    <tr scope="item_row">
+                                                        <th scope="row">
+                                                            <label className="control control--checkbox">
+                                                                <input type="checkbox" />
+                                                                <div className="control__indicator"></div>
+                                                            </label>
+                                                        </th>
+                                                        <td>{item.title}</td>
+                                                        <td><a href="#">{item.requesting}</a></td>
+                                                        <td>{item.quantity}</td>
+                                                        <td>
+                                                            <div className="item_status">
+                                                                {item.status}
+                                                            </div>
+                                                        </td>
+                                                        <td>{item.pickUpDetails}</td>
+                                                        <td>{((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}</td>
+                                                        <td>
+                                                            <div className="button-small">
+                                                                <span>Edit</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr className="spacer"><td colspan="100"></td></tr>
+                                                </Fragment>
+                                            )
+                                        })
                                     }
                                 </tbody>
                             </table>

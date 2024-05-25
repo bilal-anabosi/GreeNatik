@@ -1,21 +1,13 @@
 import React from 'react';
 import './Postss.css';
-const FormI = ({ index, description }) => {
-
-  // const titles
-  const titles = ["Requesting", "Quantity", "Condition", "Date"];
-    
-  const title = titles[index];
+const FormI = ({description1,description2,description3, description4}) => {
 
     return (
 <div>
-  <section className="my-lg-14 my-8">
-    <div className="mb-8 mb-xl-0">
-      <div className="mb-6"/>
-        <h3 className="h5 mb-3">{title}</h3>
-            <p>{description}</p>
-    </div>
-  </section>
+            <p>{description1}</p>
+            <p>{description2}</p>
+            <p>{description3}</p>
+            <p>{description4}</p>
 </div>
 
   );

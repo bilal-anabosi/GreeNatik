@@ -51,6 +51,9 @@ border-color: #EEEEEE;
 .s .red-heart path {
     fill:#cc0000; 
 }
+.red-heart {
+    color: #cc0000;
+}
 .sa .row {
     text-align: center;
 }

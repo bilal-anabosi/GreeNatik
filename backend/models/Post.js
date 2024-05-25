@@ -25,7 +25,7 @@ const PostSchema = new Schema({
   },
   pickUpDetails: { 
     type: String, 
-    enum: ['Pick Up', 'Drop Off', 'Both'], 
+    enum: ['Pick Up', 'Drop Off'], 
     required: true 
   },
   address: AddressSchema,
@@ -35,7 +35,7 @@ const PostSchema = new Schema({
     default: function() {
       return this.quantity ? (this.provided / this.quantity) * 100 : 0;
     }
-  },
+  }
 }, { timestamps: true });
 
 const Post = mongoose.model('Post', PostSchema);

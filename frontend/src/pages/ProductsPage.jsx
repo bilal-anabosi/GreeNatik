@@ -4,6 +4,7 @@ import SearchForm from '../components/productsDash/SearchForm';
 import SelectOption from '../components/productsDash/SelectOption';
 import ProductTable from '../components/productsDash/ProductTable';
 import Pagination from '../components/productsDash/Pagination';
+import Sidebar from '../components/dashboard/sidebar'
 import axios from 'axios';
 
 const ProductsPage = () => {
@@ -56,18 +57,22 @@ const ProductsPage = () => {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
-    <div className="container">
+    <div className="container pt-5 mt-5">
+      
       <div className="row mb-8">
-        <div className="col-md-12">
-          <PageHeader />
-        </div>
+      <div className="col-lg-2 col-md-12 col-sm-12">
+      <Sidebar />
       </div>
-      <div className="row">
+        <div className="col-lg-10 col-md-12 col-sm-12">
+          <div className='mb-5 ms-lg-10 ps-lg-5 mt-5'>
+          <PageHeader />
+          </div>
+          <div className="row mt-5 ms-lg-8 ps-lg-5">
         <SearchForm handleSearchChange={handleSearchChange} />
         <SelectOption handleSelectChange={handleSelectChange} />
       </div>
       <div className="row mt-5">
-        <div className="col-xl-12 col-12 mb-5">
+        <div className="col-xl-12 col-12 mb-5 ms-lg-10 ps-lg-8 ">
           <ProductTable products={currentProducts} />
           <Pagination
             productsPerPage={productsPerPage}
@@ -77,8 +82,12 @@ const ProductsPage = () => {
           />
         </div>
       </div>
+        </div>
+      </div>
+      
     </div>
   );
 }
 
 export default ProductsPage;
+

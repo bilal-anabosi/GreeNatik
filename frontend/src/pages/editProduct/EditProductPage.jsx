@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditProductPage = () => {
   const { productId } = useParams();
@@ -23,12 +25,13 @@ const EditProductPage = () => {
           category: response.data.product.category,
           longDescription: response.data.product.longDescription,
           sizes: response.data.product.sizes,
-          images: [], // Initialize with an empty array for new image uploads
+          images: [], 
           inStock: response.data.product.inStock,
           status: response.data.product.status
         });
       } catch (error) {
         console.error('Error fetching product:', error);
+        toast.error('Error fetching product');
       }
     };
     fetchProduct();
@@ -57,7 +60,7 @@ const EditProductPage = () => {
   };
 
   const addSizeField = () => {
-    setFormData({ ...formData, sizes: [...formData.sizes, { size: '', quantity: 0, unit: '', regularPrice: 0, salePrice: 0 }] });
+    setFormData({ ...formData, sizes: [...formData.sizes, { size: '', quantity: 0, unit: '', regularPrice: 0.0, salePrice: 0.0 }] });
   };
 
   const handleSubmit = async (event) => {
@@ -89,15 +92,16 @@ const EditProductPage = () => {
           Authorization: `group__${authToken}`
         }
       });
-      // Redirect or show success message
+      toast.success('Product updated successfully');
     } catch (error) {
       console.error('Error updating product:', error);
-      // Handle error
+      toast.error('Error updating product');
     }
   };
 
   return (
     <div className="container">
+      <ToastContainer />
       <Header />
       <div className="row">
         <div className="col-12">
@@ -195,6 +199,7 @@ const EditProductPage = () => {
                             placeholder="Size"
                             name="size"
                             value={size.size}
+                            required
                             onChange={(e) => handleSizeChange(index, e)}
                           />
                         </div>
@@ -213,6 +218,7 @@ const EditProductPage = () => {
                             className="form-select"
                             name="unit"
                             value={size.unit}
+                            required
                             onChange={(e) => handleSizeChange(index, e)}
                           >
                             <option value="none" disabled>Select Unit</option>
@@ -231,6 +237,7 @@ const EditProductPage = () => {
                             placeholder="Regular Price"
                             name="regularPrice"
                             value={size.regularPrice}
+                            required
                             onChange={(e) => handleSizeChange(index, e)}
                           />
                         </div>
@@ -241,6 +248,7 @@ const EditProductPage = () => {
                             placeholder="Sale Price"
                             name="salePrice"
                             value={size.salePrice}
+                            
                             onChange={(e) => handleSizeChange(index, e)}
                           />
                         </div>

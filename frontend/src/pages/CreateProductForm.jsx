@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import ProductInformation from '../components/addProcduct/ProductInformation'
+import ProductInformation from '../components/addProcduct/ProductInformation';
 import ProductStatus from '../components/addProcduct/ProductStatus';
 import Header from '../components/addProcduct/Header';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateProductForm = () => {
   const [formData, setFormData] = useState({
@@ -41,13 +43,12 @@ const CreateProductForm = () => {
       });
 
       if (response.status === 201) {
-        console.log('Product created successfully');
-        // Redirect or show success message
+        toast.success('Product created successfully');
       } else {
-        console.error('Error creating product:', response.data);
+        toast.error('Error creating product: ' + response.data.message);
       }
     } catch (error) {
-      console.error('Error creating product:', error);
+      toast.error('Error creating product: Please fill all data ');
     }
   };
 
@@ -59,6 +60,7 @@ const CreateProductForm = () => {
 
   return (
     <div className="container">
+      <ToastContainer />
       <Header />
       <div className="row">
         <div className="col-lg-9 col-12">

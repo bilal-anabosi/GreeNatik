@@ -21,7 +21,7 @@ export default function ShopSingle() {
         axios.get(`http://localhost:4000/api/products/${id}`).then(({ data }) => {
             setProduct(data.product)
 
-            axios.get(`http://localhost:4000/by-category?category=${product?.category}`).then(({ data }) => {
+            axios.get(`http://localhost:4000/Store/by-category?category=${data.product?.category}`).then(({ data }) => {
                 setRelated(data.products)
             }).catch(err => { })
         }).catch(err => { })

@@ -36,7 +36,6 @@ const PostSchema = new Schema({
       return this.quantity ? (this.provided / this.quantity) * 100 : 0;
     }
   },
-  createdAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
 const Post = mongoose.model('Post', PostSchema);

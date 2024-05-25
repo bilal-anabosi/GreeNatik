@@ -2,14 +2,14 @@ import React from 'react';
 import Postss from './Postss';
 import BarI from '../BarI';
 
-const PostI = () => {
+const PostI = ({ postId }) => {
     
 
     return (
 <div>
 <BarI Title="Post" />
 
-<Postss/>
+<Postss  postId={postId} />
 
 </div>
 

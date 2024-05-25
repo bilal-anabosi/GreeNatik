@@ -4,9 +4,9 @@ import FormII from '../Formss/FormII';
 import FormI from './FormI';
 import axios from 'axios';
 
-const Postss = ({ postIdd }) => {
+const Postss = ({ postId }) => {
 
-  const postId ="66521304c1990a1e80de807f";
+
 
   const [isClicked, setIsClicked] = useState(false);
 
@@ -55,7 +55,7 @@ const Postss = ({ postIdd }) => {
   useEffect(() => {
     const fetchPostData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/posts/${postId}`);
+        const response = await axios.get(`http://localhost:4000/singlepost/${postId}`);
         setPost(response.data); // Assuming your backend sends back the whole post object
       } catch (error) {
         console.error('Error fetching post data:', error);

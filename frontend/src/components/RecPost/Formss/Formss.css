@@ -131,3 +131,6 @@ font-weight: bold;
     color: #333333CC;; 
     text-decoration: underline; 
 }
+.point{
+    font-size: small;
+}

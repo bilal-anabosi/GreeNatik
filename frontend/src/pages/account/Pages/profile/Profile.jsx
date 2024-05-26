@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
 import OrderList from "../../../../components/Orders/OrderList.jsx";
+import Activity from "../../../../components/RecPost/Activity.jsx";
 
 function Profile() {
   const { userData, Loading, setUserData } = useContext(UserContext);
@@ -175,7 +176,7 @@ function Profile() {
               )}
 
               {activeItem === "posts" && (
-                <p className="card-text">Content for posts</p>
+                <p className="card-text"> <Activity/> </p>
               )}
               {activeItem === "ResetPassword" && (
                  navigate('/forget')

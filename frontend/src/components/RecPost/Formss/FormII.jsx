@@ -3,7 +3,7 @@ import './Formss.css';
 import axios from 'axios';
 import Map from './Map';
 
-const FormII = () => {
+const FormII = ({postId}) => {
     const [material, setMaterial] = useState('');
     const [quantity, setQuantity] = useState('');
     const [condition, setCondition] = useState('');
@@ -30,11 +30,10 @@ const FormII = () => {
     //const locationUrl1 = 'https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d418932.30157428246!2d35.57709594891422!3d32.22224307839886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x151ce0f650425697%3A0x7f0ba930bd153d84!2sNablus!3m2!1d32.222667799999996!2d35.262146099999995!5e0!3m2!1sar!2s!4v1714582625175!5m2!1sar!2s';
     const [locationUrl, setLocationUrl] = useState('');
 
-    const postId="66521304c1990a1e80de807f";
     useEffect(() => {
         const fetchPostDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/posts/${postId}`);
+                const response = await axios.get(`http://localhost:4000/singlepost/${postId}`);
                 if (response.data) {
                     setMaxQuantity(response.data.quantity);
 
@@ -110,7 +109,7 @@ const FormII = () => {
             console.log(token);
 
             // Submit contribution data to the server with token
-            const response = await axios.post(`http://localhost:4000/posts/${postId}/contributions`, contributionData, {
+            const response = await axios.post(`http://localhost:4000/singlepost/${postId}/contributions`, contributionData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization':  `group__${token}` // user Token
@@ -340,7 +339,7 @@ const FormII = () => {
                             <span className="t-text">By clicking submit it means you agree to our <a href="# ">terms and conditions</a></span>
                         </div>
                     </div>
-                    <Map locationUrl={locationUrl} />
+                    <Map locationUrl={locationUrl}  postId={postId} />
 
                 </div>
             </div>

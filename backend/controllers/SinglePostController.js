@@ -134,6 +134,54 @@ const likePost = async (req, res, next) => {
     }
 };
 
+//_________________________________________________________________________________
+// Controller function to get posts liked by the user
+const getLikedPosts = async (req, res) => {
+    try {
+        // Call authenticateToken middleware to verify the token
+        await new Promise((resolve, reject) => {
+            authenticateToken(req, res, (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve();
+                }
+            });
+        });
+
+        const userId = req.user.id;
+
+        // Find likes made by the user
+        const likes = await Like.find({ userId }).populate({
+            path: 'postId',
+            populate: {
+                path: 'owner',
+                select: 'username image'
+            }
+        });
+
+        // Check if there are any likes
+        if (!likes.length) {
+            return res.status(404).json({ message: "No liked posts found" });
+        }
+
+        // Extract the post details
+        const likedPosts = likes.map(like => ({
+            postId: like.postId._id, // Assuming postId is the ID of the post
+            dateLiked: like.createdAt.toISOString().split('T')[0],
+            username: like.postId.owner.username,
+            quantity: like.postId.quantity,
+            image: like.postId.owner.image.secure_url
+        }));
+
+        // Sending the response
+        res.status(200).json(likedPosts);
+    } catch (error) {
+        console.error('Error fetching liked posts:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 module.exports = {
-    getPostDetailsById,createContribution,likePost
+    getPostDetailsById,createContribution,likePost,getLikedPosts
 };

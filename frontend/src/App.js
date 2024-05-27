@@ -24,6 +24,7 @@ import Wishlist from './pages/Wishlist.jsx';
 import Wide from './pages/Wide';
 import LeaderBoard from './pages/LeaderBoard';
 import EditProductPage from './pages/editProduct/EditProductPage';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -39,6 +40,7 @@ import CreateProductForm from './pages/CreateProductForm';
 import AboutUs from './pages/AboutUs.jsx';
 import DeliveryOrders from "./pages/DeliveryOrders.jsx";
 import OrderDetails from './pages/OrderDetails';
+import EditPost from './pages/dashboard/edit-post.jsx';
 
 
 function App() {
@@ -67,6 +69,7 @@ function App() {
           <Route path="/shop-single/:id" element={<ShopSingle />} />
           <Route path="/dashboard/post" element={<PostsList />} />
           <Route path="/dashboard/post/add" element={<CreatePost />} />
+          <Route path="/dashboard/post/edit/:id" element={<EditPost />} />
           <Route path="/singlepost" element={<SinglePost />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/wide" element={<Wide />} />

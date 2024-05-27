@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {getProfile,editProfile} = require('../profile/profile.controller');
+const {getProfile,editProfile} = require('../controllers/profile.controller.js');
 const auth = require('../middelware/auth.js');
 
 const fileupload = require("../utilts/multer.js");

@@ -1,28 +1,23 @@
 const Product = require('../models/Product');
 
-// Fetch products controller
+//to get all products that belong to the admin
 const getProducts = async (req, res) => {
   try {
-    // Ensure user is authenticated and has the admin role
+    //role ? admin ?
     if (!req.user || req.user.role !== 'admin') {
       return res.status(403).json({ message: "Not authorized" });
     }
     
-    // Search for products owned by the specific user ID
     const products = await Product.find({ owner: req.user.id });
-
-    
-    // Send the products in the response
+//send products 
     res.status(200).json({ products });
   } catch (error) {
-    // Handle errors
     console.error('Error fetching products:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 const createProduct = async (req, res) => {
   try {
-    // Ensure user is authenticated
     console.log('Request Body:', req.body);
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -40,7 +35,6 @@ const createProduct = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
-// Controller function to fetch a specific product by ID
 const getProductById = async (req, res) => {
   try {
     const productId = req.params.productId;
@@ -64,11 +58,11 @@ const updateProduct = async (req, res) => {
     const productId = req.params.productId;
     const updatedData = { ...req.body };
 
-    // Check if images are being updated
+    // here we see if we update images
     if (req.files && req.files.length > 0) {
       updatedData.images = req.files.map(file => file.path);
     } else {
-      // Retain existing images if keepExistingImages flag is present
+      //if images are the same return them
       if (req.body.keepExistingImages) {
         const product = await Product.findById(productId);
         if (product) {
@@ -76,8 +70,7 @@ const updateProduct = async (req, res) => {
         }
       }
     }
-
-    // Parse sizes if present
+//size changed ?
     if (req.body.sizes) {
       try {
         updatedData.sizes = JSON.parse(req.body.sizes);

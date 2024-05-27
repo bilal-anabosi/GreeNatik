@@ -1,3 +1,5 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './sidebar.css';
 
 export default function Sidebar() {
@@ -5,24 +7,40 @@ export default function Sidebar() {
         <div className="newpost_sidebar">
             <h4>Quick Menu</h4>
             <div className="newpost_item">
-                <i className="fi fi-sr-house-chimney"></i>
-                <span>Dashboard</span>
+                <Link to="/dashboard">
+                    <i className="fi fi-sr-house-chimney"></i>
+                    <span>Dashboard</span>
+                </Link>
             </div>
             <div className="newpost_item">
-                <i className="fi fi-sr-shopping-bag"></i>
-                <span>Product</span>
+                <Link to="/dashboard/products">
+                    <i className="fi fi-sr-shopping-bag"></i>
+                    <span>Product</span>
+                </Link>
             </div>
             <div className="newpost_item">
-                <i className="fi fi-sr-blog-text"></i>
-                <span>Post</span>
+                <Link to="/dashboard/post">
+                    <i className="fi fi-sr-blog-text"></i>
+                    <span>Post</span>
+                </Link>
             </div>
             <div className="newpost_item">
-                <i className="fi fi-sr-duplicate"></i>
-                <span>Blog</span>
+                <Link to="/blog">
+                    <i className="fi fi-sr-duplicate"></i>
+                    <span>Blog</span>
+                </Link>
             </div>
             <div className="newpost_item">
-                <i className="fi fi-sr-star"></i>
-                <span>Reviews</span>
+                <Link to="/dashboard/deliveryorders">
+                <i class="bi bi-box2-heart-fill"></i>
+                    <span>Orders Delivery</span>
+                </Link>
+            </div>
+            <div className="newpost_item">
+                <Link to="/dashboard/deliveryorders">
+                <i class="bi bi-clipboard-check-fill"></i>
+                    <span>Recycling Delivery</span>
+                </Link>
             </div>
         </div>
     )

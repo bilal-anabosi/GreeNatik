@@ -39,7 +39,12 @@ font-family: "poppins", sans-serif;
 {
     font-weight: bolder;
 }
-
+.n h2{
+    color: #2e2e2e;
+    font-family: "poppins", sans-serif;
+    font-size: 25px;
+    /* text-align: center; */
+}
 .n .btn-group
 {
     margin-left: 200px;

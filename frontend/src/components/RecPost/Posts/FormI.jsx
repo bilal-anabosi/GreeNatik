@@ -1,6 +1,6 @@
 import React from 'react';
 import './Postss.css';
-const FormI = ({description1,description2,description3, description4}) => {
+const FormI = ({description1,description2,description3, description4 ,description5}) => {
 
     return (
 <div>
@@ -8,6 +8,7 @@ const FormI = ({description1,description2,description3, description4}) => {
             <p>{description2}</p>
             <p>{description3}</p>
             <p>{description4}</p>
+            <p>{description5}</p>
 </div>
 
   );

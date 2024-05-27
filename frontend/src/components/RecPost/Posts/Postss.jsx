@@ -6,8 +6,6 @@ import axios from 'axios';
 
 const Postss = ({ postId }) => {
 
-
-
   const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
@@ -49,7 +47,6 @@ const Postss = ({ postId }) => {
   }
   };
 
-
   const [posts, setPost] = useState(null);
   //fetch post data
   useEffect(() => {
@@ -61,7 +58,6 @@ const Postss = ({ postId }) => {
         console.error('Error fetching post data:', error);
       }
     };
-
     fetchPostData();
   }, [postId]);
 
@@ -77,7 +73,7 @@ const Postss = ({ postId }) => {
     navigator.clipboard.writeText(postLink);
     alert('Post link copied to clipboard!');
   };
-
+  
   return (
     <div>
       <div className="sa">
@@ -121,47 +117,56 @@ const Postss = ({ postId }) => {
                   </div>
                 </div>
               </div>
-              
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6 col-lg-3">
-          <section className="my-lg-14 my-8">
-            <div className="mb-8 mb-xl-0">
-              <div className="mb-6"/>
-              <h3 className="h5 mb-3">Requesting</h3>
-              <FormI description1={posts.requesting} />
-            </div>
-          </section>
+
+<div className="container">
+  <div className="row justify-content-between">
+    <div className="col-md-6 col-lg-2 mb-4">
+      <section className="my-lg-14 my-8">
+        <div className="mb-8 mb-xl-0">
+          <div className="mb-6"/>
+          <h3 className="h5 mb-3">Requesting</h3>
+          <FormI description1={posts.requesting} />
         </div>
-        <div className="col-md-6 col-lg-3">
-          <section className="my-lg-14 my-8">
-            <div className="mb-8 mb-xl-0">
-              <div className="mb-6"/>
-              <h3 className="h5 mb-3">Quantity</h3>
-              <FormI description2={posts.quantity} />
-            </div>
-          </section>
-        </div>
-        <div className="col-md-6 col-lg-3">
-          <section className="my-lg-14 my-8">
-            <div className="mb-8 mb-xl-0">
-              <div className="mb-6"/>
-              <h3 className="h5 mb-3">Condition</h3>
-              <FormI description3={posts.condition} />
-            </div>
-          </section>
-        </div>
-        <div className="col-md-6 col-lg-3">
-          <section className="my-lg-14 my-8">
-            <div className="mb-8 mb-xl-0">
-              <div className="mb-6"/>
-              <h3 className="h5 mb-3">Date</h3>
-              <FormI description4= {posts.date} />
-            </div>
-          </section>
-        </div>
-      </div>
+      </section>
     </div>
+    <div className="col-md-6 col-lg-2 mb-4">
+      <section className="my-lg-14 my-8">
+        <div className="mb-8 mb-xl-0">
+          <div className="mb-6"/>
+          <h3 className="h5 mb-3">Quantity</h3>
+          <FormI description2={posts.quantity} />
+        </div>
+      </section>
+    </div>
+    <div className="col-md-6 col-lg-2 mb-4">
+      <section className="my-lg-14 my-8">
+        <div className="mb-8 mb-xl-0">
+          <div className="mb-6"/>
+          <h3 className="h5 mb-3">Condition</h3>
+          <FormI description3={posts.condition} />
+        </div>
+      </section>
+    </div>
+    <div className="col-md-6 col-lg-2 mb-4">
+      <section className="my-lg-14 my-8">
+        <div className="mb-8 mb-xl-0">
+          <div className="mb-6"/>
+          <h3 className="h5 mb-3">PickUp Details</h3>
+          <FormI description4= {posts.pickUpDetails} />
+        </div>
+      </section>
+    </div>
+    <div className="col-md-6 col-lg-2 mb-4">
+      <section className="my-lg-14 my-8">
+        <div className="mb-8 mb-xl-0">
+          <div className="mb-6"/>
+          <h3 className="h5 mb-3">Date</h3>
+          <FormI description4= {posts.date} />
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
               <hr />
               <div className="progress" style={{ marginTop: '60px', height: '25px' }}>
                 <div className="progress-bar" role="progressbar" style={{ width: `${posts.percentage}%` }} aria-valuenow={posts.percentage} aria-valuemin={0} aria-valuemax={100}>{posts.percentage}%</div>
@@ -177,12 +182,16 @@ const Postss = ({ postId }) => {
           <br />
           <br />
           <br />
-          <h1 className="h4 card-title mb-0">Related Posts</h1>
+          <h1 className="h4 card-title mb-0"> </h1>
+          <a href='/all-posts'> 
+            <svg xmlns="http://www.w3.org/2000/svg" width={50} height={50} fill="#4EA933" className="bi bi-arrow-left-square-fill" viewBox="0 0 16 16" transform="translate(60,-50)">
+            <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1" />
+            </svg>   
+          </a>
           <br />
         </div>
       </div>
     </div>
   );
 };
-
 export default Postss;

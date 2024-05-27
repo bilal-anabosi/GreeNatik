@@ -17,6 +17,9 @@ const checkoutRoutes = require("./routes/checkoutRoutes");
 const reviewRoutes = require("./routes/reviewsRoutes.js");
 const postsRoutes = require("./routes/postsRoutes.js");
 const SinglePostRoutes = require('./routes/SinglePostRoutes.js');
+const blogRoutes = require("./routes/blogRoutes.js");
+const newBlogRoute =require('./routes/newBlogRoute.js');
+const singleBlogRoutes=require('./routes/singleBlogRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -43,6 +46,9 @@ app.use("/checkout", checkoutRoutes);
 app.use("/reviews", reviewRoutes);
 app.use("/posts", postsRoutes);
 app.use('/singlepost', SinglePostRoutes);
+app.use("/blog", blogRoutes);
+app.use('/create-new-blog', newBlogRoute);
+app.use('/single-blog', singleBlogRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

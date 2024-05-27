@@ -10,9 +10,13 @@ import ForgetPage from "./pages/account/Pages/ForgetPage.jsx";
 import AccessDenied from "./pages/account/Pages/AccessDined";
 import Error404 from "./pages/account/Pages/Error404.jsx";
 import Store from "./pages/Store";
+
 import AllBlogs from "./pages/blog/AllBlogs";
 import BlogCategory from "./pages/blog/BlogCategory";
 import SingleBlog from "./pages/blog/SingleBlog";
+import CreateNewBlog from "./pages/dashboard/blog/CreateNewBlog";
+import AllBlogsDash from "./pages/dashboard/blog/AllBlogsDash.jsx";
+
 import Posts from "./pages/postsPage/Posts.jsx";
 import Profile from "./pages/account/Pages/profile/Profile.jsx";
 import ShopSingle from "./pages/shop-single.jsx";
@@ -52,7 +56,9 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/Blog" element={<AllBlogs />} />
           <Route path="/blog-category" element={<BlogCategory />} />
-          <Route path="/Single-blog" element={<SingleBlog />} />
+          <Route path="/single-blog/:id" element={<SingleBlog />} />
+          <Route path="/create-new-blog" element={<CreateNewBlog />} />
+          <Route path="/all-blogs-dash" element ={<AllBlogsDash />} />
           <Route path="/all-posts" element={<Posts />} />
           <Route path="/shop-single/:id" element={<ShopSingle />} />
           <Route path="/dashboard/post" element={<PostsList />} />

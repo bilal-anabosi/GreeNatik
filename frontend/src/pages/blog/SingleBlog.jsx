@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 
 function SingleBlog() {
+  
   useEffect(() => {
     document.title = "this is a blog"; 
   }, []); 

@@ -1,6 +1,7 @@
 import React from "react";
 import SideBarCart from "./SideBarCart";
 function Navbar() {
+  
   return (
 <div >
 <div style={{background:'#F1F6FA'}}> 
@@ -13,7 +14,7 @@ function Navbar() {
           </a>
           <ul className="dropdown-menu">
             <li><a className="dropdown-item" href='#!'>USD $</a></li>
-            <li><a className="dropdown-item" href='#!'>EUR €</a></li>
+            <li><a className="dropdown-item" href='#!'>NIS ₪</a></li>
           </ul>
         </div>
         <div className="ms-6">

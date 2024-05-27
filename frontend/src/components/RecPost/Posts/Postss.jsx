@@ -25,7 +25,7 @@ const Postss = ({ postId }) => {
           console.log(token);
 
           // Send the like request to the server with the token
-          const response = await axios.post(`http://localhost:4000/posts/${postId}/likes`, null, {
+          const response = await axios.post(`http://localhost:4000/singlepost/${postId}/likes`, null, {
               headers: {
                   'Authorization': `group__${token}`
               }
@@ -73,7 +73,7 @@ const Postss = ({ postId }) => {
 
   //copy post link
   const handleCopyPostLink = () => {
-    const postLink = `${window.location.origin}/posts/${postId}`;
+    const postLink = `${window.location.origin}/singlepost/${postId}`;
     navigator.clipboard.writeText(postLink);
     alert('Post link copied to clipboard!');
   };

@@ -26,7 +26,7 @@ const checkoutSchema = new Schema(
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
       addressLine1: { type: String, required: true },
-      addressLine2: { type: String, required: true },
+      addressLine2: { type: String, required: false },
       city: { type: String, required: true },
       country: { type: String, required: true },
       state: { type: String, required: true },
@@ -37,16 +37,17 @@ const checkoutSchema = new Schema(
     paymentMethod: {
       type: String,
       required: true,
-      enum: ['cashonDelivery', 'Credit / Debit Card', 'Pay with Payoneer', 'Cash on Delivery','Payment with Paypal']
-    },
+      enum: ['cashonDelivery', 'Credit / Debit Card', 'Pay with Payoneer', 'Cash on Delivery', 'Payment with Paypal']
+    }, 
     totalPoints: { type: Number, default: 300 },
     items: [
       {
+        productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
         name: { type: String, required: true },
-        description: { type: String, required: true },
-        quantity: { type: Number, required: true },
+        quantity: { type: Number, required: false },
         price: { type: Number, required: true },
-        image: { type: String, required: false }
+        image: { type: String, required: false },
+        size: { type: String, required: true }
       }
     ],
     numOrder: {

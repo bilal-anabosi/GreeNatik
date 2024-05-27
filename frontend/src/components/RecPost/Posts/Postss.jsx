@@ -167,7 +167,7 @@ const Postss = ({ postId }) => {
                 <div className="progress-bar" role="progressbar" style={{ width: `${posts.percentage}%` }} aria-valuenow={posts.percentage} aria-valuemin={0} aria-valuemax={100}>{posts.percentage}%</div>
               </div>
               <hr />
-              <FormII />
+              <FormII  postId={postId} />
             </div>
           </div>
         </div>

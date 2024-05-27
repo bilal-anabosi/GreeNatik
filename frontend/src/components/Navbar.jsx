@@ -190,8 +190,13 @@ function Navbar() {
               <li className="nav-item">
                   <a className="nav-link" href="/">Home</a>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Store">Store</a>
+                <li className="nav-item dropdown">
+                  <a className="nav-link " href="#!" role="button" data-bs-toggle="dropdown" aria-expanded="false">Store</a>
+                  <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="/store">Main Store</a></li>
+                    <li><a className="dropdown-item" href="/cart">Cart</a></li>
+                    <li><a className="dropdown-item" href="/checkout">Check out</a></li>
+                  </ul>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="all-posts">Recycling</a>
@@ -199,12 +204,14 @@ function Navbar() {
                 <li className="nav-item">
                   <a className="nav-link" href="/blog">Blogs</a>
                 </li>
+                
                 <li className="nav-item">
-                  <a className="nav-link" href="/">About us</a>
+                  <a className="nav-link" href="/dashboard/products">Dashboard</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/">FAQ</a>
+                  <a className="nav-link" href="dashboard/deliveryorders">Delivery</a>
                 </li>
+                
                 <li className="nav-item">
                   <a className="nav-link" href="/leaderboard">Leader Board</a>
                 </li>
@@ -213,12 +220,13 @@ function Navbar() {
                   <ul className="dropdown-menu">
                     <li><a className="dropdown-item" href="/sign-up">Sign Up</a></li>
                     <li><a className="dropdown-item" href="/login">Login</a></li>
-                    <li><a className="dropdown-item" href="/">My Account</a></li>
+                    <li><a className="dropdown-item" href="/profile">My Account</a></li>
                   </ul>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/dashboard/post/list">Dashboard</a>
+                  <a className="nav-link" href="/about-us">About us</a>
                 </li>
+                
               </ul>
             </div>
           </div>

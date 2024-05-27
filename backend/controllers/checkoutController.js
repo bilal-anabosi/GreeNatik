@@ -116,4 +116,106 @@ async function createCheckout(req, res) {
   }
 }
 
-module.exports = { createCheckout, getCheckoutDetails };
+
+
+
+
+
+
+
+
+
+
+async function getAllCheckouts(req, res) {
+  try {
+    const checkouts = await Checkout.find()
+      .populate('user', 'username email') //only taking the stuff i want
+      .populate({
+        path: 'items.productId',
+        select: 'title category salesCount'
+      });
+
+    const checkoutDetails = checkouts.map(checkout => {
+      const itemsDetails = checkout.items.map(item => ({
+        productId: item.productId._id,
+        name: item.productId.title,
+        category: item.productId.category,
+        salesCount: item.productId.salesCount,
+        quantity: item.quantity,
+        price: item.price,
+        size: item.size,
+        image: item.image,
+      }));
+
+      return {
+        user: {
+          id: checkout.user._id,
+          name: checkout.user.username, 
+          email: checkout.user.email
+        },
+        address: checkout.address,
+        deliveryInstructions: checkout.deliveryInstructions,
+        paymentMethod: checkout.paymentMethod,
+        items: itemsDetails,
+        numOrder: checkout.numOrder,
+        status: checkout.status,
+        totalAmount: checkout.total,
+        checkoutDate: checkout.createdAt,
+        updatedDate: checkout.updatedAt
+      };
+    });
+
+    res.status(200).json(checkoutDetails);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Could not retrieve checkout details", error: error.message });
+  }
+}
+getCheckoutByOrderNumber = async (req, res) => {
+  try {
+    const numOrder = req.params.numOrder;
+    const checkout = await Checkout.findOne({ numOrder }).populate('user');
+    if (!checkout) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.status(200).json(checkout);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+markOrderAsDelivered = async (req, res) => {
+  try {
+    const { numOrder } = req.params;
+
+
+    const order = await Checkout.findOne({ numOrder });
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    if (order.status === 'delivered') {
+      return res.status(400).json({ message: 'Order is already delivered' });
+    }
+
+//status update
+    order.status = 'delivered';
+    await order.save();
+
+///sales count update
+    for (const item of order.items) {
+      const product = await Product.findById(item.productId);
+      if (product) {
+        product.salesCount += item.quantity;
+        await product.save();
+      }
+    }
+
+    res.json({ message: 'Order marked as delivered successfully' });
+  } catch (error) {
+    console.error('Error marking order as delivered:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+module.exports = { createCheckout, getCheckoutDetails ,getAllCheckouts,getCheckoutByOrderNumber,markOrderAsDelivered};

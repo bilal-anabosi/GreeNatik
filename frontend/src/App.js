@@ -26,6 +26,7 @@ import LeaderBoard from './pages/LeaderBoard';
 import EditProductPage from './pages/editProduct/EditProductPage';
 
 
+
 import {
   BrowserRouter as Router,
   Route,
@@ -36,6 +37,8 @@ import Test from './pages/Test';
 import ProductsPage from './pages/ProductsPage';
 import CreateProductForm from './pages/CreateProductForm';
 import AboutUs from './pages/AboutUs.jsx';
+import DeliveryOrders from "./pages/DeliveryOrders.jsx";
+import OrderDetails from './pages/OrderDetails';
 
 
 function App() {
@@ -73,6 +76,8 @@ function App() {
           <Route path="/dashboard/add-products" element={<CreateProductForm />} />
           <Route exact path="/dashboard/EditProductPage/:productId" element={<EditProductPage/>} />
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/dashboard/deliveryorders" element={<DeliveryOrders />} />
+          <Route path="/dashboard/order-details/:numOrder" element={<OrderDetails />} /> 
           
         </Routes>
       </Router>

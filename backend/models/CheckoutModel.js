@@ -19,7 +19,7 @@ const checkoutSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User', 
+      ref: 'user', 
       required: true, 
     },
     address: {

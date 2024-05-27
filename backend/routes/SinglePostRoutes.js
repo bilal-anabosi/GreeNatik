@@ -15,7 +15,7 @@ router.post('/:postId/contributions', authenticateToken, createContribution);
 // Route for Change like status
 router.post('/:postId/likes', authenticateToken , likePost);
 
-
-router.post('/likedposts', getLikedPosts);
+// Route for liked post
+router.post('/likedposts', authenticateToken , getLikedPosts);
 
 module.exports = router;

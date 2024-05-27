@@ -26,8 +26,7 @@ const FormII = ({postId}) => {
 
     const [maxQuantity, setMaxQuantity] = useState(0);
     const [points, setPoints] = useState(0); 
-
-    //const locationUrl1 = 'https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d418932.30157428246!2d35.57709594891422!3d32.22224307839886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x151ce0f650425697%3A0x7f0ba930bd153d84!2sNablus!3m2!1d32.222667799999996!2d35.262146099999995!5e0!3m2!1sar!2s!4v1714582625175!5m2!1sar!2s';
+    
     const [locationUrl, setLocationUrl] = useState('');
 
     useEffect(() => {
@@ -35,7 +34,7 @@ const FormII = ({postId}) => {
             try {
                 const response = await axios.get(`http://localhost:4000/singlepost/${postId}`);
                 if (response.data) {
-                    setMaxQuantity(response.data.quantity);
+                    setMaxQuantity(response.data.quantity-response.data.provided);
 
                     // Assuming the server returns the location URL directly
                     const locationUrl = response.data.locationUrl; // Adjust this according to the actual structure of the response
@@ -51,6 +50,7 @@ const FormII = ({postId}) => {
 
     const handleChange = (e) => {
         const value = e.target.value;
+
         // Validate the zip code
         if (!value.startsWith('p')) {
             setErrorMsg('Invalid zip number');
@@ -73,9 +73,16 @@ const FormII = ({postId}) => {
 
     const handleQuantityChange = (e) => {
         const value = e.target.value;
-        setQuantity(value);
-        const calculatedPoints = value * 200;
-        setPoints(calculatedPoints);
+
+        if (!/^[0-9]*$/.test(value)) {
+            setErrorMsg('Please enter numbers only for quantity');
+        } else {
+            setQuantity(value);
+            setErrorMsg('');
+
+            const calculatedPoints = value * 200;
+            setPoints(calculatedPoints);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -86,7 +93,7 @@ const FormII = ({postId}) => {
                 setErrorMessage('Please fill in all required fields');
                 return;
             }
-
+            
             if (parseFloat(quantity) > maxQuantity) {
                 setErrorMessage(`Quantity cannot exceed the available amount of ${maxQuantity} kg`);
                 return;
@@ -198,6 +205,8 @@ const FormII = ({postId}) => {
             <hr/>
             <div className="n">
                 <div className="card-header border-0 pb-0">
+                    <br/>
+                <h2 className="h4 card-title mb-0">Please choose the method given in Pickup Details<br/><span className="red-txt"> Any incorrect information will be ignored !</span></h2>
                     <br/>
                     <h1 className="h4 card-title mb-0"> {pickup ? 'Pick up' : 'Drop off'} details
                         <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -339,8 +348,7 @@ const FormII = ({postId}) => {
                             <span className="t-text">By clicking submit it means you agree to our <a href="# ">terms and conditions</a></span>
                         </div>
                     </div>
-                    <Map locationUrl={locationUrl}  postId={postId} />
-
+                    <Map locationUrl={locationUrl}  />
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ const getPostDetailsById = async (req, res) => {
     }
     
     // Extracting required information
-    const { requesting, quantity, condition, createdAt, percentage,owner } = post;
+    const { requesting, quantity, condition, createdAt, percentage, owner, pickUpDetails } = post;
 
     // Formatting date
     const formattedDate = createdAt ? createdAt.toISOString().split('T')[0] : ''; // Check if createdAt is defined
@@ -26,6 +26,7 @@ const getPostDetailsById = async (req, res) => {
         requesting,
         quantity,
         condition,
+        pickUpDetails,
         date: formattedDate,
         percentage,
         owner: {
@@ -34,14 +35,13 @@ const getPostDetailsById = async (req, res) => {
             image: owner.image.secure_url
         }
     };
-   
 
-      // Generate the location URL based on the owner's address
-      const encodedAddress = encodeURIComponent(owner.address);
-      const locationUrl = `https://www.google.com/maps/embed?pb=${encodedAddress}`;
-      
-      // Add the locationUrl to the postDetails object
-      postDetails.locationUrl = locationUrl;
+    // Generate the location URL based on the owner's address
+    const encodedAddress = encodeURIComponent(owner.address);
+    const locationUrl = `https://www.google.com/maps/embed?pb=${encodedAddress}`;
+
+    // Add the locationUrl to the postDetails object
+    postDetails.locationUrl = locationUrl;
 
     // Sending the response
     res.status(200).json(postDetails);

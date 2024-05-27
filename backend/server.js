@@ -17,6 +17,7 @@ const checkoutRoutes = require("./routes/checkoutRoutes");
 const reviewRoutes = require("./routes/reviewsRoutes.js");
 const postsRoutes = require("./routes/postsRoutes.js");
 const SinglePostRoutes = require('./routes/SinglePostRoutes.js');
+const wideRoutes =require("./routes/wideRoutes.js");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -42,6 +43,7 @@ app.use("/cart", cartRouter);
 app.use("/checkout", checkoutRoutes);
 app.use("/reviews", reviewRoutes);
 app.use("/posts", postsRoutes);
+app.use("/wide", wideRoutes);
 app.use('/singlepost', SinglePostRoutes);
 
 app.listen(PORT, () => {

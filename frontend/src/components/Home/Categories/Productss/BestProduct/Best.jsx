@@ -55,6 +55,7 @@ const Best = () => {
                                             const firstSize = product.sizes && product.sizes[0] ? product.sizes[0] : {};
                                             return (
                                                 <ProductCards
+                                                    id={product._id} 
                                                     key={index}
                                                     title={product.title}
                                                     rating={product.rating}

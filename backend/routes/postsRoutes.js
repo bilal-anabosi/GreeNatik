@@ -39,6 +39,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).populate({
+      path: "owner",
+      select: "username image",
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.json(post);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 router.post('/', authenticateToken, authorizeRoles(['admin']), async (req, res) => {
   const { title, requesting, quantity, condition, pickUpDetails, postStatus, address } = req.body;
@@ -62,6 +79,34 @@ router.post('/', authenticateToken, authorizeRoles(['admin']), async (req, res) 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
+  }
+})
+
+router.put('/:id', authenticateToken, authorizeRoles(['admin']), async (req, res) => {
+  const { title, requesting, quantity, condition, pickUpDetails, postStatus, address } = req.body;
+
+  try {
+    let post = await Post.findById(req.params.id)
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    post.title = title;
+    post.requesting = requesting;
+    post.quantity = quantity;
+    post.condition = condition;
+    post.pickUpDetails = pickUpDetails;
+    post.postStatus = postStatus;
+    post.address = address;
+
+    post = await post.save();
+
+    res.json({ success: true, post });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message || "Server error" });
   }
 })
 

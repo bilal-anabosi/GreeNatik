@@ -7,7 +7,7 @@ require("dotenv").config();
 // Import your route handlers
 const productRouter = require("./routes/productRoutes");
 const userRouter = require("./routes/user.router.js");
-const profileRouter = require("./profile/profile.router.js");
+const profileRouter = require("./routes/profile.router");
 const StoreRoutes = require("./routes/StoreRoutes");
 const WishlistRoutes = require("./routes/wishlistRoutes.js");
 const cartRouter = require("./routes/cartRoutes.js");

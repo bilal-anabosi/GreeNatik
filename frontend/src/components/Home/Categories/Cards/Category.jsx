@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Category = ({ imageUrl, title, link}) => {
+const Category = ({ imageUrl, title, link, onClick }) => {
   return (
-    <div className="col-lg col-md-4 col-6">
-      <div className="text-center mb-10" >
-        <a href={link}><img src={imageUrl} alt="" className="card-image "/></a>
+    <div className="col-lg col-md-4 col-6" onClick={onClick}>
+      <div className="text-center mb-10">
+        <img src={imageUrl} alt={title} className="card-image" />
         <div className="mt-4">
-          <h5 className="fs-6 mb-0"><a href={link} className="text-inheritt">{title}</a></h5>
+          <h5 className="fs-6 mb-0">{title}</h5>
         </div>
       </div>
     </div>

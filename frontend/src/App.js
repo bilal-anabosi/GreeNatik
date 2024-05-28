@@ -47,6 +47,7 @@ import RiseLoader from "react-spinners/RiseLoader";
 
 function App() {
   const [loading, setLoading] = useState(false);
+  
 
   useEffect(() => {
     setLoading(true);

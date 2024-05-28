@@ -16,7 +16,7 @@ const getPostDetailsById = async (req, res) => {
     }
     
     // Extracting required information
-    const { requesting, quantity, condition, createdAt, percentage, owner, pickUpDetails } = post;
+    const { requesting, quantity, condition, createdAt, percentage, owner, pickUpDetails,provided } = post;
 
     // Formatting date
     const formattedDate = createdAt ? createdAt.toISOString().split('T')[0] : ''; // Check if createdAt is defined
@@ -29,6 +29,7 @@ const getPostDetailsById = async (req, res) => {
         pickUpDetails,
         date: formattedDate,
         percentage,
+        provided,
         owner: {
             username: owner.username,
             address: owner.address,

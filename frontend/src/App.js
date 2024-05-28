@@ -100,7 +100,7 @@ function App() {
           <Route path="/dashboard/post" element={<PostsList />} />
           <Route path="/dashboard/post/add" element={<CreatePost />} />
           <Route path="/dashboard/post/edit/:id" element={<EditPost />} />
-          <Route path="/singlepost" element={<SinglePost />} />
+          <Route path="/singlepost/:id" element={<SinglePost />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/wide" element={<Wide />} />
           <Route path="/leaderboard" element={<LeaderBoard />} />

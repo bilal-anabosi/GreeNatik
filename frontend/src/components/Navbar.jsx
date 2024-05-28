@@ -146,7 +146,7 @@ function Navbar() {
                       <a href="/login" className="text-mute">Log In</a>
                     </div>
                     <div className="list-inline-item">
-                      <a href="/signup" className="text-muted">Sign Up</a>
+                      <a href="/sign-up" className="text-muted">Sign Up</a>
                     </div>
                   </div>
                 )}

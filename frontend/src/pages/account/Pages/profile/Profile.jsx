@@ -19,8 +19,6 @@ function Profile() {
 
   if (Loading) {
     return <p>Loading ...</p>
-   
-    
   }
 
   return (

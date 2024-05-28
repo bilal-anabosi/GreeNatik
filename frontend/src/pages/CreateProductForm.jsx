@@ -44,7 +44,7 @@ const CreateProductForm = () => {
 
       if (response.status === 201) {
         toast.success('Product created successfully');
-      } else  {
+      } else {
         toast.error('Error creating product: ' + response.data.message);
       }
     } catch (error) {

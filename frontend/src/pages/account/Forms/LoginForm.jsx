@@ -5,6 +5,7 @@ import { UserContext } from '../context/User.jsx';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginForm() {
   const navigate = useNavigate();

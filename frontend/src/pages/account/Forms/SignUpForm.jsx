@@ -64,7 +64,6 @@ const SignUpForm = () => {
       options: [
         { value: 'admin', label: 'Admin' },
         { value: 'user', label: 'User' },
-        { value: 'delivery', label: 'Delivery' },
       ],
       validation: yup.string().required('Required'),
     },

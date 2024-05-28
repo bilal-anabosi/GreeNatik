@@ -39,11 +39,11 @@ export default function PostsList() {
                     </div>
                     <div className="newproduct_box">
                         <div className="search_input">
-                            <input
-                                type="text"
-                                placeholder="Search Products"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
+                            <input 
+                            type="text" 
+                            placeholder="Search Products"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
                             />
                         </div>
 
@@ -93,11 +93,9 @@ export default function PostsList() {
                                                         <td>{item.pickUpDetails}</td>
                                                         <td>{((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()}</td>
                                                         <td>
-                                                            <Link to={`/dashboard/post/edit/${item.id}`}>
-                                                                <div className="button-small">
-                                                                    <span>Edit</span>
-                                                                </div>
-                                                            </Link>
+                                                            <div className="button-small">
+                                                                <span>Edit</span>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     <tr className="spacer"><td colspan="100"></td></tr>

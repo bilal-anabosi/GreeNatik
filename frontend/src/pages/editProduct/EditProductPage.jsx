@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EditProductPage = () => {
@@ -101,7 +101,6 @@ const EditProductPage = () => {
 
   return (
     <div className="container">
-      <ToastContainer />
       <Header />
       <div className="row">
         <div className="col-12">

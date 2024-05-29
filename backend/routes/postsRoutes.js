@@ -5,9 +5,9 @@ const User = require("../models/usermodel");
 const Post = require("../models/Post");
 
 
-router.get("/", async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
   try {
-    const posts = await Post.find({ postStatus: "Active" }).populate({
+    const posts = await Post.find({ postStatus: "Active", owner: req.user.id }).populate({
       path: "owner",
       match: { role: "admin" },
       select: "username image",
@@ -58,7 +58,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post('/', authenticateToken, authorizeRoles(['admin']), async (req, res) => {
-  const { title, requesting, quantity, condition, pickUpDetails, postStatus, address } = req.body;
+  const { title, requesting, quantity, condition, pickUpDetails, postStatus, address, moreDetails } = req.body;
 
   try {
     const newPost = new Post({
@@ -70,6 +70,7 @@ router.post('/', authenticateToken, authorizeRoles(['admin']), async (req, res) 
       pickUpDetails,
       postStatus,
       address,
+      moreDetails
     });
 
     const post = await newPost.save();

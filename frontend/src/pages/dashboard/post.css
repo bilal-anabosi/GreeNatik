@@ -44,6 +44,15 @@
     border: 0.767px solid #D6D6D6;
 }
 
+.newproduct_row_item textarea {
+    padding: 15px 20px;
+    border-radius: 5px;
+    width: 100%;
+    border: 0.767px solid #D6D6D6;
+    resize: none;
+    height: 150px;
+}
+
 .newproduct_row_item select {
     padding: 15px 20px;
     border-radius: 5px;

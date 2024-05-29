@@ -10,7 +10,7 @@ export default function PostsList() {
     let token = localStorage.getItem('userToken');
 
     useEffect(() => {
-        axios.get("http://localhost:4000/posts", {
+        axios.get("http://localhost:4000/posts/admin", {
             headers: {
                 'Authorization': `group__${token}`,
             }
@@ -51,14 +51,6 @@ export default function PostsList() {
                             <table className="table custom-table">
                                 <thead>
                                     <tr>
-
-                                        <th scope="col">
-                                            <label className="control control--checkbox">
-                                                <input type="checkbox" className="js-check-all" />
-                                                <div className="control__indicator"></div>
-                                            </label>
-                                        </th>
-
                                         <th scope="col">Product Name</th>
                                         <th scope="col">Requesting</th>
                                         <th scope="col">Quantity</th>
@@ -76,12 +68,6 @@ export default function PostsList() {
                                             return (
                                                 <Fragment>
                                                     <tr scope="item_row">
-                                                        <th scope="row">
-                                                            <label className="control control--checkbox">
-                                                                <input type="checkbox" />
-                                                                <div className="control__indicator"></div>
-                                                            </label>
-                                                        </th>
                                                         <td>{item.title}</td>
                                                         <td><a href="#">{item.requesting}</a></td>
                                                         <td>{item.quantity}</td>

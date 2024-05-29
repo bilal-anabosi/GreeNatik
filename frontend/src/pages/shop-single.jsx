@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
 import { UserContext } from "./account/context/User";
 import './shop-single.css'
+import { toast } from 'react-toastify'
 
 export default function ShopSingle() {
     let [product, setProduct] = useState(null)
@@ -18,6 +19,10 @@ export default function ShopSingle() {
     let token = localStorage.getItem('userToken');
 
     useEffect(() => {
+        handlePostLoad()
+    }, [id])
+
+    function handlePostLoad() {
         axios.get(`http://localhost:4000/api/products/${id}`).then(({ data }) => {
             setProduct(data.product)
 
@@ -29,7 +34,7 @@ export default function ShopSingle() {
         axios.get(`http://localhost:4000/reviews/${id}`).then(({ data }) => {
             setReviews(data)
         }).catch(err => { })
-    }, [])
+    }
 
     function addToCart() {
         axios.post('http://localhost:4000/cart/add', {
@@ -41,9 +46,9 @@ export default function ShopSingle() {
                 'Authorization': `group__${token}`
             }
         }).then(({ data }) => {
-            alert('Added to cart')
+            toast.success('Added to cart')
         }).catch(err => {
-            alert('Error adding to cart')
+            toast.error('Error adding to cart')
         })
     }
 
@@ -56,9 +61,9 @@ export default function ShopSingle() {
                 'Authorization': `group__${token}`
             }
         }).then(({ data }) => {
-            alert('Added to wishlist')
+            toast.success('Added to wishlist')
         }).catch(err => {
-            alert('Error adding to wishlist')
+            toast.error('Error adding to wishlist')
         })
     }
 
@@ -79,7 +84,7 @@ export default function ShopSingle() {
                 comment: '',
             })
         }).catch(err => {
-            alert('Error adding review')
+            toast.error('Error adding review')
         })
     }
 
@@ -227,7 +232,7 @@ export default function ShopSingle() {
                                     <div className="review_title">
                                         <div className="review_user">
                                             <i className="bi bi-person"></i>
-                                            <span style={{ marginBottom: 0 }}>{review.user.username}</span>
+                                            <span style={{ marginBottom: 0 }}>{review.user?.username || "No Username Found"}</span>
                                         </div>
                                         <div className="review_stars_small">
                                             {[1, 2, 3, 4, 5].map((star, index) =>
@@ -266,29 +271,25 @@ export default function ShopSingle() {
 
 function Item(props) {
     return (
-        <div className='related_item'>
-            <img src={`http://localhost:4000/${props.images[0]}`} />
-            <span>{props.title}</span>
-            <h3>Haldiram's Sev Bhujia</h3>
-            <div className='related_row'>
-                <div className='price-tag-small'>
-                    {
-                        props.sizes[0].salePrice ?
-                            <>
-                                <span>{props.sizes[0].salePrice}$</span>
+        <Link to={`/shop-single/${props._id}`}>
+            <div className='related_item'>
+                <img src={`http://localhost:4000/${props.images[0]}`} />
+                <span>{props.title}</span>
+                <h3>Haldiram's Sev Bhujia</h3>
+                <div className='related_row'>
+                    <div className='price-tag-small'>
+                        {
+                            props.sizes[0].salePrice ?
+                                <>
+                                    <span>{props.sizes[0].salePrice}$</span>
+                                    <span>{props.sizes[0].regularPrice}$</span>
+                                </>
+                                :
                                 <span>{props.sizes[0].regularPrice}$</span>
-                            </>
-                            :
-                            <span>{props.sizes[0].regularPrice}$</span>
-                    }
-                </div>
-                <Link to={`/shop-single/${props._id}`}>
-                    <div className="button-small">
-                        <i className="bi bi-plus"></i>
-                        <span>Add</span>
+                        }
                     </div>
-                </Link>
+                </div>
             </div>
-        </div>
+        </Link>
     )
 }

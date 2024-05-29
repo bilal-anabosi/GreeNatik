@@ -14,12 +14,13 @@ export default function EditPost() {
     let [data, setData] = useState({
         title: "",
         requesting: "",
+        moreDetails: "",
         quantity: 0,
         condition: "",
         pickUpDetails: "Pick Up",
         postStatus: "Active",
         address: {
-            city: "",
+            city: "Jerusalem",
             street: "",
             zip: ""
         },
@@ -40,6 +41,7 @@ export default function EditPost() {
     let requests = ["Plastic", "Metal", "Paper", "Others"]
     let pickUpDetails = ["Pick Up", "Drop Off", "Both"]
     let postStatus = ["Active", "Disabled"]
+    let citys = ["Jerusalem", "Gaza City", "Hebron", "Naqab", "Jenin", "Nablus", "Rafah", "Ramallah", "Bethlehem", "Tulkarm"]
 
     const EditPost = async () => {
         if (data.title === "" || data.requesting === "" || data.quantity === 0 || data.condition === "" || data.address.city === "" || data.address.street === "" || data.address.zip === "") {
@@ -99,7 +101,7 @@ export default function EditPost() {
                                         value={data.quantity}
                                         onChange={(e) => setData({ ...data, quantity: e.target.value })}
                                         type="number"
-                                        min={20}
+                                        min={5}
                                         max={1000}
                                     />
                                 </div>
@@ -109,6 +111,15 @@ export default function EditPost() {
                                         value={data.condition}
                                         onChange={(e) => setData({ ...data, condition: e.target.value })}
                                     />
+                                </div>
+                            </div>
+                            <div className="newproduct_row">
+                                <div className="newproduct_row_item">
+                                    <span>More Details</span>
+                                    <textarea
+                                        value={data.moreDetails}
+                                        onChange={(e) => setData({ ...data, moreDetails: e.target.value })}
+                                    ></textarea>
                                 </div>
                             </div>
                             <h3 style={{ marginTop: 37 }}>Post Status</h3>
@@ -142,11 +153,15 @@ export default function EditPost() {
                             <div className="newproduct_row">
                                 <div className="newproduct_row_item">
                                     <span>City *</span>
-                                    <input
+                                    <select
                                         placeholder="Cities/towns/villages"
                                         value={data.address.city}
                                         onChange={(e) => setData({ ...data, address: { ...data.address, city: e.target.value } })}
-                                    />
+                                    >
+                                        {citys.map((city, index) => (
+                                            <option key={index} value={city}>{city}</option>
+                                        ))}
+                                    </select>
                                 </div>
                                 <div className="newproduct_row_item">
                                     <span>Street name *</span>

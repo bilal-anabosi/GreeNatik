@@ -3,19 +3,22 @@ import Sidebar from "../../components/dashboard/sidebar";
 import './post.css'
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
     const token = localStorage.getItem("userToken");
+    let navigate = useNavigate()
 
     let [data, setData] = useState({
         title: "",
         requesting: "",
+        moreDetails: "",
         quantity: 0,
         condition: "",
         pickUpDetails: "Pick Up",
         postStatus: "Active",
         address: {
-            city: "",
+            city: "Jerusalem",
             street: "",
             zip: ""
         },
@@ -24,9 +27,10 @@ export default function CreatePost() {
     let requests = ["Plastic", "Metal", "Paper", "Others"]
     let pickUpDetails = ["Pick Up", "Drop Off", "Both"]
     let postStatus = ["Active", "Disabled"]
+    let citys = ["Jerusalem", "Gaza City", "Hebron", "Naqab", "Jenin", "Nablus", "Rafah", "Ramallah", "Bethlehem", "Tulkarm"]
 
     const CreatePost = async () => {
-        if(data.title === "" || data.requesting === "" || data.quantity === 0 || data.condition === "" || data.address.city === "" || data.address.street === "" || data.address.zip === "") {
+        if (data.title === "" || data.requesting === "" || data.quantity === 0 || data.condition === "" || data.address.city === "" || data.address.street === "" || data.address.zip === "" || data.moreDetails === "") {
             return toast.error("All fields are required")
         }
 
@@ -36,6 +40,7 @@ export default function CreatePost() {
             }
         }).then(res => {
             toast.success("Post created successfully")
+            navigate('/dashboard')
         }).catch(err => {
             console.log(err)
         })
@@ -90,7 +95,7 @@ export default function CreatePost() {
                                 value={data.quantity}
                                 onChange={(e) => setData({ ...data, quantity: e.target.value })}
                                 type="number"
-                                min={20}
+                                min={5}
                                 max={1000}
                             />
                         </div>
@@ -102,23 +107,15 @@ export default function CreatePost() {
                             />
                         </div>
                     </div>
-                    {/* <div className="newproduct_row">
+                    <div className="newproduct_row">
                         <div className="newproduct_row_item">
-                            <span>PickUp Details*</span>
-                            <select
-                                value={data.pickUpDetails}
-                                onChange={(e) => setData({ ...data, pickUpDetails: e.target.value })}
-                            >
-                                {pickUpDetails.map((detail, index) => (
-                                    <option key={index} value={detail}>{detail}</option>
-                                ))}
-                            </select>
+                            <span>More Details</span>
+                            <textarea
+                                value={data.moreDetails}
+                                onChange={(e) => setData({ ...data, moreDetails: e.target.value })}
+                            ></textarea>
                         </div>
-                        <div className="newproduct_row_item">
-                            <span>more details</span>
-                            <input />
-                        </div>
-                    </div> */}
+                    </div>
                     <h3 style={{ marginTop: 37 }}>Post Status</h3>
                     <div className="newproduct_dots">
                         {
@@ -150,15 +147,19 @@ export default function CreatePost() {
                     <div className="newproduct_row">
                         <div className="newproduct_row_item">
                             <span>City *</span>
-                            <input
+                            <select
                                 placeholder="Cities/towns/villages"
                                 value={data.address.city}
                                 onChange={(e) => setData({ ...data, address: { ...data.address, city: e.target.value } })}
-                            />
+                            >
+                                {citys.map((city, index) => (
+                                    <option key={index} value={city}>{city}</option>
+                                ))}
+                            </select>
                         </div>
                         <div className="newproduct_row_item">
                             <span>Street name *</span>
-                            <input 
+                            <input
                                 value={data.address.street}
                                 onChange={(e) => setData({ ...data, address: { ...data.address, street: e.target.value } })}
                             />

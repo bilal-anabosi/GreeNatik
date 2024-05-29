@@ -29,7 +29,7 @@ router.post('/:productId', authenticateToken, async (req, res) => {
         let reviewsCount = await reviewsModel.find({ product: req.params.productId }).countDocuments();
 
         let product = await productModel.findById(req.params.productId);
-        product.rating = (product.rating * (reviewsCount - 1) + rating) / reviewsCount;
+        product.reviews = (product.reviews * (reviewsCount - 1) + rating) / reviewsCount;
         await product.save();
     } catch (err) {
         console.error(err);

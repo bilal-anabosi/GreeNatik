@@ -64,6 +64,7 @@ const Best = () => {
                                                     images={product.images}
                                                     category={product.category}
                                                     inStock={product.inStock}
+                                                    reviews={product.reviews}
                                                 />
                                             );
                                         })}

@@ -15,18 +15,16 @@ const post = ({
   ownerUsername,
   id,
 }) => {
-  const imageUrl = image
-    ? `http://localhost:4000/${image.secure_url}`
-    : "/path/to/fallback_image.jpg";
+
 
   return (
     <div className="col-12 col-sm-6 col-lg-4  col-xxl-3  mw-20 my-4">
       <div className={classes.postContainer}>
         <div className={classes.info}>
-          <img
-            src={image.secure_url}
+        <img
+            src={image && image.secure_url ? `http://localhost:4000/${image.secure_url}` : './favicon.ico'}
             className={classes.image}
-            alt={"factory"}
+            alt={image && image.secure_url ? "factory" : "Default Image"}
           />
           <h6>Factory: {ownerUsername}</h6>
         </div>

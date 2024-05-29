@@ -1,17 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-const ProductCards = ({ id, title, rating, regularPrice, salePrice, images, category, inStock }) => {
+const ProductCards = ({ id, title, rating, regularPrice, salePrice, images, category, inStock,reviews }) => {
     
-    const handleAddToWishlist = async () => {
-        try {
-            const response = await axios.post('http://localhost:4000/wishlist', { productId: id });
-            console.log('Product added to wishlist:', response.data);
-          
-        } catch (error) {
-            console.error('Error adding product to wishlist:', error);
-        }
-    };
 
     return (
         <div className="card card-product">
@@ -36,17 +27,18 @@ const ProductCards = ({ id, title, rating, regularPrice, salePrice, images, cate
                 </div>
                 <h2 className="fs-6"><a href={`/shop-single/${id}`} className="text-inherit text-decoration-none">{title}</a></h2>
 
+              
                 <div>
              
-                    <small className="text-warning">
-                        {Array.from({ length: 5 }, (_, i) => (
-                            <i className={"bi " + (i < Math.floor(rating) ? "bi-star-fill" : (i < rating ? "bi-star-half" : "bi-star"))} key={i} />
-                        ))}
-                    </small>
-                    {rating !== undefined && (
-                        <span className="text-muted small">{rating.toFixed(1)}({149})</span>
-                    )}
-                </div>
+             <small className="text-warning">
+                 {Array.from({ length: 5 }, (_, i) => (
+                     <i className={"bi " + (i < Math.floor(reviews) ? "bi-star-fill" : (i < reviews ? "bi-star-half" : "bi-star"))} key={i} />
+                 ))}
+             </small>
+             {reviews !== undefined && (
+                 <span className="text-muted small">{reviews.toFixed(1)}</span>
+             )}
+         </div>
 
                 <div>
                     {inStock ? (

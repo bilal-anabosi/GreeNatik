@@ -4,8 +4,7 @@ const { authenticateToken, authorizeRoles } = require('../middelware/auth');
 const User = require("../models/usermodel");
 const Post = require("../models/Post");
 
-
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const posts = await Post.find({ postStatus: "Active" }).populate({
       path: "owner",
@@ -38,6 +37,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 router.get('/admin', authenticateToken, async (req, res) => {
   try {

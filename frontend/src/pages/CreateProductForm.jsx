@@ -3,7 +3,7 @@ import ProductInformation from '../components/addProcduct/ProductInformation';
 import ProductStatus from '../components/addProcduct/ProductStatus';
 import Header from '../components/addProcduct/Header';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CreateProductForm = () => {
@@ -60,7 +60,6 @@ const CreateProductForm = () => {
 
   return (
     <div className="container">
-      <ToastContainer />
       <Header />
       <div className="row">
         <div className="col-lg-9 col-12">

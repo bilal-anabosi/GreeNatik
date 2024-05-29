@@ -40,7 +40,7 @@ export default function CreatePost() {
             }
         }).then(res => {
             toast.success("Post created successfully")
-            navigate('/dashboard')
+            navigate('/dashboard/post')
         }).catch(err => {
             console.log(err)
         })

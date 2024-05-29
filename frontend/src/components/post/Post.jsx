@@ -22,10 +22,10 @@ const post = ({
       <div className={classes.postContainer}>
         <div className={classes.info}>
         <img
-            src={image && image.secure_url ? `http://localhost:4000/${image.secure_url}` : './favicon.ico'}
-            className={classes.image}
-            alt={image && image.secure_url ? "factory" : "Default Image"}
-          />
+          src={image && image.secure_url ? image.secure_url : './favicon.ico'}
+          className={classes.image}
+          alt={image && image.secure_url ? "factory" : "Default Image"}
+        />
           <h6>Factory: {ownerUsername}</h6>
         </div>
         <div className={classes.details}>

@@ -8,7 +8,7 @@ const { ObjectId } = require("mongoose").Types;
 // Get user's cart
 router.get("/", authenticateToken, async (req, res) => {
   try {
-    const userId = req.user.id; // Authenticated user object
+    const userId = req.user.id;
     const user = await User.findById(userId);
     const products = await Product.find({});
     const userInCartProducts = user.cart?.map((cartProduct) => {
@@ -29,6 +29,7 @@ router.get("/", authenticateToken, async (req, res) => {
         quantity: cartProduct.quantity,
         salePrice: priceObject?.salePrice,
         regularPrice: priceObject?.regularPrice,
+        availableQuantity: priceObject?.quantity,
       };
     });
     if (user.role !== "user") {
@@ -43,7 +44,15 @@ router.get("/", authenticateToken, async (req, res) => {
     if (userInCartProducts.lenght === 0) {
       return res.status(404).strictContentLength({ meassage: "Cart is empty" });
     }
-    // Check if the authenticated user has the role 'user'
+    const cartExceedsStock = userInCartProducts.some(
+      (cartProduct) => cartProduct.quantity > cartProduct.availableQuantity
+    );
+
+    if (cartExceedsStock) {
+      return res.status(400).json({
+        message: "One or more items in your cart exceed available stock",
+      });
+    }
 
     res.json(userInCartProducts);
   } catch (err) {
@@ -69,18 +78,35 @@ router.post("/add", authenticateToken, async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+    const sizeDetails = product.sizes.find(
+      (item) => item.size.toLocaleLowerCase() === size.toLocaleLowerCase()
+    );
+
+    if (!sizeDetails) {
+      return res.status(404).json({ message: "Size not found" });
+    }
 
     const existingCartItem = user.cart.find(
       (item) => item.productId.equals(productId) && item.size === size
     );
 
     if (existingCartItem) {
-      // If product with the same size exists thenn update the quantity
-      existingCartItem.quantity += quantity;
+      // If product with the same size exists then check the new total quantity
+      const newQuantity = existingCartItem.quantity + quantity;
+      if (newQuantity > sizeDetails.quantity) {
+        return res
+          .status(400)
+          .json({ message: "Quantity exceeds available stock" });
+      }
+      existingCartItem.quantity = newQuantity;
     } else {
+      if (quantity > sizeDetails.quantity) {
+        return res
+          .status(400)
+          .json({ message: "Quantity exceeds available stock" });
+      }
       user.cart.push({ productId, size, quantity });
     }
-
     await user.save();
 
     res.json({ message: "Product added to cart successfully" });
@@ -108,7 +134,6 @@ router.delete("/delete", authenticateToken, async (req, res) => {
       return res.status(404).json({ message: "Cart not found" });
     }
 
-    // Convert productId string to ObjectId for comparison
     const productIdObj = new ObjectId(productId);
 
     const productIndex = user.cart.findIndex(
@@ -149,15 +174,28 @@ router.put("/update", authenticateToken, async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-    // Check if the product with the same size already exists in the cart
+    // New: Find the size details of the product
+    const sizeDetails = product.sizes.find(
+      (item) => item.size.toLocaleLowerCase() === size.toLocaleLowerCase()
+    );
+
+    if (!sizeDetails) {
+      return res.status(404).json({ message: "Size not found" });
+    }
+
+    // New: Check if the updated quantity exceeds available stock
+    if (quantity > sizeDetails.quantity) {
+      return res
+        .status(400)
+        .json({ message: "Quantity exceeds available stock" });
+    }
+
     const existingCartItem = user.cart.find(
       (item) => item.productId.equals(productId) && item.size === size
     );
     if (existingCartItem) {
-      //If product with the same size exists, update the quantity
       existingCartItem.quantity = quantity;
     } else {
-      // if not then add the product with the specified size and quantity
       user.cart.push({ productId, size, quantity });
     }
 

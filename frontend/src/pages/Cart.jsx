@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Product from "../components/Product";
 
 const Cart = () => {
@@ -120,11 +122,22 @@ const Cart = () => {
         console.error("Failed to update item quantity in cart");
       }
     } catch (error) {
-      console.error("Error updating item quantity in cart:", error);
+      if (error.response && error.response.status === 400) {
+        const message = error.response.data.message;
+        if (message === "Quantity exceeds available stock") {
+          toast.error("Quantity exceeds available stock");
+        } else {
+          toast.error("Failed to update item quantity in cart");
+        }
+      } else {
+        console.error("Error updating item quantity in cart:", error);
+        toast.error("Error updating item quantity in cart");
+      }
     }
   };
   return (
     <div>
+      <ToastContainer />
       <div>
         <main>
           <div className="mt-4">

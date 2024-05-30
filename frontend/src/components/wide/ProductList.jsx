@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import ProductCards from '../wide/ProductCards';
 import axios from 'axios';
 import ViewControls from './ViewControls';
-import Pagination from './Pagination';
+
 import PriceFilter from './PriceFilter';
 import RatingFilter from './RatingFilter';
 import CategoryName from './CategoryName';
@@ -12,6 +12,8 @@ const ProductList = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [latestProductsWithSale, setLatestProductsWithSale] = useState([]);
   const [sortBy, setSortBy] = useState('Featured');
+  const [selectedRatings, setSelectedRatings] = useState([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState({ label: '', min: 0, max: Infinity });
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const category = query.get('category');
@@ -42,6 +44,21 @@ const ProductList = () => {
       }
     }
 
+    if (selectedRatings.length > 0) {
+      filteredProducts = filteredProducts.filter(product =>
+        selectedRatings.includes(product.reviews)
+      );
+    }
+
+    if (selectedPriceRange.label) {
+      filteredProducts = filteredProducts.filter(product =>
+        product.sizes.some(size => 
+          (size.salePrice !== null ? size.salePrice : size.regularPrice) >= selectedPriceRange.min && 
+          (size.salePrice !== null ? size.salePrice : size.regularPrice) <= selectedPriceRange.max
+        )
+      );
+    }
+
     switch (sortBy) {
       case "Low to High":
         filteredProducts.sort((a, b) => a.sizes[0].regularPrice - b.sizes[0].regularPrice);
@@ -53,14 +70,26 @@ const ProductList = () => {
         filteredProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         break;
       case "Avg. Rating":
-        filteredProducts.sort((a, b) => b.rating - a.rating);
+        filteredProducts.sort((a, b) => b.reviews - a.reviews);
         break;
       default:
         break;
     }
 
     setLatestProductsWithSale(filteredProducts);
-  }, [allProducts, category, sortBy]);
+  }, [allProducts, category, sortBy, selectedRatings, selectedPriceRange]);
+
+  const handleRatingChange = (rating) => {
+    setSelectedRatings((prevRatings) =>
+      prevRatings.includes(rating)
+        ? prevRatings.filter((r) => r !== rating)
+        : [...prevRatings, rating]
+    );
+  };
+
+  const handlePriceChange = (range) => {
+    setSelectedPriceRange(range);
+  };
 
   return (
     <div className="container">
@@ -73,17 +102,12 @@ const ProductList = () => {
               <Link className="nav-link" to="/wide?category=Home">Home</Link>
             </li>
             <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Skin Care">Skin Care</Link>
+              <Link className="nav-link" to="/wide?category=Skin care">Skin care</Link>
             </li>
             <li className="nav-item border-bottom w-100">
               <Link className="nav-link" to="/wide?category=Pets">Pets</Link>
             </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Something">Something</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Somewhere">Somewhere</Link>
-            </li>
+          
             <li className="nav-item border-bottom w-100">
               <Link className="nav-link" to="/wide?category=Sale">Sale</Link>
             </li>
@@ -106,8 +130,8 @@ const ProductList = () => {
               <Link className="nav-link" to="/wide?category=Electronics">Electronics</Link>
             </li>
           </ul>
-          <PriceFilter />
-          <RatingFilter />
+          <PriceFilter selectedPriceRange={selectedPriceRange} onPriceChange={handlePriceChange} />
+          <RatingFilter selectedRatings={selectedRatings} onRatingChange={handleRatingChange} />
         </aside>
         <section className="col-lg-9 col-md-8">
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -121,7 +145,7 @@ const ProductList = () => {
                 id={product._id}
                 title={product.title}
                 isOnSale={product.sizes.some(size => size.salePrice !== null)}
-                rating={product.rating}
+                rating={product.reviews}
                 regularPrice={product.sizes?.[0]?.regularPrice || ''}
                 salePrice={product.sizes?.[0]?.salePrice || ''}
                 images={product.images}
@@ -131,7 +155,7 @@ const ProductList = () => {
               />
             ))}
           </div>
-          <Pagination />
+       
         </section>
       </div>
     </div>

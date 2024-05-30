@@ -1,12 +1,13 @@
+
 import React from 'react';
 
-const PriceFilter = () => {
+const PriceFilter = ({ selectedPriceRange, onPriceChange }) => {
     const priceRanges = [
-        '$0 - $10',
-        '$10 - $50',
-        '$50 - $100',
-        '$100 - $200',
-        '$200 and up'
+        { label: '$0 - $10', min: 0, max: 10 },
+        { label: '$10 - $50', min: 10, max: 50 },
+        { label: '$50 - $100', min: 50, max: 100 },
+        { label: '$100 - $200', min: 100, max: 200 },
+        { label: '$200 and up', min: 200, max: Infinity }
     ];
 
     return (
@@ -20,11 +21,11 @@ const PriceFilter = () => {
                             type="radio"
                             name="priceRange"
                             id={`priceRange${index}`}
-                            value={range}
-                            // `checked` and `onChange` handlers are removed
+                            checked={selectedPriceRange.label === range.label}
+                            onChange={() => onPriceChange(range)}
                         />
                         <label className="form-check-label" htmlFor={`priceRange${index}`}>
-                            {range}
+                            {range.label}
                         </label>
                     </div>
                 ))}

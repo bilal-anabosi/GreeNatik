@@ -25,7 +25,7 @@ import Wide from './pages/Wide';
 import LeaderBoard from './pages/LeaderBoard';
 import EditProductPage from './pages/editProduct/EditProductPage';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from './components/footer.js';
+
 
 
 import {
@@ -43,8 +43,7 @@ import OrderDetails from './pages/OrderDetails';
 import EditPost from './pages/dashboard/edit-post.jsx';
 import { useState, useEffect } from 'react';
 import RiseLoader from "react-spinners/RiseLoader";
-
-
+import Footer from './components/footer.jsx';
 function App() {
   const [loading, setLoading] = useState(false);
   
@@ -100,8 +99,7 @@ function App() {
           <Route path="/dashboard/post" element={<PostsList />} />
           <Route path="/dashboard/post/add" element={<CreatePost />} />
           <Route path="/dashboard/post/edit/:id" element={<EditPost />} />
-           <Route path="/singlepost/:id
-" element={<SinglePost />} />
+          <Route path="/singlepost/:id" element={<SinglePost />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/wide" element={<Wide />} />
           <Route path="/leaderboard" element={<LeaderBoard />} />

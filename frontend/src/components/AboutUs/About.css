@@ -187,6 +187,11 @@
     text-align: center;
     font-family: 'Poppins', sans-serif;
 }
+.sana{
+    position: absolute;
+    top: 570%;
+    width: 100%;
+}
 @media screen and (max-width: 576px) {
     .UU
     {
@@ -201,5 +206,9 @@
 .ZZ{
     position: absolute;
     top: 610%;
+}
+.sana{
+    position: absolute;
+    top: 1100%;
 }
 }

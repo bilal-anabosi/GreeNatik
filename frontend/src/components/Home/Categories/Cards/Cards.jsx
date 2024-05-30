@@ -29,11 +29,6 @@ const Cards = () => {
           onClick={() => handleCategoryClick('Gardening')}
         />
         <Category 
-          imageUrl="/pics/images/s3.png" 
-          title="Laundry" 
-          onClick={() => handleCategoryClick('Laundry')}
-        />
-        <Category 
           imageUrl="/pics/images/s4.png" 
           title="Pets" 
           onClick={() => handleCategoryClick('Pets')}
@@ -43,14 +38,14 @@ const Cards = () => {
           title="Shopping Bags" 
           onClick={() => handleCategoryClick('Shopping Bags')}
         />
-      </div>
-
-      <div className="row row-cols-5 g-4">
         <Category 
           imageUrl="/pics/images/s6.png" 
           title="Office" 
           onClick={() => handleCategoryClick('Office')}
         />
+      </div>
+
+      <div className="row row-cols-5 g-4">
         <Category 
           imageUrl="/pics/images/s7.png" 
           title="Skin Care" 

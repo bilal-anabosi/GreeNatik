@@ -71,9 +71,9 @@ background-color: #ffffff;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 15px;
-    width: 80%;
-    max-width: 900px;
-    height: 600px;
+    width: 100%;
+    max-width: 1000px;
+    height: 1000px;
 }
 .oo .modal-content-body {
     display: flex;
@@ -112,4 +112,22 @@ background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.kk .slick-list {
+    margin: 0;
+    padding: 0;
+}
+.kk .slick-track {
+    display: flex;
+    align-items: center; 
+}
+.slick-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
 }

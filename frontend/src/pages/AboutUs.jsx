@@ -4,6 +4,7 @@ import AboutI from '../components/AboutUs/AboutI';
 import AboutII from '../components/AboutUs/AboutII';
 import AboutIII from '../components/AboutUs/AboutIII';
 import OurTeam from '../components/AboutUs/OurTeam';
+import AboutFooter from '../components/AboutUs/AboutFooter';
 
 function AboutUs() {
 return (
@@ -18,6 +19,8 @@ return (
 <AboutIII/>
 
 <OurTeam/>
+
+<AboutFooter/>
 
 </div>
 )

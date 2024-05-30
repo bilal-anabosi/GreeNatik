@@ -11,9 +11,13 @@ import ForgetPage from './pages/account/Pages/ForgetPage.jsx'
 import AccessDenied from './pages/account/Pages/AccessDined';
 import Error404 from './pages/account/Pages/Error404.jsx';
 import Store from './pages/Store';
+
 import AllBlogs from './pages/blog/AllBlogs';
 import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
+import AllBlogsDash from "./pages/dashboard/blog/AllBlogsDash.jsx";
+import CreateNewBlog from "./pages/dashboard/blog/CreateNewBlog";
+
 import Posts from "./pages/postsPage/Posts.jsx";
 import Profile from './pages/account/Pages/profile/Profile.jsx';
 import ShopSingle from './pages/shop-single.jsx'
@@ -44,6 +48,7 @@ import EditPost from './pages/dashboard/edit-post.jsx';
 import { useState, useEffect } from 'react';
 import RiseLoader from "react-spinners/RiseLoader";
 import Footer from './components/footer.jsx';
+import { ToastContainer } from 'react-toastify';
 function App() {
   const [loading, setLoading] = useState(false);
   
@@ -75,6 +80,7 @@ function App() {
         </div>
       ) : (
         <>
+      <ToastContainer />
       <Navbar />
       <Router>
         <Routes>
@@ -93,7 +99,7 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/Blog" element={<AllBlogs />} />
           <Route path="/blog-category" element={<BlogCategory />} />
-          <Route path="/Single-blog" element={<SingleBlog />} />
+          <Route path="/Single-blog/:id" element={<SingleBlog />} />
           <Route path="/all-posts" element={<Posts />} />
           <Route path="/shop-single/:id" element={<ShopSingle />} />
           <Route path="/dashboard/post" element={<PostsList />} />
@@ -110,6 +116,8 @@ function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/dashboard/deliveryorders" element={<DeliveryOrders />} />
           <Route path="/dashboard/order-details/:numOrder" element={<OrderDetails />} /> 
+          <Route path="/dashboard/all-blogs" element ={<AllBlogsDash />} />
+          <Route path="/dashboard/create-new-blog" element={<CreateNewBlog />} />
           
         </Routes>
       </Router>

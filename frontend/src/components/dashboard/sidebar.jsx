@@ -25,7 +25,7 @@ export default function Sidebar() {
                 </Link>
             </div>
             <div className="newpost_item">
-                <Link to="/blog">
+                <Link to="/dashboard/all-blogs">
                     <i className="fi fi-sr-duplicate"></i>
                     <span>Blog</span>
                 </Link>
@@ -38,7 +38,7 @@ export default function Sidebar() {
             </div>
             <div className="newpost_item">
                 <Link to="/dashboard/deliveryorders">
-                <i class="bi bi-clipboard-check-fill"></i>
+                <i className="bi bi-clipboard-check-fill"></i>
                     <span>Recycling Delivery</span>
                 </Link>
             </div>

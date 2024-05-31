@@ -22,6 +22,9 @@ const Pagination = ({ posts }) => {
 
     return formattedDate;
   };
+  const calculatePercentage = (provided, quantity) => {
+    return (provided / quantity) * 100;
+  };
 
   return (
     <div>
@@ -35,10 +38,10 @@ const Pagination = ({ posts }) => {
             requestType={post.requesting}
             quantity={post.quantity}
             date={formateDate(post.date)}
-            progress={post.percentage}
             deliveryMethod={post.pickUpDetails}
             postDetails={post.details}
             ownerUsername={post.ownerUsername}
+            provided={post.provided}
           />
         ))}
       </div>

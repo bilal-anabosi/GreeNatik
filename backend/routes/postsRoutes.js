@@ -23,12 +23,12 @@ router.get("/", async (req, res) => {
       title: post.title,
       requesting: post.requesting,
       pickUpDetails: post.pickUpDetails,
-      percentage: post.percentage,
       quantity: post.quantity,
       details: post.moreDetails,
       date: post.createdAt,
       status: post.postStatus,
-
+      provided:post.provided,
+      
     }));
 
     res.json(formattedPosts);

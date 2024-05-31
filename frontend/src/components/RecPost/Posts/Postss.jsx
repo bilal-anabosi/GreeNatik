@@ -85,7 +85,11 @@ const Postss = ({ postId }) => {
                   <div className="d-md-flex flex-wrap align-items-start text-center text-md-start">
                     <div className="mb-2">
                       <div className="avatar avatar-xl ">
-                        <img className="avatar-img border-0" alt="..." src={posts.owner.image} />
+                      <img
+  className="avatar-img border-0"
+  alt="..."
+  src={posts.owner.image || './favicon.ico'}
+/>
                       </div>
                     </div>
                     <div className="ms-md-4 mt-3">
@@ -169,7 +173,7 @@ const Postss = ({ postId }) => {
 </div>
               <hr />
               <div className="progress" style={{ marginTop: '60px', height: '25px' }}>
-                <div className="progress-bar" role="progressbar" style={{ width: `${posts.percentage}%` }} aria-valuenow={posts.percentage} aria-valuemin={0} aria-valuemax={100}>{posts.percentage}%</div>
+              <div className="progress-bar" role="progressbar" style={{ width: `${(posts.provided / posts.quantity) * 100}%` }} aria-valuenow={(posts.provided / posts.quantity) * 100} aria-valuemin={0} aria-valuemax={100}>{(posts.provided / posts.quantity) * 100}%</div>;
               </div>
               <hr />
               <FormII  postId={postId} />

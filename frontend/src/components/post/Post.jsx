@@ -2,36 +2,35 @@ import React from "react";
 import classes from "./Post.module.css";
 import { Link } from "react-router-dom";
 const viewButton = "additional-class";
-
-const post = ({
+const Post = ({
   city,
   requestType,
   quantity,
   date,
-  progress,
+
   image,
   deliveryMethod,
   postDetails,
   ownerUsername,
   id,
+  provided,
 }) => {
-
+  const calculatedPercentage = (provided / quantity) * 100;
 
   return (
     <div className="col-12 col-sm-6 col-lg-4  col-xxl-3  mw-20 my-4">
       <div className={classes.postContainer}>
         <div className={classes.info}>
-        <img
-          src={image && image.secure_url ? image.secure_url : './favicon.ico'}
-          className={classes.image}
-          alt={image && image.secure_url ? "factory" : "Default Image"}
-        />
+          <img
+            src={image && image.secure_url ? image.secure_url : './favicon.ico'}
+            className={classes.image}
+            alt={image && image.secure_url ? "factory" : "Default Image"}
+          />
           <h6>Factory: {ownerUsername}</h6>
         </div>
         <div className={classes.details}>
           <span>Requesting: {requestType}</span>
           <span>City: {city}</span>
-
           <span>Quantity: {quantity}</span>
           <span>Delivery Method: {deliveryMethod}</span>
           {requestType === "Others" && <span>Details: {postDetails}</span>}
@@ -51,7 +50,7 @@ const post = ({
         </div>
         <div className={`row ${classes.percentage}`}>
           <div className="col-9"></div>
-          <div className={`col-3 d-flex justify-content-end`}>{progress}%</div>
+          <div className={`col-3 d-flex justify-content-end`}>{calculatedPercentage}%</div>
         </div>
         <div
           className="progress my-4"
@@ -62,7 +61,7 @@ const post = ({
           aria-valuemax="100"
           style={{ height: "9px", backgroundColor: "#071e2a " }}
         >
-          <div className="progress-bar" style={{ width: progress + "%" }}></div>
+          <div className="progress-bar" style={{ width: `${calculatedPercentage}%` }}></div>
         </div>
         <div className={classes.button}>
           <Link
@@ -78,4 +77,4 @@ const post = ({
   );
 };
 
-export default post;
+export default Post;

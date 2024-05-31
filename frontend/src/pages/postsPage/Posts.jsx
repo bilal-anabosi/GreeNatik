@@ -260,6 +260,7 @@ const Posts = () => {
                 deliveryMethod={post.pickUpDetails}
                 postDetails={post.details}
                 ownerUsername={post.ownerUsername}
+                provided={post.provided}
               />
             ))}
             <div className="mt-6">

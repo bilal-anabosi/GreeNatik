@@ -19,9 +19,8 @@ const userSchema = new Schema(
     role: {
       type: String,
       default: "user",
-      enum: ["user", "admin","delivery"],
+      enum: ["user", "admin", "delivery"],
     },
-
     address: {
       type: String,
       required: true,
@@ -49,18 +48,59 @@ const userSchema = new Schema(
         },
       ],
       default: function () {
-        // Check if the user's role is 'user', initialize cart as empty array
+        // Initialize cart as an empty array if the user's role is 'user'
         if (this.role === "user") {
           return [];
         }
       },
     },
-    
+    points: {
+      total: {
+        type: Number,
+        default: 300,
+      },
+      tasks: {
+        type: Number,
+        default: 0,
+      },
+      availablePoints: {
+        type: Number,
+        default: 300,
+      },
+      log: {
+        type: [
+          {
+            pointsAdded: {
+              type: Number,
+              required: true,
+            },
+            date: {
+              type: Date,
+              default: Date.now,
+            },
+          },
+        ],
+        default: [],
+      },
+    },
   },
   {
     timestamps: true,
   }
 );
+
+// pre-save middleware to initialize points for users with the right role
+userSchema.pre("save", function (next) {
+  if (this.role === "user" && !this.points) {
+    this.points = {
+      total: 300,
+      tasks: 0,
+      availablePoints: 300,
+      log: [],
+    };
+  }
+  next();
+});
 
 const userModel = model("user", userSchema);
 

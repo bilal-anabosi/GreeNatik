@@ -17,7 +17,16 @@ const ContributionSchema = new Schema({
   address: AddressSchema,
   date: { type: Date },
   time: {type: String },
-  points: {type: Number}
+  points: {type: Number},
+  status: {
+    type: String,
+    enum: ['not delivered', 'delivered','canceled'],
+    default: 'not delivered'
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now // Set default value to current date/time
+  }
 }, { timestamps: true });
 
 const Contribution = mongoose.model('Contribution', ContributionSchema);

@@ -70,6 +70,7 @@ const DeliveryOrders = () => {
   };
 
   return (
+    <>
     <div className="container-fluid mt-5">
       <div className="row">
         {/* Sidebar */}
@@ -154,6 +155,14 @@ const DeliveryOrders = () => {
         </div>
       </div>
     </div>
+     <div className='mb-5 pb-5'></div>
+     <div className='mb-5 pb-5'></div>
+     <div className='mb-5 pb-5'></div>
+     <div className='mb-5 pb-5'></div>
+     <div className='mb-5 pb-5'></div>
+     <div className='mb-5 pb-5'></div>
+     <div className='mb-5 pb-5'></div>
+     </>
   );
 };
 

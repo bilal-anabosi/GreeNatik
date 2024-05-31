@@ -22,6 +22,9 @@ import Wishlist from './pages/Wishlist.jsx';
 import Wide from './pages/Wide';
 import LeaderBoard from './pages/LeaderBoard';
 import EditProductPage from './pages/editProduct/EditProductPage';
+import DeliveryContributions from './pages/DeliveryContributions';
+
+import ContributionDetailsPage from './pages/ContributionDetailsPage';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
@@ -81,6 +84,9 @@ function AppContent() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/dashboard/deliveryorders" element={<DeliveryOrders />} />
         <Route path="/dashboard/order-details/:numOrder" element={<OrderDetails />} /> 
+        <Route path="/dashboard/contributions" element={<DeliveryContributions />} />
+        <Route path="/dashboard/contribution-details/:id" element={<ContributionDetailsPage />} />
+
       </Routes>
       {shouldShowFooter && <Footer />}
     </>

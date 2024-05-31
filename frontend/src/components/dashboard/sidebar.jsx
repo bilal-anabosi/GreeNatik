@@ -6,12 +6,7 @@ export default function Sidebar() {
     return (
         <div className="newpost_sidebar">
             <h4>Quick Menu</h4>
-            <div className="newpost_item">
-                <Link to="/dashboard">
-                    <i className="fi fi-sr-house-chimney"></i>
-                    <span>Dashboard</span>
-                </Link>
-            </div>
+            
             <div className="newpost_item">
                 <Link to="/dashboard/products">
                     <i className="fi fi-sr-shopping-bag"></i>
@@ -37,7 +32,7 @@ export default function Sidebar() {
                 </Link>
             </div>
             <div className="newpost_item">
-                <Link to="/dashboard/deliveryorders">
+                <Link to="/dashboard/contributions">
                 <i class="bi bi-clipboard-check-fill"></i>
                     <span>Recycling Delivery</span>
                 </Link>

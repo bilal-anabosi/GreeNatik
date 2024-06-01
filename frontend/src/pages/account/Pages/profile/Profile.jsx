@@ -5,22 +5,20 @@ import { Formik, Form, Field } from "formik";
 import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
-import OrderList from "../../../../components/Orders/OrderList.jsx";
+import OrderList from "../../../../components/Orders/OrderList.jsx"; // Import OrderList component
 import Activity from "../../../../components/RecPost/Activity.jsx";
 
-function Profile() {
+function Profile({ exchangeRate }) {
   const { userData, Loading, setUserData } = useContext(UserContext);
   const [activeItem, setActiveItem] = useState("profile");
+  const navigate = useNavigate();
 
   const handleItemClick = (item) => {
     setActiveItem(item);
   };
-  const navigate = useNavigate(); 
 
   if (Loading) {
     return <p>Loading ...</p>
-   
-    
   }
 
   return (
@@ -161,8 +159,7 @@ function Profile() {
                         </div>
                       </div>
                       <div className="form-group mt-3 text-center">
-                        <Logout/>
-
+                        <Logout />
                       </div>
                     </Form>
                   )}
@@ -170,7 +167,7 @@ function Profile() {
               )}
 
               {activeItem === "orders" && (
-                <OrderList/>
+                <OrderList exchangeRate={exchangeRate} /> 
               )}
 
               {activeItem === "points" && (
@@ -178,10 +175,10 @@ function Profile() {
               )}
 
               {activeItem === "posts" && (
-                <p className="card-text"> <Activity/> </p>
+                <p className="card-text"> <Activity /> </p>
               )}
               {activeItem === "ResetPassword" && (
-                 navigate('/forget')
+                navigate('/forget')
               )}
             </div>
           </div>

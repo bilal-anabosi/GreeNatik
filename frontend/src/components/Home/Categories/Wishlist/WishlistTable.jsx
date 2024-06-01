@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const WishlistTable = () => {
+const WishlistTable = ({ exchangeRate }) => {
   const [wishlist, setWishlist] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [currencySymbol, setCurrencySymbol] = useState('$'); 
   const token = localStorage.getItem('userToken');
   const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ const WishlistTable = () => {
     try {
       const response = await axios.delete(`http://localhost:4000/wishlist/${id}`, {
         headers: {
-          'Authorization': `group__${token}`,
+          'Authorization': `group__${token}`
         },
       });
 
@@ -100,6 +101,10 @@ const WishlistTable = () => {
     }
   };
 
+  useEffect(() => {
+    setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
+  }, [exchangeRate]);
+
   return (
     <section className="mt-8 mb-14">
       <div className="container">
@@ -115,7 +120,7 @@ const WishlistTable = () => {
                   <tr>
                     <th></th>
                     <th>Product</th>
-                    <th>price</th>
+                    <th>Price</th>
                     <th>Status</th>
                     <th>Actions</th>
                     <th>Remove</th>
@@ -143,11 +148,11 @@ const WishlistTable = () => {
                           <small>{item.product.size}</small>
                         </div>
                       </td>
-                      <td className="align-middle">{item.product.price}</td>
                       <td className="align-middle">
-                        <span
-                          className={`badge ${item.product.status ? "bg-success" : "bg-danger"}`}
-                        >
+                        {currencySymbol} {(item.product.price * exchangeRate).toFixed(2)}
+                      </td>
+                      <td className="align-middle">
+                        <span className={`badge ${item.product.status ? "bg-success" : "bg-danger"}`}>
                           {item.product.status ? "In Stock" : "Out of Stock"}
                         </span>
                       </td>

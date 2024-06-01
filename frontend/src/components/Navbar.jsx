@@ -2,8 +2,30 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({ onRateChange }) {
   const [user, setUser] = useState(null);
+  const [currency, setCurrency] = useState('USD');
+  const [currencySymbol, setCurrencySymbol] = useState('$');
+
+  const [exchangeRate, setExchangeRate] = useState(1); 
+
+  const handleCurrencyChange = async (selectedCurrency) => {
+    setCurrency(selectedCurrency);
+    try {
+      const response = await axios.get('http://localhost:4000/api/exchange-rates');
+      const rate = selectedCurrency === 'USD' ? 1 : response.data.rates.ILS;
+      const roundedRate = Math.round(rate * 10) / 10; 
+      console.log('Selected Rate:', roundedRate);
+      onRateChange(roundedRate);
+      setExchangeRate(roundedRate); 
+
+      setCurrencySymbol(selectedCurrency === 'USD' ? '$' : '₪');
+    } catch (error) {
+      console.error('Error fetching exchange rate', error);
+    }
+  };
+
+
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -23,29 +45,41 @@ function Navbar() {
     };
 
     fetchUserInfo();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('userToken');
     setUser(null);
   };
 
-
   return (
-<div >
-<div style={{background:'#F1F6FA'}}> 
-  <div className="container">
-    <div className="row align-items-center pt-2">
-      <div className="col-xl-3 col-lg-8 col-7 d-flex">
-        <div className="dropdown selectBox">
-          <a href='#!' className="dropdown-toggle selectValue text-reset"  data-bs-toggle="dropdown" aria-expanded="false">
-            USD $
-          </a>
-          <ul className="dropdown-menu">
-            <li><a className="dropdown-item" href='#!'>USD $</a></li>
-            <li><a className="dropdown-item" href='#!'>NIS ₪</a></li>
-          </ul>
-        </div>
+    <div>
+      <div style={{ background: '#F1F6FA' }}>
+        <div className="container">
+          <div className="row align-items-center pt-2">
+            <div className="col-xl-3 col-lg-8 col-7 d-flex">
+              <div className="dropdown selectBox">
+                <a
+                  href="#!"
+                  className="dropdown-toggle selectValue text-reset"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {currency === 'USD' ? 'USD' : 'ILS'} {currencySymbol}
+                </a>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a className="dropdown-item" href="#!" onClick={() => handleCurrencyChange('USD')}>
+                      USD $
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#!" onClick={() => handleCurrencyChange('ILS')}>
+                      ILS ₪
+                    </a>
+                  </li>
+                </ul>
+              </div>
         <div className="ms-6">
           <div className="dropdown selectBox">
             <a href='#!' className="dropdown-toggle selectValue text-reset"  data-bs-toggle="dropdown" aria-expanded="false">

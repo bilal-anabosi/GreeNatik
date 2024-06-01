@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
-const Order = ({ items, discountAmount, serviceFee = 3.00}) => {
+const Order = ({ items, discountAmount, serviceFee = 3.00, exchangeRate }) => {
   const itemsSubtotal = items.reduce((acc, item) => {
-    const itemTotal = (item.regularPrice || 0) * (item.quantity || 0);
+    const itemTotal = (item.regularPrice || 0) * (item.quantity || 0) * exchangeRate;
     return acc + itemTotal;
   }, 0);
 
-  const subTotal = itemsSubtotal + serviceFee;
+  const subTotal = itemsSubtotal + serviceFee * exchangeRate;
   const totalAfterDiscount = subTotal - discountAmount;
+  const [currencySymbol, setCurrencySymbol] = useState('$'); 
+
+  // Update currency symbol when exchange rate changes
+  useEffect(() => {
+    setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
+  }, [exchangeRate]);
+
   return (
     <div className="mt-4 mt-lg-0" style={{ maxWidth: '800px' }}>
       <div className="card shadow-sm">
@@ -31,7 +38,7 @@ const Order = ({ items, discountAmount, serviceFee = 3.00}) => {
                   <span>{item.quantity || 0}</span>
                 </div>
                 <div className="col-3 text-lg-end text-start text-md-end col-md-3">
-                  <span className="fw-bold">${item.regularPrice ? item.regularPrice.toFixed(2) : '0.00'}</span>
+                  <span className="fw-bold">{currencySymbol} {((item.regularPrice * exchangeRate).toFixed(1))}</span>
                 </div>
               </div>
             </li>
@@ -39,25 +46,25 @@ const Order = ({ items, discountAmount, serviceFee = 3.00}) => {
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>Item Subtotal</div>
-              <div className="fw-bold">${itemsSubtotal.toFixed(2)}</div>
+              <div className="fw-bold">{currencySymbol} {(itemsSubtotal.toFixed(2) * exchangeRate).toFixed(1)}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>Service Fee</div>
-              <div className="fw-bold">${serviceFee.toFixed(2)}</div>
+              <div className="fw-bold">{currencySymbol} {(serviceFee.toFixed(2) * exchangeRate).toFixed(1)}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>SubTotal</div>
-              <div className="fw-bold">${subTotal.toFixed(2)}</div>
+              <div className="fw-bold">{currencySymbol} {(subTotal.toFixed(2) * exchangeRate).toFixed(1)}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between fw-bold">
               <div>Total after Discount</div>
-              <div>${totalAfterDiscount.toFixed(2)}</div>
+              <div>{currencySymbol} {(totalAfterDiscount.toFixed(2) * exchangeRate).toFixed(1)}</div>
             </div>
           </li>
         </ul>

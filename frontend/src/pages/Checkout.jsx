@@ -10,7 +10,7 @@ import Discount from '../components/checkout/Discount';
 
 import './Checkout.css';
 
-function Checkout() {
+function Checkout({exchangeRate}) {
   const [items, setItems] = useState([]);
   const token = localStorage.getItem('userToken');
   const totalPoints = 300;
@@ -149,11 +149,13 @@ function Checkout() {
           </div>
         </div>
         <div className="main-content" style={{ marginBottom: '20px' }}>
-          <Order 
-            items={items} 
-            discountAmount={discountAmount} 
-            serviceFee={3.00}
-          />
+        <Order
+  items={items}
+  discountAmount={discountAmount}
+  serviceFee={3.00}
+  exchangeRate={exchangeRate} // Pass exchangeRate here
+/>
+
         </div>
       </div>
     </div>

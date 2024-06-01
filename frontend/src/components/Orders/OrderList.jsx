@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 
-const OrderList = () => {
+const OrderList = ({ exchangeRate })=> {
     const [orders, setOrders] = useState([]);
     const navigate = useNavigate();
+    const [currencySymbol, setCurrencySymbol] = useState('$'); 
 
+    useEffect(() => {
+        setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
+      }, [exchangeRate]);
+    
     const fetchOrders = useCallback(async () => {
         const token = localStorage.getItem('userToken');
         try {
@@ -79,12 +84,12 @@ const OrderList = () => {
                                                         </td>
                                                         <td className="align-middle border-top-0">{new Date(order.checkoutDate).toLocaleDateString()}</td>
                                                         <td className="align-middle border-top-0">{item.quantity}</td>
-                                                        <td className="align-middle border-top-0">{(item.price * item.quantity).toFixed(2)}</td>
+                                                        <td className="align-middle border-top-0"> {currencySymbol}{(item.price * item.quantity).toFixed(2)}</td>
                                                     </tr>
                                                 ))}
                                                 <tr>
                                                     <td colSpan="4" className="text-end fw-bold">Total Amount</td>
-                                                    <td className="fw-bold">{order.items.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}</td>
+                                                    <td className="fw-bold"> {currencySymbol}{(order.items.reduce((total, item) => total + (item.price * item.quantity), 0) * exchangeRate).toFixed(2)}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

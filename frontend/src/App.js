@@ -22,9 +22,6 @@ import Wishlist from './pages/Wishlist.jsx';
 import Wide from './pages/Wide';
 import LeaderBoard from './pages/LeaderBoard';
 import EditProductPage from './pages/editProduct/EditProductPage';
-import DeliveryContributions from './pages/DeliveryContributions';
-
-import ContributionDetailsPage from './pages/ContributionDetailsPage';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
@@ -48,19 +45,24 @@ import Footer from './components/footer.jsx';
 function AppContent() {
   const location = useLocation();
   const shouldShowFooter = location.pathname !== '/about-us';
+  const [exchangeRate, setExchangeRate] = useState(1);
+  const handleRateChange = (newRate) => {
+    console.log('Received new rate:', newRate);
 
+    setExchangeRate(newRate);
+  };
   return (
     <>
-      <Navbar />
+      <Navbar onRateChange={handleRateChange} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path='/checkout' element={<Checkout />} />
+        <Route path='/checkout' element={<Checkout exchangeRate={exchangeRate} />} />
         <Route path='/sign-up' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/forget' element={<ForgetPage />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={<Profile exchangeRate={exchangeRate} />} />
         <Route path='/set-password' element={<SetPasswordPage />} />
         <Route path='/AccessDenied' element={<AccessDenied />} />
         <Route path='/Error404' element={<Error404 />} />
@@ -74,7 +76,7 @@ function AppContent() {
         <Route path="/dashboard/post/add" element={<CreatePost />} />
         <Route path="/dashboard/post/edit/:id" element={<EditPost />} />
         <Route path="/singlepost/:id" element={<SinglePost />} />
-        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/wishlist" element={<Wishlist exchangeRate={exchangeRate} />} />
         <Route path="/wide" element={<Wide />} />
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/test" element={<Test />} />
@@ -84,9 +86,6 @@ function AppContent() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/dashboard/deliveryorders" element={<DeliveryOrders />} />
         <Route path="/dashboard/order-details/:numOrder" element={<OrderDetails />} /> 
-        <Route path="/dashboard/contributions" element={<DeliveryContributions />} />
-        <Route path="/dashboard/contribution-details/:id" element={<ContributionDetailsPage />} />
-
       </Routes>
       {shouldShowFooter && <Footer />}
     </>

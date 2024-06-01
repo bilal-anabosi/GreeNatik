@@ -20,7 +20,11 @@ const SinglePostRoutes = require('./routes/SinglePostRoutes.js');
 const wideRoutes =require("./routes/wideRoutes.js");
 const contributionRoutes = require('./routes/contributionRoutes');
 const leaderBoard = require('./routes/leaderBoardRoutes');
+
 const exchangeRateRouter = require('./routes/exchangeRateRouter');
+
+const blogRoutes = require('./routes/blogRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -49,7 +53,12 @@ app.use("/wide", wideRoutes);
 app.use('/singlepost', SinglePostRoutes);
 app.use('/delivery', contributionRoutes);
 app.use('/leaderboard', leaderBoard);
+
 app.use('/api', exchangeRateRouter);
+
+
+app.use('/blogs', blogRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -13,6 +13,9 @@ import Store from './pages/Store';
 import AllBlogs from './pages/blog/AllBlogs';
 import BlogCategory from './pages/blog/BlogCategory';
 import SingleBlog from './pages/blog/SingleBlog';
+import AllBlogsDash from "./pages/dashboard/blog/AllBlogsDash";
+import CreateNewBlog from "./pages/dashboard/blog/CreateNewBlog";
+import OpeningBlog from './components/blog/OpeningBlog';
 import Posts from "./pages/postsPage/Posts.jsx";
 import Profile from './pages/account/Pages/profile/Profile.jsx';
 import ShopSingle from './pages/shop-single.jsx';
@@ -68,8 +71,11 @@ function AppContent() {
         <Route path='/Error404' element={<Error404 />} />
         <Route path="/store" element={<Store />} />
         <Route path="/Blog" element={<AllBlogs />} />
-        <Route path="/blog-category" element={<BlogCategory />} />
-        <Route path="/Single-blog" element={<SingleBlog />} />
+        <Route path="/blog-category/:category" element={<BlogCategory />} />
+        <Route path="/single-blog/:id" element={<SingleBlog />} />
+        <Route path="/dashboard/all-blogs" element ={<AllBlogsDash />} />
+        <Route path="/dashboard/create-new-blog" element={<CreateNewBlog />} />
+        <Route path="/openingblog" element={<OpeningBlog />} />
         <Route path="/all-posts" element={<Posts />} />
         <Route path="/shop-single/:id" element={<ShopSingle />} />
         <Route path="/dashboard/post" element={<PostsList />} />

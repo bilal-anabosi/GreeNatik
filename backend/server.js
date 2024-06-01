@@ -19,6 +19,7 @@ const postsRoutes = require("./routes/postsRoutes.js");
 const SinglePostRoutes = require('./routes/SinglePostRoutes.js');
 const wideRoutes =require("./routes/wideRoutes.js");
 const contributionRoutes = require('./routes/contributionRoutes');
+const leaderBoard = require('./routes/leaderBoardRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -47,7 +48,7 @@ app.use("/posts", postsRoutes);
 app.use("/wide", wideRoutes);
 app.use('/singlepost', SinglePostRoutes);
 app.use('/delivery', contributionRoutes);
-
+app.use('/leaderboard', leaderBoard);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

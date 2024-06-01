@@ -8,7 +8,7 @@ const SinglePost = () => {
 return (
 
 
-<div className='SinglePost'>
+<div className=' container'>
 
 <PostI postId={id} />
 

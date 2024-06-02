@@ -20,7 +20,7 @@ export default function Sidebar() {
                 </Link>
             </div>
             <div className="newpost_item">
-                <Link to="/blog">
+                <Link to="/dashboard/all-blogs">
                     <i className="fi fi-sr-duplicate"></i>
                     <span>Blog</span>
                 </Link>

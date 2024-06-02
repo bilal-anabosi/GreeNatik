@@ -27,7 +27,7 @@ function OurTeam() {
     },
     {
       name: 'Abdellatif Shtayeh',
-      position: 'Member 4',
+      position: 'Product Designer',
       image: '/pics/teamimg/tt5.png',
     },
     {

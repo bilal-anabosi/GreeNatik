@@ -39,7 +39,7 @@ const Discount = ({ onUpdate, totalPoints }) => {
       return;
     }
     setErrorMessage("");
-    const discountAmount = Math.floor(selectedPoints / 100);
+    const discountAmount = selectedPoints / 1;
     onUpdate({ isDiscountApplied, discountAmount, selectedPoints });
   };
 
@@ -48,7 +48,7 @@ const Discount = ({ onUpdate, totalPoints }) => {
     setSelectedPoints("");
   }, []);
 
-  const discountAmount = isDiscountApplied ? Math.floor(selectedPoints / 100) : 0;
+  const discountAmount = isDiscountApplied ? selectedPoints/1  : 0;
 
   return (
     <div className="accordion-item py-4">

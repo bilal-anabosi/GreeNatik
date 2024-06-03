@@ -57,7 +57,7 @@ const userSchema = new Schema(
     points: {
       total: {
         type: Number,
-        default: 300,
+        default: 1,
       },
       tasks: {
         type: Number,
@@ -65,7 +65,7 @@ const userSchema = new Schema(
       },
       availablePoints: {
         type: Number,
-        default: 300,
+        default: 1,
       },
       log: {
         type: [
@@ -93,9 +93,9 @@ const userSchema = new Schema(
 userSchema.pre("save", function (next) {
   if (this.role === "user" && !this.points) {
     this.points = {
-      total: 300,
+      total: 1,
       tasks: 0,
-      availablePoints: 300,
+      availablePoints: 1,
       log: [],
     };
   }

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {getProfile,editProfile} = require('../controllers/profile.controller.js');
+const {getProfile,editProfile,getUserPoints} = require('../controllers/profile.controller.js');
 const auth = require('../middelware/auth.js');
 
 const fileupload = require("../utilts/multer.js");
@@ -22,5 +22,6 @@ filename: function (req, file, cb) {
  const upload = multer({ storage: storage })
 router.get('/', auth.authenticateToken,getProfile);
 router.put('/', auth.authenticateToken,multer( {storage:storage}).single('img'), editProfile);
+router.get('/points',auth.authenticateToken, getUserPoints);
 
 module.exports = router;

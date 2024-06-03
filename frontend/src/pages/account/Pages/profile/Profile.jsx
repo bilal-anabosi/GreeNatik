@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import OrderList from "../../../../components/Orders/OrderList.jsx"; // Import OrderList component
 import Activity from "../../../../components/RecPost/Activity.jsx";
+import PointsCard from '../../../../components/PointsCard';
 
 function Profile({ exchangeRate }) {
   const { userData, Loading, setUserData } = useContext(UserContext);
@@ -171,7 +172,10 @@ function Profile({ exchangeRate }) {
               )}
 
               {activeItem === "points" && (
-                <p className="card-text">Content for points</p>
+                <>
+                <h1>User Points</h1>
+                <PointsCard />
+                </>
               )}
 
               {activeItem === "posts" && (

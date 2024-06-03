@@ -44,6 +44,10 @@ import EditPost from './pages/dashboard/edit-post.jsx';
 import { useState, useEffect } from 'react';
 import RiseLoader from "react-spinners/RiseLoader";
 import Footer from './components/footer.jsx';
+import { ToastContainer } from 'react-toastify';
+import DeliveryContributions from './pages/DeliveryContributions';
+
+import ContributionDetailsPage from './pages/ContributionDetailsPage';
 
 function AppContent() {
   const location = useLocation();
@@ -56,6 +60,7 @@ function AppContent() {
   };
   return (
     <>
+    <ToastContainer />
       <Navbar onRateChange={handleRateChange} />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -92,6 +97,8 @@ function AppContent() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/dashboard/deliveryorders" element={<DeliveryOrders />} />
         <Route path="/dashboard/order-details/:numOrder" element={<OrderDetails />} /> 
+        <Route path="/dashboard/contributions" element={<DeliveryContributions />} />
+        <Route path="/dashboard/contribution-details/:id" element={<ContributionDetailsPage />} />
       </Routes>
       {shouldShowFooter && <Footer />}
     </>

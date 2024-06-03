@@ -7,42 +7,42 @@ function OurTeam() {
   const teamMembers = [
     {
       name: 'Bilal Anabosi',
-      position: 'Team Leader',
+      facebook: 'https://www.facebook.com/bilal.anabosi',
       image: '/pics/teamimg/tt1.png',
     },
     {
       name: 'Toqa Asidah',
-      position: 'Member 1',
+      facebook: 'https://www.facebook.com/profile.php?id=100004664898147',
       image: '/pics/teamimg/tt2.png',
     },
     {
       name: 'Sana Saleh',
-      position: 'Member 2',
+      facebook: 'https://www.facebook.com/profile.php?id=100009260106763',
       image: '/pics/teamimg/tt3.png',
     },
     {
       name: 'Roaa Kittaneh',
-      position: 'Member 3',
+      facebook: 'https://www.facebook.com/roaa.kittaneh.3',
       image: '/pics/teamimg/tt4.png',
     },
     {
       name: 'Abdellatif Shtayeh',
-      position: 'Product Designer',
+      facebook: 'https://www.facebook.com/abboudqshtayeh',
       image: '/pics/teamimg/tt5.png',
     },
     {
       name: 'Nora Sarrawi',
-      position: 'Member 5',
+      facebook: 'https://www.facebook.com/Norazzzz',
       image: '/pics/teamimg/tt6.png',
     },
     {
       name: 'Eman Rayyan',
-      position: 'Member 6',
+      facebook: 'https://www.facebook.com/eman.rayan.98',
       image: '/pics/teamimg/tt7.png',
     },
     {
       name: 'Ebrahim Bileh',
-      position: 'Member 7',
+      facebook: 'ebrahimbileh21@gmail.com',
       image: '/pics/teamimg/tt8.png',
     }
   ];

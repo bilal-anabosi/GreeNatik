@@ -16,9 +16,9 @@ const Wide = () => {
         {/* breadcrumb */}
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb mb-0">
-            <li className="breadcrumb-item"><a href="#!">Home</a></li>
-            <li className="breadcrumb-item"><a href="#!">Shop</a></li>
-            <li className="breadcrumb-item active" aria-current="page">Foodware</li>
+            <li className="breadcrumb-item"><a href="/home">Home</a></li>
+            <li className="breadcrumb-item"><a href="/store">Shop</a></li>
+            <li className="breadcrumb-item active" aria-current="page">Wide</li>
           </ol>
         </nav>
       </div>

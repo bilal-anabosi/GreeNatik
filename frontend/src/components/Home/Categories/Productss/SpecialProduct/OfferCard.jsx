@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import '../Products.css';
 import ProductCards from '../../../../wide/ProductCards';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const OfferCard = () => {
 
@@ -21,6 +22,12 @@ const OfferCard = () => {
         fetchLatestProductsWithSale();
 }, []);
 
+const navigate = useNavigate();
+
+const handleCategoryClick = (category) => {
+  navigate(`/wide?category=${category}`);
+};
+
 return (
 <div>
     <div className="kk">
@@ -34,8 +41,8 @@ return (
                                 <p>Get exclusive ongoing offers, deals, and discount codes of shopping</p>
                             </div>
                         <div>
-                        <a href="# " className="custom-view-all-link">
-                        View All
+                        <a href="# " className="custom-view-all-link" onClick={() => handleCategoryClick('Sale')}>
+                            View All
                         <i className="feather-icon icon-chevron-right" />
                         </a>
                     </div>

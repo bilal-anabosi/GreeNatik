@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link,useNavigate } from 'react-router-dom';
 import ProductCards from '../wide/ProductCards';
 import axios from 'axios';
 import ViewControls from './ViewControls';
@@ -17,6 +17,8 @@ const ProductList = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const category = query.get('category');
+  const navigate = useNavigate();
+  const [categoryName, setCategoryName] = useState('Wide');
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -91,74 +93,74 @@ const ProductList = () => {
     setSelectedPriceRange(range);
   };
 
+  const handleCategoryClick = (category) => {
+    setCategoryName(category);
+    navigate(`/wide?category=${category}`);
+};
+
   return (
     <div className="container">
-      <CategoryName />
-      <div className="row">
-        <aside className="col-lg-3 col-md-4 mb-6 mb-md-0">
-          <h5 style={{ marginBottom: 3 }}>Categories</h5>
-          <ul className="nav nav-category flex-column">
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Home">Home</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Skin care">Skin care</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Pets">Pets</Link>
-            </li>
-          
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Sale">Sale</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Food Ware">Food Ware</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Clothing">Clothing</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Office">Office</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Laundry">Laundry</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Shopping Bags">Shopping Bags</Link>
-            </li>
-            <li className="nav-item border-bottom w-100">
-              <Link className="nav-link" to="/wide?category=Electronics">Electronics</Link>
-            </li>
-          </ul>
-          <PriceFilter selectedPriceRange={selectedPriceRange} onPriceChange={handlePriceChange} />
-          <RatingFilter selectedRatings={selectedRatings} onRatingChange={handleRatingChange} />
-        </aside>
-        <section className="col-lg-9 col-md-8">
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <h5 style={{ marginBottom: 3 }}>Products</h5>
-            <ViewControls sortBy={sortBy} setSortBy={setSortBy} />
-          </div>
-          <div className="row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
-            {latestProductsWithSale.map((product, index) => (
-              <ProductCards
-                key={index}
-                id={product._id}
-                title={product.title}
-                isOnSale={product.sizes.some(size => size.salePrice !== null)}
-                rating={product.reviews}
-                regularPrice={product.sizes?.[0]?.regularPrice || ''}
-                salePrice={product.sizes?.[0]?.salePrice || ''}
-                images={product.images}
-                category={product.category}
-                inStock={product.inStock}
-                reviews={product.reviews}
-              />
-            ))}
-          </div>
-       
-        </section>
-      </div>
-    </div>
+            <CategoryName categoryName={categoryName}/>
+            <div className="row">
+                <aside className="col-lg-3 col-md-4 mb-6 mb-md-0">
+                    <h5 style={{ marginBottom: 3 }}>Categories</h5>
+                    <ul className="nav nav-category flex-column">
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Home" onClick={() => handleCategoryClick('Home')}>Home</Link>
+                        </li>
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Skin care" onClick={() => handleCategoryClick('Skin care')}>Skin care</Link>
+                        </li>
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Pets" onClick={() => handleCategoryClick('Pets')}>Pets</Link>
+                        </li>
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Sale" onClick={() => handleCategoryClick('Sale')}>Sale</Link>
+                        </li>
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Food Ware" onClick={() => handleCategoryClick('Food Ware')}>Food Ware</Link>
+                        </li>
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Clothing" onClick={() => handleCategoryClick('Clothing')}>Clothing</Link>
+                        </li>
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Office" onClick={() => handleCategoryClick('Office')}>Office</Link>
+                        </li>
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Shopping Bags" onClick={() => handleCategoryClick('Shopping Bags')}>Shopping Bags</Link>
+                        </li>
+                        <li className="nav-item border-bottom w-100">
+                            <Link className="nav-link" to="/wide?category=Electronics" onClick={() => handleCategoryClick('Electronics')}>Electronics</Link>
+                        </li>
+                    </ul>
+                    <PriceFilter selectedPriceRange={selectedPriceRange} onPriceChange={handlePriceChange} />
+                    <RatingFilter selectedRatings={selectedRatings} onRatingChange={handleRatingChange} />
+                </aside>
+                <section className="col-lg-9 col-md-8">
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <h5 style={{ marginBottom: 3 }}>Products</h5>
+                        <ViewControls sortBy={sortBy} setSortBy={setSortBy} />
+                    </div>
+                    <div className="row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
+                        {latestProductsWithSale.map((product, index) => (
+                            <ProductCards
+                                key={index}
+                                id={product._id}
+                                title={product.title}
+                                isOnSale={product.sizes.some(size => size.salePrice !== null)}
+                                rating={product.reviews}
+                                regularPrice={product.sizes?.[0]?.regularPrice || ''}
+                                salePrice={product.sizes?.[0]?.salePrice || ''}
+                                images={product.images}
+                                category={product.category}
+                                inStock={product.inStock}
+                                reviews={product.reviews}
+                            />
+                        ))}
+                    </div>
+                </section>
+            </div>
+        </div>
   );
 };
 

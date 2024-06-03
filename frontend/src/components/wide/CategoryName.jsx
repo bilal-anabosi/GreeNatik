@@ -1,8 +1,6 @@
 import React from 'react';
 
-const CategoryName = () => {
-    const categoryName = "Foodware";
-    const productCount = 24;
+const CategoryName = ({categoryName}) => {
 
     return (
         <>
@@ -13,10 +11,6 @@ const CategoryName = () => {
     <h2 className="mb-0 fs-1">{categoryName}</h2>
   </div>
 </div>
-
-        <p className="product-count mb-0">
-                <span className="text-dark">{productCount}</span> Products found
-            </p>
         </>
     );
 };

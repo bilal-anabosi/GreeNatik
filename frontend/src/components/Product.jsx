@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+
 const Product = ({
   imgSrc,
   title,
@@ -11,17 +11,18 @@ const Product = ({
   addToCart,
   updateCartItemQuantity,
   quantity: defaultQuantity,
+  exchangeRate, // Receive the exchangeRate prop
 }) => {
   const [quantity, setQuantity] = useState(defaultQuantity);
+  const [currencySymbol, setCurrencySymbol] = useState('$'); 
 
   // Function to handle quantity change
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
-
     updateCartItemQuantity(productId, size, newQuantity);
   };
 
-  const totalPrice = newPrice ? newPrice * quantity : price * quantity;
+  const totalPrice = newPrice ? newPrice * quantity * exchangeRate : price * quantity * exchangeRate;
 
   const handleAddToCart = () => {
     addToCart(productId, quantity, size);
@@ -30,9 +31,14 @@ const Product = ({
   const handleRemoveClick = () => {
     onDelete(productId, size);
   };
+
+  useEffect(() => {
+    setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
+  }, [exchangeRate]);
+
   return (
     <li className="list-group-item py-3 py-lg-0 px-0 border-top">
-      <div className="row align-items-center mt-4 mb-4 ">
+      <div className="row align-items-center mt-4 mb-4">
         <div className="col-3 col-md-2">
           <img
             src={
@@ -47,9 +53,8 @@ const Product = ({
         <div className="col-4 col-md-5">
           <a href="#!" className="text-inherit">
             <h6 className="mb-0">{title}</h6>
-            <span></span>
           </a>
-          <small> Size: {size}</small>
+          <small>Size: {size}</small>
           <div className="mt-2 small lh-1">
             <a
               href="#!"
@@ -79,11 +84,8 @@ const Product = ({
             </a>
           </div>
         </div>
-        <div
-          className="col-3 col-md-3 col-lg-2 d-flex "
-          style={{ width: "24%" }}
-        >
-          <div className=" input-group input-spinner row  flex-nowrap px-2">
+        <div className="col-3 col-md-3 col-lg-2 d-flex">
+          <div className="input-group input-spinner row flex-nowrap px-2">
             <input
               type="button"
               value="-"
@@ -109,7 +111,6 @@ const Product = ({
                 textAlign: "center",
                 textWrap: "wrap",
                 padding: "0",
-
                 minWidth: "50%",
                 justifyItems: "center",
                 fontSize: "12px",
@@ -128,13 +129,18 @@ const Product = ({
           </div>
         </div>
         <div className="col-2 text-lg-end text-start text-md-end col-md-2">
-          <span className="fw-bold">${totalPrice.toFixed(2)}</span>
-          <div className="text-decoration-line-through text-muted small">
-            {newPrice ? "$" + price : ""}
-          </div>
+          <span className="fw-bold">
+            {currencySymbol} {totalPrice.toFixed(1)}
+          </span>
+          {newPrice && (
+            <div className="text-decoration-line-through text-muted small">
+              {currencySymbol} {(price * exchangeRate).toFixed(1)}
+            </div>
+          )}
         </div>
       </div>
     </li>
   );
 };
+
 export default Product;

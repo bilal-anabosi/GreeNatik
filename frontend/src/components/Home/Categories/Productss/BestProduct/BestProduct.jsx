@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Products.css';
 import Best from './Best';
-const BestProduct = () => {
+const BestProduct = ( {exchangeRate}) => {
 return (
     <div className="kk">
         <section className="my-lg-14 my-8">
@@ -12,7 +12,7 @@ return (
                         <p className="mb-0">Find the bestseller products with discount.</p>
                     </div>
                 </div>
-                <Best />
+                <Best exchangeRate={exchangeRate} />
             </div>
         </section>
     </div>

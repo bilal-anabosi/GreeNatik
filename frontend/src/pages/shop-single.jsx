@@ -1,39 +1,44 @@
-import { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link, useParams } from 'react-router-dom'
-import { UserContext } from "./account/context/User";
-import './shop-single.css'
-import { toast } from 'react-toastify'
+import { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
+import { UserContext } from './account/context/User';
+import './shop-single.css';
+import { toast } from 'react-toastify';
 
-export default function ShopSingle() {
-    let [product, setProduct] = useState(null)
-    let [reviews, setReviews] = useState([])
-    let [tab, setTab] = useState(0)
-    let [selectedImage, setSelectedImage] = useState(0)
-    let [amount, setAmount] = useState(1)
-    let [selectedSize, setSelectedSize] = useState(0)
-    let [newReview, setNewReview] = useState({ rating: 0, comment: '' })
-    let [related, setRelated] = useState([])
-    let { id } = useParams()
+export default function ShopSingle({ exchangeRate }) {
+    let [product, setProduct] = useState(null);
+    let [reviews, setReviews] = useState([]);
+    let [tab, setTab] = useState(0);
+    let [selectedImage, setSelectedImage] = useState(0);
+    let [amount, setAmount] = useState(1);
+    let [selectedSize, setSelectedSize] = useState(0);
+    let [newReview, setNewReview] = useState({ rating: 0, comment: '' });
+    let [related, setRelated] = useState([]);
+    let { id } = useParams();
     let { userData } = useContext(UserContext);
     let token = localStorage.getItem('userToken');
+    let [currencySymbol, setCurrencySymbol] = useState('$');
 
     useEffect(() => {
-        handlePostLoad()
-    }, [id])
+        setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
+    }, [exchangeRate]);
+
+    useEffect(() => {
+        handlePostLoad();
+    }, [id]);
 
     function handlePostLoad() {
         axios.get(`http://localhost:4000/api/products/${id}`).then(({ data }) => {
-            setProduct(data.product)
+            setProduct(data.product);
 
             axios.get(`http://localhost:4000/Store/by-category?category=${data.product?.category}`).then(({ data }) => {
-                setRelated(data.products)
-            }).catch(err => { })
-        }).catch(err => { })
+                setRelated(data.products);
+            }).catch(err => { });
+        }).catch(err => { });
 
         axios.get(`http://localhost:4000/reviews/${id}`).then(({ data }) => {
-            setReviews(data)
-        }).catch(err => { })
+            setReviews(data);
+        }).catch(err => { });
     }
 
     function addToCart() {
@@ -46,10 +51,10 @@ export default function ShopSingle() {
                 'Authorization': `group__${token}`
             }
         }).then(({ data }) => {
-            toast.success('Added to cart')
+            toast.success('Added to cart');
         }).catch(err => {
-            toast.error('Error adding to cart')
-        })
+            toast.error('Error adding to cart');
+        });
     }
 
     function addToWishList() {
@@ -61,10 +66,10 @@ export default function ShopSingle() {
                 'Authorization': `group__${token}`
             }
         }).then(({ data }) => {
-            toast.success('Added to wishlist')
+            toast.success('Added to wishlist');
         }).catch(err => {
-            toast.error('Error adding to wishlist')
-        })
+            toast.error('Error adding to wishlist');
+        });
     }
 
     function addComment() {
@@ -78,26 +83,26 @@ export default function ShopSingle() {
                 'Authorization': `group__${token}`
             }
         }).then(({ data }) => {
-            setReviews([...reviews, data])
+            setReviews([...reviews, data]);
             setNewReview({
                 rating: 0,
                 comment: '',
-            })
+            });
         }).catch(err => {
-            toast.error('Error adding review')
-        })
+            toast.error('Error adding review');
+        });
     }
 
     let tabs = [
         {
-            title: "Product Details",
+            title: 'Product Details',
             value: 0
         },
         {
-            title: "Product Reviews",
+            title: 'Product Reviews',
             value: 1
         }
-    ]
+    ];
 
     return product ? (
         <div className='single_container'>
@@ -123,12 +128,12 @@ export default function ShopSingle() {
                             {
                                 product.sizes[selectedSize].salePrice ?
                                     <>
-                                        <span>{product.sizes[selectedSize].salePrice}$</span>
-                                        <span>{product.sizes[selectedSize].regularPrice}$</span>
+                                        <span>{(product.sizes[selectedSize].salePrice * exchangeRate).toFixed(2)}{currencySymbol}</span>
+                                        <span>{(product.sizes[selectedSize].regularPrice * exchangeRate).toFixed(2)}{currencySymbol}</span>
                                         <small>{(100 - (product.sizes[selectedSize].salePrice * 100) / product.sizes[selectedSize].regularPrice).toFixed(0) || "NuN"}% Off</small>
                                     </>
                                     :
-                                    <span>{product.sizes[selectedSize].regularPrice}$</span>
+                                    <span>{(product.sizes[selectedSize].regularPrice * exchangeRate).toFixed(2)}{currencySymbol}</span>
                             }
                         </div>
                     </div>
@@ -188,7 +193,6 @@ export default function ShopSingle() {
                             <span>{tab_.title}</span>
                         </div>
                     )}
-
                 </div>
                 <div className="line"></div>
                 {
@@ -255,41 +259,38 @@ export default function ShopSingle() {
                 <div className="related_items_list">
                     {
                         related?.map((item, index) =>
-                            <Item key={index} {...item} />
+                            <Item key={index} {...item} exchangeRate={exchangeRate} currencySymbol={currencySymbol} />
                         )
                     }
                 </div>
             </div>
             <div style={{ height: "3em" }}></div>
         </div>
-    )
-        :
-        (
-            <div>Loading</div>
-        )
+    ) : (
+        <div>Loading</div>
+    );
 }
 
-function Item(props) {
+function Item({ _id, images, title, sizes, exchangeRate, currencySymbol }) {
     return (
-        <Link to={`/shop-single/${props._id}`}>
+        <Link to={`/shop-single/${_id}`}>
             <div className='related_item'>
-                <img src={`http://localhost:4000/${props.images[0]}`} />
-                <span>{props.title}</span>
-                <h3>Haldiram's Sev Bhujia</h3>
+                <img src={`http://localhost:4000/${images[0]}`} />
+                <span>{title}</span>
                 <div className='related_row'>
                     <div className='price-tag-small'>
                         {
-                            props.sizes[0].salePrice ?
+                            sizes[0].salePrice ?
                                 <>
-                                    <span>{props.sizes[0].salePrice}$</span>
-                                    <span>{props.sizes[0].regularPrice}$</span>
+                                    <span>{(sizes[0].salePrice * exchangeRate).toFixed(2)}{currencySymbol}</span>
+                                    <span>{(sizes[0].regularPrice * exchangeRate).toFixed(2)}{currencySymbol}</span>
                                 </>
                                 :
-                                <span>{props.sizes[0].regularPrice}$</span>
+                                <span>{(sizes[0].regularPrice * exchangeRate).toFixed(2)}{currencySymbol}</span>
                         }
                     </div>
                 </div>
             </div>
         </Link>
-    )
+    );
 }

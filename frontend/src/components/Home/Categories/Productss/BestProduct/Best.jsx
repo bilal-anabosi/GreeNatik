@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 
-const Best = () => {
+const Best = ({exchangeRate}) => {
 
     const [topSellingProducts, settopSellingProducts] = useState([]);
       
@@ -65,6 +65,8 @@ const Best = () => {
                                                     category={product.category}
                                                     inStock={product.inStock}
                                                     reviews={product.reviews}
+                                                    exchangeRate={exchangeRate}
+
                                                 />
                                             );
                                         })}

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
-const OrderDetails = () => {
+const OrderDetails = ( {exchangeRate}) => {
   const { numOrder } = useParams();
   const [customer, setCustomer] = useState(null);
-
+  const [currencySymbol, setCurrencySymbol] = useState('$'); 
+  useEffect(() => {
+    setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
+  }, [exchangeRate]);
   useEffect(() => {
     const fetchCustomerData = async () => {
       try {
@@ -97,7 +100,7 @@ const OrderDetails = () => {
               <p><strong>Order Number:</strong> {numOrder}</p>
               <p><strong>Purchase Date:</strong>{new Date(customer.createdAt).toLocaleDateString()}</p>
               <p><strong>Status:</strong> {customer?.status}</p>
-              <p><strong>Spent:</strong> ${customer?.total}</p>
+              <p><strong>Spent:</strong> {currencySymbol}{customer?.total*exchangeRate}</p>
               {/*changin the stat here*/}
               {customer.status !== 'delivered' && (
                 <button className="btn btn-success" onClick={() => handleStatusChange(numOrder)}>Mark as Delivered</button>

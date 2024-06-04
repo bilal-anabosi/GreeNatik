@@ -9,7 +9,7 @@ import Shopping from '../components/Home/Categories/Productss/Shopping';
 import OfferCard from '../components/Home/Categories/Productss/SpecialProduct/OfferCard';
 import BestProduct from '../components/Home/Categories/Productss/BestProduct/BestProduct';
 
-const Store = () => {
+const Store = ( {exchangeRate} ) => {
   return (
    
 
@@ -18,11 +18,11 @@ const Store = () => {
 <HomeBar/>
 <Slide/>
 <Feature/>
-<Cards/>
-<NewProduct/>
+<Cards  />
+<NewProduct exchangeRate={exchangeRate}/>
 <Shopping />
-<OfferCard/>
-<BestProduct/>
+<OfferCard exchangeRate={exchangeRate}/>
+<BestProduct exchangeRate={exchangeRate}/>
 
 </div>
 

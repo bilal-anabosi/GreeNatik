@@ -8,7 +8,7 @@ import RatingFilter from './RatingFilter';
 import CategoryName from './CategoryName';
 
 
-const ProductList = () => {
+const ProductList = ({exchangeRate}) => {
   const [allProducts, setAllProducts] = useState([]);
   const [latestProductsWithSale, setLatestProductsWithSale] = useState([]);
   const [sortBy, setSortBy] = useState('Featured');

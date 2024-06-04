@@ -46,7 +46,7 @@ const Order = ({ items, discountAmount, serviceFee = 3.00, exchangeRate }) => {
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>Item Subtotal</div>
-              <div className="fw-bold">{currencySymbol} {(itemsSubtotal.toFixed(2) * exchangeRate).toFixed(1)}</div>
+              <div className="fw-bold">{currencySymbol} {(itemsSubtotal.toFixed(2) )}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
@@ -58,13 +58,13 @@ const Order = ({ items, discountAmount, serviceFee = 3.00, exchangeRate }) => {
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>SubTotal</div>
-              <div className="fw-bold">{currencySymbol} {(subTotal.toFixed(2) * exchangeRate).toFixed(1)}</div>
+              <div className="fw-bold">{currencySymbol} {(subTotal.toFixed(2))}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between fw-bold">
               <div>Total after Discount</div>
-              <div>{currencySymbol} {(totalAfterDiscount.toFixed(2) * exchangeRate).toFixed(1)}</div>
+              <div>{currencySymbol} {(totalAfterDiscount.toFixed(2))}</div>
             </div>
           </li>
         </ul>

@@ -70,7 +70,7 @@ const ContributionDetailsPage = () => {
             <div className="card mb-3">
               <div className="card-header bg-primary text-white">Owner Info</div>
               <div className="card-body">
-                <img src={contribution.postId.owner.image.secure_url} alt="Owner" className="img-fluid rounded-circle mb-3" style={{ width: '150px', height: '150px' }} />
+                <img src={contribution.postId.owner.image?.secure_url} alt="Owner" className="img-fluid rounded-circle mb-3" style={{ width: '150px', height: '150px' }} />
                 <p className="card-text"><strong>Username:</strong> {contribution.postId.owner.username}</p>
                 <p className="card-text"><strong>Email:</strong> {contribution.postId.owner.email}</p>
                 <p className="card-text"><strong>Role:</strong> {contribution.postId.owner.role}</p>
@@ -102,7 +102,7 @@ const ContributionDetailsPage = () => {
             <div className="card mb-3">
               <div className="card-header bg-primary text-white">User & Contribution Info</div>
               <div className="card-body">
-                <img src={contribution.userId.image.secure_url} alt="User" className="img-fluid rounded-circle mb-3" style={{ width: '150px', height: '150px' }} />
+                <img src={contribution.userId.image?.secure_url} alt="User" className="img-fluid rounded-circle mb-3" style={{ width: '150px', height: '150px' }} />
                 <p className="card-text"><strong>Username:</strong> {contribution.userId.username}</p>
                 <p className="card-text"><strong>Email:</strong> {contribution.userId.email}</p>
                 <p className="card-text"><strong>Role:</strong> {contribution.userId.role}</p>

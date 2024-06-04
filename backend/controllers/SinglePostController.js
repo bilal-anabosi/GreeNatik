@@ -71,7 +71,7 @@ const createContribution = async (req, res) => {
     // Extracting data from the request body
     const { material, quantity, condition, notes, address, date, time } = req.body;
     const { postId } = req.params;
-    const points = quantity * 200;
+    const points = quantity ;
 
     // Creating a new Contribution document
     const newContribution = new Contribution({

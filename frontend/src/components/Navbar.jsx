@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 
 function Navbar({ onRateChange }) {
+  const { t, i18n } = useTranslation();
   const [user, setUser] = useState(null);
   const [currency, setCurrency] = useState('USD');
   const [currencySymbol, setCurrencySymbol] = useState('$');
 
   const [exchangeRate, setExchangeRate] = useState(1); 
-
-
+  const handleLanguageChange = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+  
   const handleCurrencyChange = async (selectedCurrency) => {
     setCurrency(selectedCurrency);
-    localStorage.setItem('currency', selectedCurrency); 
     try {
       const response = await axios.get('http://localhost:4000/api/exchange-rates');
       const rate = selectedCurrency === 'USD' ? 1 : response.data.rates.ILS;
@@ -26,12 +30,6 @@ function Navbar({ onRateChange }) {
       console.error('Error fetching exchange rate', error);
     }
   };
-
-  useEffect(() => {
-    const storedCurrency = localStorage.getItem('currency');
-    if (storedCurrency) {
-      handleCurrencyChange(storedCurrency); 
-    }})
 
 
 
@@ -62,56 +60,51 @@ function Navbar({ onRateChange }) {
 
   return (
     <div>
-      <div style={{ background: '#F1F6FA' }}>
-        <div className="container">
-          <div className="row align-items-center pt-2">
-            <div className="col-xl-3 col-lg-8 col-7 d-flex">
+     <div style={{ background: '#F1F6FA' }}>
+      <div className="container">
+        <div className="row align-items-center pt-2">
+          <div className="col-xl-3 col-lg-8 col-7 d-flex">
+            <div className="dropdown selectBox">
+              <a
+                href="#!"
+                className="dropdown-toggle selectValue text-reset"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {t('navbar.currency')} {currencySymbol}
+              </a>
+              <ul className="dropdown-menu">
+                <li>
+                  <a className="dropdown-item" href="#!" onClick={() => handleCurrencyChange('USD')}>
+                    {t('navbar.usd')}
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#!" onClick={() => handleCurrencyChange('ILS')}>
+                    {t('navbar.ils')}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="ms-6">
               <div className="dropdown selectBox">
-                <a
-                  href="#!"
-                  className="dropdown-toggle selectValue text-reset"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  {currency === 'USD' ? 'USD' : 'ILS'} {currencySymbol}
+                <a href='#!' className="dropdown-toggle selectValue text-reset" data-bs-toggle="dropdown" aria-expanded="false">
+                  {t('navbar.language')}
                 </a>
                 <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#!" onClick={() => handleCurrencyChange('USD')}>
-                      USD $
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#!" onClick={() => handleCurrencyChange('ILS')}>
-                      ILS ₪
-                    </a>
-                  </li>
+                  <li><a className="dropdown-item" href='#!' onClick={() => handleLanguageChange('en')}>{t('navbar.english')}</a></li>
+                  <li><a className="dropdown-item" href='#!' onClick={() => handleLanguageChange('ar')}>{t('navbar.arabic')}</a></li>
                 </ul>
               </div>
-        <div className="ms-6">
-          <div className="dropdown selectBox">
-            <a href='#!' className="dropdown-toggle selectValue text-reset"  data-bs-toggle="dropdown" aria-expanded="false">
-              English
-              {/* long svg */}
-              <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.3903 8.36152H16.6783C17.0197 8.3619 17.3471 8.47865 17.5885 8.68618C17.83 8.8937 17.9658 9.17506 17.9663 9.46854V10.5756C17.9663 10.8692 18.102 11.1507 18.3435 11.3583C18.5851 11.566 18.9127 11.6826 19.2543 11.6826C19.5959 11.6826 19.9235 11.566 20.165 11.3583C20.4066 11.1507 20.5423 10.8692 20.5423 10.5756V9.46854C20.5411 8.58803 20.1337 7.74387 19.4093 7.12126C18.6849 6.49864 17.7027 6.14844 16.6783 6.14748H15.3903C15.0487 6.14748 14.7211 6.26411 14.4795 6.47172C14.238 6.67932 14.1023 6.9609 14.1023 7.2545C14.1023 7.5481 14.238 7.82967 14.4795 8.03728C14.7211 8.24489 15.0487 8.36152 15.3903 8.36152ZM10.2383 18.3247H8.95032C8.60886 18.3243 8.28151 18.2076 8.04006 18.0001C7.79861 17.7925 7.66277 17.5112 7.66233 17.2177V16.1107C7.66233 15.8171 7.52663 15.5355 7.28509 15.3279C7.04354 15.1203 6.71594 15.0036 6.37434 15.0036C6.03274 15.0036 5.70514 15.1203 5.46359 15.3279C5.22205 15.5355 5.08635 15.8171 5.08635 16.1107V17.2177C5.08746 18.0982 5.49492 18.9424 6.21931 19.565C6.94371 20.1876 7.92588 20.5378 8.95032 20.5388H10.2383C10.5799 20.5388 10.9075 20.4221 11.1491 20.2145C11.3906 20.0069 11.5263 19.7253 11.5263 19.4317C11.5263 19.1381 11.3906 18.8566 11.1491 18.6489C10.9075 18.4413 10.5799 18.3247 10.2383 18.3247ZM24.4062 17.2177C24.7478 17.2177 25.0754 17.1011 25.317 16.8934C25.5585 16.6858 25.6942 16.4043 25.6942 16.1107C25.6942 15.8171 25.5585 15.5355 25.317 15.3279C25.0754 15.1203 24.7478 15.0036 24.4062 15.0036H20.5423V14.4501C20.5423 14.1565 20.4066 13.875 20.165 13.6674C19.9235 13.4597 19.5959 13.3431 19.2543 13.3431C18.9127 13.3431 18.5851 13.4597 18.3435 13.6674C18.102 13.875 17.9663 14.1565 17.9663 14.4501V15.0036H14.1023C13.7607 15.0036 13.4331 15.1203 13.1915 15.3279C12.95 15.5355 12.8143 15.8171 12.8143 16.1107C12.8143 16.4043 12.95 16.6858 13.1915 16.8934C13.4331 17.1011 13.7607 17.2177 14.1023 17.2177H20.7796C20.4882 18.2351 19.9503 19.1882 19.2011 20.0148C18.8945 19.6732 18.6234 19.3092 18.3908 18.9269C18.3136 18.7975 18.2076 18.6825 18.0788 18.5884C17.9499 18.4943 17.8008 18.4229 17.6398 18.3783C17.4789 18.3338 17.3093 18.3169 17.1407 18.3286C16.9722 18.3404 16.808 18.3806 16.6575 18.4469C16.5071 18.5132 16.3732 18.6043 16.2637 18.715C16.1542 18.8258 16.0712 18.954 16.0193 19.0923C15.9146 19.3717 15.9433 19.6754 16.0991 19.9366C16.4459 20.5128 16.8598 21.0572 17.3344 21.5617C16.3999 22.1449 15.3373 22.5588 14.2111 22.7783C13.8779 22.8414 13.5875 23.0156 13.4036 23.2626C13.2197 23.5095 13.1573 23.8091 13.2301 24.0956C13.3029 24.3821 13.5049 24.632 13.7919 24.7906C14.0788 24.9492 14.4273 25.0034 14.7607 24.9415C16.3767 24.6343 17.8926 24.021 19.1978 23.1463C20.514 24.0215 22.0399 24.6344 23.6653 24.9409C23.8305 24.9722 24.0012 24.9753 24.1678 24.9499C24.3343 24.9245 24.4934 24.8711 24.636 24.7929C24.7785 24.7146 24.9017 24.613 24.9986 24.4938C25.0955 24.3746 25.1641 24.2402 25.2005 24.0982C25.2369 23.9563 25.2404 23.8095 25.2109 23.6664C25.1813 23.5233 25.1192 23.3865 25.0282 23.264C24.9371 23.1415 24.8189 23.0356 24.6803 22.9523C24.5416 22.8691 24.3852 22.8101 24.22 22.7788C23.0863 22.5622 22.0149 22.1518 21.0695 21.572C22.2605 20.312 23.0632 18.8145 23.4038 17.2177H24.4062ZM8.98865 13.0583C9.07239 13.3423 9.28376 13.5863 9.57641 13.7366C9.86907 13.887 10.2191 13.9315 10.5499 13.8604C10.8807 13.7893 11.1651 13.6084 11.341 13.3573C11.5168 13.1062 11.5696 12.8055 11.4879 12.521L9.22449 4.73884C9.0655 4.19257 8.69865 3.70764 8.18223 3.36114C7.66581 3.01463 7.02945 2.82642 6.3743 2.82642C5.71915 2.82642 5.08279 3.01463 4.56637 3.36114C4.04995 3.70764 3.6831 4.19257 3.52412 4.73884L1.2607 12.521C1.17897 12.8055 1.23182 13.1062 1.40765 13.3573C1.58348 13.6084 1.86795 13.7893 2.19871 13.8604C2.52948 13.9315 2.87955 13.887 3.1722 13.7366C3.46486 13.5863 3.67622 13.3423 3.75996 13.0583L4.48202 10.5756H8.26659L8.98865 13.0583ZM5.12602 8.36152L6.02337 5.27613C6.05033 5.21488 6.09835 5.16213 6.16103 5.12491C6.22372 5.08768 6.29811 5.06774 6.3743 5.06774C6.45049 5.06774 6.52488 5.08768 6.58757 5.12491C6.65025 5.16213 6.69827 5.21488 6.72523 5.27613L7.6226 8.36152H5.12602Z" fill="#424866"/><path d="M12.3251 25.5337C12.28 25.0828 11.3683 22.6204 12.3251 22.5642C13.2894 22.5074 14.1099 22.193 15.2122 22.193C17.4415 22.193 19.8829 21.4506 21.9763 21.4506" stroke="#424866" strokeWidth="3.49587" strokeLinecap="round"/><path d="M23.0896 23.3065C20.8126 23.3065 18.4252 23.072 16.2019 23.5952C14.2077 24.0644 20.2986 23.6777 22.3472 23.6777C23.369 23.6777 25.6228 22.7469 23.832 23.5952C22.2475 24.3457 19.7271 25.1625 17.9754 25.1625C16.2593 25.1625 15.1123 25.0082 13.8097 25.8224C12.6605 26.5406 11.9537 26.2221 11.9537 24.7913C11.9537 23.5381 11.8733 23.3165 11.9537 23.3065C12.914 23.1864 13.3553 22.1929 14.5521 22.1929" stroke="#F1F6FA" strokeWidth="3.49587" strokeLinecap="round"/><path d="M23.9316 17.2411C24.4388 17.2411 25.0317 17.3099 25.3842 16.8566C25.5511 16.642 24.2385 16.3385 23.9658 16.3183C23.3827 16.2751 23.0853 16.194 22.4876 16.3268C22.1246 16.4075 21.979 16.6259 21.5392 16.6259C20.4663 16.6259 19.9328 16.2389 19.9328 15.1648C19.9328 14.6316 18.1954 14.7803 17.7795 14.7803C17.3282 14.7803 16.0885 15.0872 15.7459 15.3613C15.581 15.4933 14.8714 15.4903 14.6351 15.5578C14.2254 15.6749 14.7526 16.2554 14.9427 16.3098C16.9234 16.8757 18.7703 17.0799 20.6249 18.0785C21.339 18.463 21.9895 18.8865 22.6243 19.3944C23.0142 19.7063 22.8086 19.8558 22.3936 19.8558C21.6584 19.8558 20.9552 19.9658 20.2404 20.1292C19.7999 20.2299 19.333 20.1873 18.933 20.0096C18.5287 19.8299 18.6997 19.3944 18.0871 19.3944C16.7994 19.3944 16.8567 19.9002 16.8567 21.0093C16.8567 21.6857 15.8469 22.1628 15.2418 22.1628C14.5387 22.1628 15.1405 21.7454 14.8231 21.428C14.5344 21.1393 13.9657 21.6907 13.7807 21.8552C13.3488 22.2391 12.5634 22.5398 12.3879 23.154C12.2006 23.8095 11.4161 24.1235 11.166 24.6236" stroke="#F1F6FA" strokeWidth="3.49587" strokeLinecap="round"/><path d="M10.3975 24.6237C10.3975 23.879 10.8253 23.4442 11.4741 23.1198C11.7542 22.9798 12.0527 22.7116 12.3285 22.6328C12.6351 22.5452 13.0463 22.4989 13.3197 22.3167" stroke="#F1F6FA" strokeWidth="3.49587" strokeLinecap="round"/><path d="M13.3193 22.3166C13.1046 22.3166 12.5383 22.2163 12.3965 22.3935C12.2236 22.6096 12.1942 22.8023 11.9351 22.9318" stroke="#F1F6FA" strokeWidth="3.49587" strokeLinecap="round"/><path d="M11.3198 22.9319H11.935" stroke="#F1F6FA" strokeWidth="3.49587" strokeLinecap="round" ></path><path d="M23.6239 20.7785C23.6239 21.0196 23.7521 22.1479 23.4701 22.1628C22.1109 22.2343 21.055 21.3659 20.7359 20.0095C20.5356 19.1583 21.0298 18.6335 19.8985 19.0525C19.1782 19.3193 19.3175 19.7994 19.3175 20.4709" stroke="#F1F6FA" strokeWidth="3.49587" strokeLinecap="round"/><path d="M18.3764 25.2441C17.8559 25.2441 17.347 25.1819 16.8499 25.0576C16.3604 24.9333 15.9176 24.7352 15.5214 24.4633C15.1252 24.1992 14.8106 23.8574 14.5775 23.4379C14.3445 23.0184 14.228 22.5134 14.228 21.923C14.228 21.286 14.3561 20.7033 14.6125 20.1751C14.8689 19.639 15.2301 19.1651 15.6962 18.7534C16.1623 18.3417 16.7139 17.9999 17.3509 17.728C17.9957 17.4483 18.6988 17.2502 19.4601 17.1337L19.8446 18.6718C19.161 18.7961 18.5667 18.9593 18.0618 19.1613C17.5646 19.3632 17.1528 19.6002 16.8265 19.8721C16.5003 20.144 16.2556 20.4353 16.0924 20.7461C15.937 21.0646 15.8594 21.3986 15.8594 21.7482C15.8594 22.0279 15.9099 22.2726 16.0108 22.4823C16.1196 22.6921 16.2633 22.8669 16.442 23.0067C16.6207 23.1543 16.8188 23.2708 17.0363 23.3563C17.2538 23.4495 17.4791 23.5156 17.7122 23.5544C17.9452 23.5932 18.1666 23.6127 18.3764 23.6127C18.9124 23.6127 19.4096 23.5622 19.868 23.4612C20.3341 23.3602 20.7419 23.2359 21.0915 23.0883L21.5576 24.5915C21.3712 24.6847 21.107 24.7818 20.7652 24.8828C20.4312 24.9838 20.0544 25.0693 19.6349 25.1392C19.2232 25.2091 18.8037 25.2441 18.3764 25.2441ZM16.0575 18.7884C15.7856 18.6796 15.5331 18.5242 15.3 18.3223C15.0747 18.1203 14.8922 17.8717 14.7523 17.5765C14.6203 17.2735 14.5542 16.9278 14.5542 16.5394C14.5542 16.0499 14.6824 15.6266 14.9388 15.2692C15.1951 14.9118 15.537 14.6361 15.9642 14.4418C16.3915 14.2476 16.8576 14.1505 17.3626 14.1505C17.6112 14.1505 17.8403 14.1661 18.0501 14.1971C18.2676 14.2282 18.489 14.2748 18.7143 14.337L18.458 15.8868C18.2948 15.848 18.1278 15.8169 17.9569 15.7936C17.786 15.7703 17.6345 15.7586 17.5024 15.7586C17.2305 15.7586 16.9936 15.7975 16.7916 15.8751C16.5974 15.9528 16.4459 16.0655 16.3371 16.2131C16.2361 16.3529 16.1856 16.5199 16.1856 16.7142C16.1856 16.8695 16.2322 17.0171 16.3255 17.157C16.4265 17.2968 16.5546 17.4211 16.71 17.5299C16.8654 17.6308 17.0363 17.7163 17.2227 17.7862C17.4092 17.8484 17.5918 17.8833 17.7704 17.8911L16.0575 18.7884Z" fill="#424866"/><path d="M0.0576172 13.8967L3.55348 2.24377H9.37993L12.8758 13.8967H0.0576172Z" fill="#F1F6FA"/>
-              <path d="M8.9842 4.2223C9.17841 4.2223 9.33767 4.26114 9.46197 4.33882C9.59403 4.40874 9.70279 4.50585 9.78825 4.63015C9.8737 4.74668 9.94362 4.88263 9.998 5.038C10.0524 5.19337 10.099 5.35263 10.1378 5.51577C10.4486 6.77428 10.7049 7.81139 10.9069 8.62709C11.1089 9.44279 11.2682 10.1031 11.3847 10.6081C11.5012 11.1053 11.5828 11.4743 11.6294 11.7151C11.676 11.9559 11.6993 12.123 11.6993 12.2162C11.6993 12.3249 11.6721 12.3987 11.6178 12.4376C11.5711 12.4764 11.4935 12.4958 11.3847 12.4958H10.7904C10.4563 12.4958 10.1883 12.457 9.98635 12.3793C9.79213 12.2939 9.64064 12.1735 9.53188 12.0181C9.43089 11.8627 9.35709 11.6763 9.31048 11.4587C9.26387 11.2335 9.22502 10.981 9.19395 10.7013H7.16635L6.7818 12.3094C6.74296 12.4337 6.65362 12.4958 6.51378 12.4958H5.89618C5.77188 12.4958 5.6437 12.4842 5.51164 12.4609C5.37957 12.4298 5.25916 12.3832 5.1504 12.3211C5.0494 12.2589 4.96395 12.1812 4.89403 12.088C4.82411 11.987 4.78916 11.8666 4.78916 11.7268C4.78916 11.5558 4.84354 11.2762 4.9523 10.8878C5.06106 10.4993 5.19701 10.0604 5.36015 9.57097C5.53106 9.07378 5.7175 8.55717 5.91949 8.02114C6.12924 7.47734 6.33122 6.96461 6.52544 6.48296C6.71965 6.0013 6.89445 5.57792 7.04982 5.21279C7.21296 4.84767 7.33726 4.5913 7.42271 4.4437C7.48486 4.33494 7.53924 4.27279 7.58585 4.25725C7.64023 4.23395 7.73734 4.2223 7.87717 4.2223H8.9842ZM7.58585 9.01163H8.92593L8.43651 5.93527L7.58585 9.01163Z" fill="#424866"/>
-              </svg>
-              {/* long svg ends */}
-            </a>
-            <ul className="dropdown-menu">
-              <li><a className="dropdown-item" href='#!'>English</a></li>
-              <li><a className="dropdown-item" href='#!'>Arabic</a></li>
-            </ul>
+            </div>
           </div>
+        </div>
+        <div className="text-center d-none d-md-block">
+          <img src='/pics/8603429.png' alt='palestine' width={32} height={32}></img>
+          {t('navbar.developed')}
         </div>
       </div>
     </div>
-    <div className="text-center d-none d-md-block">
-    <img src='/pics/8603429.png' alt='palestine' width={32} height={32}></img>
-      From concept to launch, this website was proudly developed in Palestine.
-    </div>
-  </div>
-</div>
 
 
   {/* navigation */}
@@ -143,55 +136,54 @@ function Navbar({ onRateChange }) {
           </div>
         </div>
         <div className="col-xxl-2 col-lg-12 d-flex align-items-center justify-content-end ">
-        <div className="d-flex align-items-center lh-1 ">
-            {user ? (
-              <>
-                    <a href="#!" className="dropdown-toggle text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                      {user.username}
-                    </a>
-                    <ul className="dropdown-menu dropdown-menu-end">
-                      {user.role === 'user' && (
-                        <>
-                          <li><a className="dropdown-item" href="/profile">Profile</a></li>
-                          <li><a className="dropdown-item" href="/cart">Cart</a></li>
-                          <li><a className="dropdown-item" href="/checkout">Checkout</a></li>
-                          <li><a className="dropdown-item" href="/wishlist">Wishlist</a></li>
-                          <li><a className="dropdown-item" href="/all-posts">Posts</a></li>
-                          <li><a className="dropdown-item" href="/store">Store</a></li>
-                        </>
-                      )}
-                      {user.role === 'admin' && (
-                        <>
-                          <li><a className="dropdown-item" href="/profile">Profile</a></li>
-                          <li><a className="dropdown-item" href="/dashboard/add-products">Add New Product</a></li>
-                          <li><a className="dropdown-item" href="/dashboard/post/add">Add New Post</a></li>
-                          <li><a className="dropdown-item" href="#!">Add New Blog</a></li>
-
-                          <li><a className="dropdown-item" href="/dashboard/post">See Posts</a></li>
-                          <li><a className="dropdown-item" href="/dashboard/products">See Products</a></li>
-                          <li><a className="dropdown-item" href="#!">See Blogs</a></li>
-                        </>
-                      )}
-                      {user.role === 'delivery' && (
-                        <>
-                          <li><a className="dropdown-item" href="/profile">Profile</a></li>
-                          <li><a className="dropdown-item" href="#!">Post Delivery</a></li>
-                          <li><a className="dropdown-item" href="/dashboard/deliveryorders">Product Delivery</a></li>
-                        </>
-                      )}
-                      <li><a className="dropdown-item" href="#!" onClick={handleLogout}>Log Out</a></li>
-                    </ul>
-                    </>
-                ) : (
-                  <div className="list-inline">
-                    <div className="list-inline-item">
-                      <a href="/login" className="text-mute">Log In</a>
-                    </div>
-                    <div className="list-inline-item">
-                      <a href="/sign-up" className="text-muted">Sign Up</a>
-                    </div>
+        <div className="d-flex align-items-center lh-1">
+              {user ? (
+                <>
+                  <a href="#!" className="dropdown-toggle text-reset" data-bs-toggle="dropdown" aria-expanded="false">
+                    {user.username}
+                  </a>
+                  <ul className="dropdown-menu dropdown-menu-end">
+                    {user.role === 'user' && (
+                      <>
+                        <li><a className="dropdown-item" href="/profile">{t('navbar.profile')}</a></li>
+                        <li><a className="dropdown-item" href="/cart">{t('navbar.cart')}</a></li>
+                        <li><a className="dropdown-item" href="/checkout">{t('navbar.checkout')}</a></li>
+                        <li><a className="dropdown-item" href="/wishlist">{t('navbar.wishlist')}</a></li>
+                        <li><a className="dropdown-item" href="/all-posts">{t('navbar.posts')}</a></li>
+                        <li><a className="dropdown-item" href="/store">{t('navbar.store')}</a></li>
+                      </>
+                    )}
+                    {user.role === 'admin' && (
+                      <>
+                        <li><a className="dropdown-item" href="/profile">{t('navbar.profile')}</a></li>
+                        <li><a className="dropdown-item" href="/dashboard/add-products">{t('navbar.addProduct')}</a></li>
+                        <li><a className="dropdown-item" href="/dashboard/post/add">{t('navbar.addPost')}</a></li>
+                        <li><a className="dropdown-item" href="#!">{t('navbar.addBlog')}</a></li>
+                        <li><a className="dropdown-item" href="/dashboard/post">{t('navbar.seePosts')}</a></li>
+                        <li><a className="dropdown-item" href="/dashboard/products">{t('navbar.seeProducts')}</a></li>
+                        <li><a className="dropdown-item" href="#!">{t('navbar.seeBlogs')}</a></li>
+                      </>
+                    )}
+                    {user.role === 'delivery' && (
+                      <>
+                        <li><a className="dropdown-item" href="/profile">{t('navbar.profile')}</a></li>
+                        <li><a className="dropdown-item" href="#!">{t('navbar.postDelivery')}</a></li>
+                        <li><a className="dropdown-item" href="/dashboard/deliveryorders">{t('navbar.productDelivery')}</a></li>
+                      </>
+                    )}
+                    <li><a className="dropdown-item" href="#!" onClick={handleLogout}>{t('navbar.logout')}</a></li>
+                  </ul>
+                </>
+              ) : (
+                <div className="list-inline">
+                  <div className="list-inline-item">
+                    <a href="/login" className="text-muted">{t('navbar.login')}</a>
                   </div>
-                )}
+                  <div className="list-inline-item">
+                    <a href="/sign-up" className="text-muted">{t('navbar.signup')}</a>
+                  </div>
+                </div>
+              )}
             </div>
             
         </div>
@@ -204,48 +196,49 @@ function Navbar({ onRateChange }) {
   </div>
   
   <div className="h-100" data-simplebar="init"><div className="simplebar-wrapper" style={{margin: 0}}><div className="simplebar-height-auto-observer-wrapper"><div className="simplebar-height-auto-observer" /></div><div className="simplebar-mask"><div className="simplebar-offset" style={{right: 0, bottom: 0}}><div className="simplebar-content-wrapper" tabIndex={0} role="region" aria-label="scrollable content" style={{height: '100%', overflow: 'hidden'}}><div className="simplebar-content" style={{padding: 0}}>
-              <ul className="navbar-nav navbar-nav-offcanvac">
-              <li className="nav-item">
-                  <a className="nav-link" href="/">Home</a>
-                </li>
-                <li className="nav-item dropdown">
-                  <a className="nav-link " href="#!" role="button" data-bs-toggle="dropdown" aria-expanded="false">Store</a>
-                  <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="/store">Main Store</a></li>
-                    <li><a className="dropdown-item" href="/cart">Cart</a></li>
-                    <li><a className="dropdown-item" href="/checkout">Check out</a></li>
-                  </ul>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="all-posts">Recycling</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/blog">Blogs</a>
-                </li>
-                
-                <li className="nav-item">
-                  <a className="nav-link" href="/dashboard/products">Dashboard</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="dashboard/deliveryorders">Delivery</a>
-                </li>
-                
-                <li className="nav-item">
-                  <a className="nav-link" href="/leaderboard">Leader Board</a>
-                </li>
-                <li className="nav-item dropdown">
-                  <a className="nav-link " href="#!" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                  <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="/sign-up">Sign Up</a></li>
-                    <li><a className="dropdown-item" href="/login">Login</a></li>
-                    <li><a className="dropdown-item" href="/profile">My Account</a></li>
-                  </ul>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/about-us">About us</a>
-                </li>
-                
-              </ul>
+  <ul className="navbar-nav navbar-nav-offcanvac">
+            <li className="nav-item">
+                <a className="nav-link" href="/">{t('navbar.home')}</a>
+            </li>
+            <li className="nav-item dropdown">
+                <a className="nav-link" href="#!" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {t('navbar.store')}
+                </a>
+                <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="/store">{t('navbar.mainStore')}</a></li>
+                    <li><a className="dropdown-item" href="/cart">{t('navbar.cart')}</a></li>
+                    <li><a className="dropdown-item" href="/checkout">{t('navbar.checkout')}</a></li>
+                </ul>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="/all-posts">{t('navbar.recycling')}</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="/blog">{t('navbar.blogs')}</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="/dashboard/products">{t('navbar.dashboard')}</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="/dashboard/deliveryorders">{t('navbar.delivery')}</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="/leaderboard">{t('navbar.leaderboard')}</a>
+            </li>
+            <li className="nav-item dropdown">
+                <a className="nav-link" href="#!" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {t('navbar.account')}
+                </a>
+                <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="/sign-up">{t('navbar.signUp')}</a></li>
+                    <li><a className="dropdown-item" href="/login">{t('navbar.login')}</a></li>
+                    <li><a className="dropdown-item" href="/profile">{t('navbar.myAccount')}</a></li>
+                </ul>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="/about-us">{t('navbar.aboutUs')}</a>
+            </li>
+        </ul>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link,useNavigate } from 'react-router-dom';
 import ProductCards from '../wide/ProductCards';
 import axios from 'axios';
 import ViewControls from './ViewControls';
@@ -7,15 +7,19 @@ import PriceFilter from './PriceFilter';
 import RatingFilter from './RatingFilter';
 import CategoryName from './CategoryName';
 
-const ProductList = ({ exchangeRate }) => {
-    const [allProducts, setAllProducts] = useState([]);
-    const [latestProductsWithSale, setLatestProductsWithSale] = useState([]);
-    const [sortBy, setSortBy] = useState('Featured');
-    const [selectedRatings, setSelectedRatings] = useState([]);
-    const [selectedPriceRange, setSelectedPriceRange] = useState({ label: '', min: 0, max: Infinity });
-    const location = useLocation();
-    const query = new URLSearchParams(location.search);
-    const category = query.get('category');
+
+const ProductList = () => {
+  const [allProducts, setAllProducts] = useState([]);
+  const [latestProductsWithSale, setLatestProductsWithSale] = useState([]);
+  const [sortBy, setSortBy] = useState('Featured');
+  const [selectedRatings, setSelectedRatings] = useState([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState({ label: '', min: 0, max: Infinity });
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const category = query.get('category');
+  const navigate = useNavigate();
+  const [categoryName, setCategoryName] = useState('Wide');
+
 
     useEffect(() => {
         const fetchAllProducts = async () => {
@@ -90,42 +94,48 @@ const ProductList = ({ exchangeRate }) => {
         setSelectedPriceRange(range);
     };
 
-    return (
-        <div className="container">
-            <CategoryName />
+
+  const handleCategoryClick = (category) => {
+    setCategoryName(category);
+    navigate(`/wide?category=${category}`);
+};
+
+  return (
+    <div className="container">
+            <CategoryName categoryName={categoryName}/>
+
             <div className="row">
                 <aside className="col-lg-3 col-md-4 mb-6 mb-md-0">
                     <h5 style={{ marginBottom: 3 }}>Categories</h5>
                     <ul className="nav nav-category flex-column">
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Home">Home</Link>
+
+                            <Link className="nav-link" to="/wide?category=Home" onClick={() => handleCategoryClick('Home')}>Home</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Skin care">Skin care</Link>
+                            <Link className="nav-link" to="/wide?category=Skin care" onClick={() => handleCategoryClick('Skin care')}>Skin care</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Pets">Pets</Link>
+                            <Link className="nav-link" to="/wide?category=Pets" onClick={() => handleCategoryClick('Pets')}>Pets</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Sale">Sale</Link>
+                            <Link className="nav-link" to="/wide?category=Sale" onClick={() => handleCategoryClick('Sale')}>Sale</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Food Ware">Food Ware</Link>
+                            <Link className="nav-link" to="/wide?category=Food Ware" onClick={() => handleCategoryClick('Food Ware')}>Food Ware</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Clothing">Clothing</Link>
+                            <Link className="nav-link" to="/wide?category=Clothing" onClick={() => handleCategoryClick('Clothing')}>Clothing</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Office">Office</Link>
+                            <Link className="nav-link" to="/wide?category=Office" onClick={() => handleCategoryClick('Office')}>Office</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Laundry">Laundry</Link>
+                            <Link className="nav-link" to="/wide?category=Shopping Bags" onClick={() => handleCategoryClick('Shopping Bags')}>Shopping Bags</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Shopping Bags">Shopping Bags</Link>
-                        </li>
-                        <li className="nav-item border-bottom w-100">
-                            <Link className="nav-link" to="/wide?category=Electronics">Electronics</Link>
+                            <Link className="nav-link" to="/wide?category=Electronics" onClick={() => handleCategoryClick('Electronics')}>Electronics</Link>
+
                         </li>
                     </ul>
                     <PriceFilter selectedPriceRange={selectedPriceRange} onPriceChange={handlePriceChange} />
@@ -150,14 +160,18 @@ const ProductList = ({ exchangeRate }) => {
                                 category={product.category}
                                 inStock={product.inStock}
                                 reviews={product.reviews}
+
                                 exchangeRate={exchangeRate}
+
                             />
                         ))}
                     </div>
                 </section>
             </div>
         </div>
-    );
+
+  );
+
 };
 
 export default ProductList;

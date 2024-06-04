@@ -189,8 +189,11 @@
 }
 .sana{
     position: absolute;
-    top: 570%;
+    top: 580%;
     width: 100%;
+}
+.t {
+    margin-bottom: 50px; 
 }
 @media screen and (max-width: 576px) {
     .UU

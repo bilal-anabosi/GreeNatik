@@ -11,7 +11,6 @@ import BestProduct from '../components/Home/Categories/Productss/BestProduct/Bes
 
 const Store = ( {exchangeRate} ) => {
   return (
-   
 
 <div className='Homee'>
 

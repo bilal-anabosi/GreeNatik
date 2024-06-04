@@ -66,14 +66,14 @@ background-color: #ffffff;
     border-top: none;
 }
 .sos {
-    background-image: url("../../../../../public/img/rain-clouds-png-27.png");
+    background-image: url("../../../../../public/img/cloude.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 15px;
     width: 100%;
     max-width: 1000px;
-    height: 1000px;
+    height: 400px;
 }
 .oo .modal-content-body {
     display: flex;

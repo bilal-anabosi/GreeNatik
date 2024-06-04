@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-const Order = ({ items, discountAmount, serviceFee = 3.00, exchangeRate }) => {
+const Order = ({ items, discountAmount, exchangeRate }) => {
   const itemsSubtotal = items.reduce((acc, item) => {
     const itemTotal = (item.regularPrice || 0) * (item.quantity || 0) * exchangeRate;
     return acc + itemTotal;
   }, 0);
 
-  const subTotal = itemsSubtotal + serviceFee * exchangeRate;
+  const serviceFee=2.00 *exchangeRate; 
+
+  const subTotal = itemsSubtotal + serviceFee;
   const totalAfterDiscount = subTotal - discountAmount;
   const [currencySymbol, setCurrencySymbol] = useState('$'); 
 
@@ -46,13 +48,13 @@ const Order = ({ items, discountAmount, serviceFee = 3.00, exchangeRate }) => {
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>Item Subtotal</div>
-              <div className="fw-bold">{currencySymbol} {(itemsSubtotal.toFixed(2) )}</div>
+              <div className="fw-bold">{currencySymbol} {(itemsSubtotal.toFixed(2))}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">
             <div className="d-flex align-items-center justify-content-between">
               <div>Service Fee</div>
-              <div className="fw-bold">{currencySymbol} {(serviceFee.toFixed(2) * exchangeRate).toFixed(1)}</div>
+              <div className="fw-bold">{currencySymbol} {serviceFee}</div>
             </div>
           </li>
           <li className="list-group-item px-4 py-3">

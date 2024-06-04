@@ -172,7 +172,6 @@ function Checkout({ exchangeRate }) {
           <Order
             items={items}
             discountAmount={discountAmount}
-            serviceFee={3.00}
             exchangeRate={exchangeRate}
           />
         </div>

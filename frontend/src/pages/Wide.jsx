@@ -4,7 +4,7 @@ import ProductList from '../components/wide/ProductList';
 
 
 
-const Wide = () => {
+const Wide = ({exchangeRate}) => {
     return (
         <>
         <div className="mt-4">
@@ -29,7 +29,7 @@ const Wide = () => {
 
        
         
-       <ProductList />
+       <ProductList   exchangeRate={exchangeRate}/>
                   
                
       

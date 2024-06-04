@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/dashboard/sidebar';
 
-const DeliveryOrders = () => {
+const DeliveryOrders = ({exchangeRate}) => {
   const [originalCustomers, setOriginalCustomers] = useState([]); //get the data and store them in array for feltering
   const [customers, setCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,7 +11,10 @@ const DeliveryOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [customersPerPage] = useState(10); //for pangtion 
   const navigate = useNavigate();
-
+  const [currencySymbol, setCurrencySymbol] = useState('$'); 
+  useEffect(() => {
+    setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
+  }, [exchangeRate]);
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
@@ -128,7 +131,7 @@ const DeliveryOrders = () => {
                           {customer.status}
                         </span>
                       </td>
-                      <td>${customer.totalAmount.toFixed(2)}</td>
+                      <td>{currencySymbol}{(customer.totalAmount* exchangeRate).toFixed(1) }</td>
                       <td>{customer.items.length}</td>
                     </tr>
                   ))}

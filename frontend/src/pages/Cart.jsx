@@ -5,10 +5,12 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Product from "../components/Product";
 
-const Cart = () => {
+const Cart = ({ exchangeRate }) => {
   const [cartItems, setCartItems] = useState([]);
   const token = localStorage.getItem("userToken");
   const [totalPrice, setTotalPrice] = useState(0);
+  const [currencySymbol, setCurrencySymbol] = useState('$'); 
+  const ServiceFee = 2;
   const navigate = useNavigate();
 
   const fetchCartItems = async () => {
@@ -34,7 +36,6 @@ const Cart = () => {
     if (token) {
       fetchCartItems();
     } else {
-      // Token is missing, navigate to AccessDenied
       navigate("/AccessDenied");
     }
   }, [token, navigate]);
@@ -43,7 +44,7 @@ const Cart = () => {
     let total = 0;
     items.forEach((item) => {
       const price = item.salePrice || item.regularPrice;
-      total += price * item.quantity;
+      total += price * item.quantity ;
     });
     return total;
   };
@@ -100,6 +101,7 @@ const Cart = () => {
       console.error("Error removing item from cart:", error);
     }
   };
+
   const updateCartItemQuantity = async (productId, size, quantity) => {
     try {
       const response = await axios.put(
@@ -135,6 +137,11 @@ const Cart = () => {
       }
     }
   };
+
+  useEffect(() => {
+    setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
+  }, [exchangeRate]);
+
   return (
     <div>
       <ToastContainer />
@@ -152,10 +159,7 @@ const Cart = () => {
                       <li className="breadcrumb-item">
                         <a href="/store">Shop</a>
                       </li>
-                      <li
-                        className="breadcrumb-item active"
-                        aria-current="page"
-                      >
+                      <li className="breadcrumb-item active" aria-current="page">
                         Shop Cart
                       </li>
                     </ol>
@@ -194,6 +198,7 @@ const Cart = () => {
                             addToCart: addToCart,
                             updateCartItemQuantity: updateCartItemQuantity,
                             quantity: item.quantity,
+                            exchangeRate: exchangeRate, // Add the exchangeRate prop
                           };
 
                           if (item.salePrice > 0) {
@@ -204,7 +209,6 @@ const Cart = () => {
                         })
                       )}
                     </ul>
-                    {/* btn */}
                     <div className="d-flex justify-content-between mt-7">
                       <a href="/store" className="btn btn-primary">
                         Continue Shopping
@@ -223,20 +227,20 @@ const Cart = () => {
                               <div className="me-auto">
                                 <div>Item Subtotal</div>
                               </div>
-                              <span>{totalPrice.toFixed(2)}</span>
+                              <span>{currencySymbol} {(totalPrice * exchangeRate).toFixed(1)}</span>
                             </li>
                             <li className="list-group-item d-flex justify-content-between align-items-start">
                               <div className="me-auto">
                                 <div>Service Fee</div>
                               </div>
-                              <span>$2.00</span>
+                              <span>{currencySymbol} {(ServiceFee * exchangeRate).toFixed(1)}</span>
                             </li>
                             <li className="list-group-item d-flex justify-content-between align-items-start">
                               <div className="me-auto">
                                 <div className="fw-bold">Subtotal</div>
                               </div>
                               <span className="fw-bold">
-                                {(totalPrice + 2).toFixed(2)}
+                                {currencySymbol} {((totalPrice + ServiceFee) * exchangeRate).toFixed(1)}
                               </span>
                             </li>
                           </ul>

@@ -9,8 +9,10 @@ function Navbar({ onRateChange }) {
 
   const [exchangeRate, setExchangeRate] = useState(1); 
 
+
   const handleCurrencyChange = async (selectedCurrency) => {
     setCurrency(selectedCurrency);
+    localStorage.setItem('currency', selectedCurrency); 
     try {
       const response = await axios.get('http://localhost:4000/api/exchange-rates');
       const rate = selectedCurrency === 'USD' ? 1 : response.data.rates.ILS;
@@ -24,6 +26,12 @@ function Navbar({ onRateChange }) {
       console.error('Error fetching exchange rate', error);
     }
   };
+
+  useEffect(() => {
+    const storedCurrency = localStorage.getItem('currency');
+    if (storedCurrency) {
+      handleCurrencyChange(storedCurrency); 
+    }})
 
 
 

@@ -4,7 +4,7 @@ import '../Products.css';
 import ProductCards from '../../../../wide/ProductCards';
 import axios from 'axios';
 
-const NewProduct = () => {
+const NewProduct = ({exchangeRate}) => {
 
     const [latestProducts, setLatestProducts] = useState([]);
         useEffect(() => {
@@ -63,6 +63,7 @@ return (
                                                     category={product.category}
                                                     inStock={product.inStock}
                                                     reviews={product.reviews}
+                                                    exchangeRate={exchangeRate}
                                                 />
                                             );
                                         })}

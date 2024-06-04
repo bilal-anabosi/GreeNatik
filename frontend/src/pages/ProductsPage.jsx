@@ -8,13 +8,15 @@ import Pagination from '../components/productsDash/Pagination';
 import Sidebar from '../components/dashboard/sidebar';
 import axios from 'axios';
 
-const ProductsPage = () => {
+const ProductsPage = ({exchangeRate}) => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
   const [authorized, setAuthorized] = useState(true);
+
+ 
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -80,7 +82,7 @@ const ProductsPage = () => {
           </div>
           <div className="row mt-5">
             <div className="col-xl-12 col-12 mb-5 ms-lg-10 ps-lg-8 ">
-              <ProductTable products={currentProducts} />
+              <ProductTable products={currentProducts} exchangeRate={exchangeRate} />
               <Pagination
                 productsPerPage={productsPerPage}
                 totalProducts={filteredProducts.length}

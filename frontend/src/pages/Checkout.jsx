@@ -10,10 +10,10 @@ import Discount from '../components/checkout/Discount';
 
 import './Checkout.css';
 
-function Checkout({exchangeRate}) {
+function Checkout({ exchangeRate }) {
   const [items, setItems] = useState([]);
+  const [availablePoints, setAvailablePoints] = useState(0);
   const token = localStorage.getItem('userToken');
-  const totalPoints = 300;
 
   useEffect(() => {
     const fetchWishlistData = async () => {
@@ -34,7 +34,26 @@ function Checkout({exchangeRate}) {
       }
     };
 
+    const fetchUserPoints = async () => {
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://localhost:4000/checkout/points', {
+          headers: {
+            'Authorization': `group__${token}`
+          }
+        });
+        setAvailablePoints(response.data.availablePoints);
+      } catch (error) {
+        console.error('Error fetching user points:', error);
+      }
+    };
+
     fetchWishlistData();
+    fetchUserPoints();
   }, [token]);
 
   const [checkoutData, setCheckoutData] = useState({});
@@ -44,7 +63,7 @@ function Checkout({exchangeRate}) {
   const [notification, setNotification] = useState('');
 
   const handleUpdateCheckoutData = (newData) => {
-    const updatedPoints = newData.selectedPoints > totalPoints ? totalPoints : newData.selectedPoints;
+    const updatedPoints = newData.selectedPoints > availablePoints ? availablePoints : newData.selectedPoints;
 
     setCheckoutData((prevData) => ({
       ...prevData,
@@ -75,6 +94,7 @@ function Checkout({exchangeRate}) {
         quantity: item.quantity
       })),
       totalAfterDiscount: totalAfterDiscount,
+      pointsUsed: checkoutData.selectedPoints, // Include the selected points
     };
 
     try {
@@ -102,7 +122,7 @@ function Checkout({exchangeRate}) {
           <DeliveryAddress onUpdate={handleUpdateCheckoutData} />
           <DeliveryInstructionsAccordion onUpdate={handleUpdateCheckoutData} />
           <PaymentMethodAccordion onUpdate={handleUpdateCheckoutData} />
-          <Discount onUpdate={handleUpdateCheckoutData} totalPoints={totalPoints} />
+          <Discount onUpdate={handleUpdateCheckoutData} totalPoints={availablePoints} />
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <button 
@@ -149,13 +169,12 @@ function Checkout({exchangeRate}) {
           </div>
         </div>
         <div className="main-content" style={{ marginBottom: '20px' }}>
-        <Order
-  items={items}
-  discountAmount={discountAmount}
-  serviceFee={3.00}
-  exchangeRate={exchangeRate} // Pass exchangeRate here
-/>
-
+          <Order
+            items={items}
+            discountAmount={discountAmount}
+            serviceFee={3.00}
+            exchangeRate={exchangeRate}
+          />
         </div>
       </div>
     </div>

@@ -3,10 +3,10 @@ import { useLocation, Link,useNavigate } from 'react-router-dom';
 import ProductCards from '../wide/ProductCards';
 import axios from 'axios';
 import ViewControls from './ViewControls';
-
 import PriceFilter from './PriceFilter';
 import RatingFilter from './RatingFilter';
 import CategoryName from './CategoryName';
+
 
 const ProductList = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -20,78 +20,80 @@ const ProductList = () => {
   const navigate = useNavigate();
   const [categoryName, setCategoryName] = useState('Wide');
 
-  useEffect(() => {
-    const fetchAllProducts = async () => {
-      try {
-        const response = await axios.get('http://localhost:4000/wide/wide-products');
-        setAllProducts(response.data.LasstProductsWithSale);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
+
+    useEffect(() => {
+        const fetchAllProducts = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/wide/wide-products');
+                setAllProducts(response.data.LasstProductsWithSale);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        fetchAllProducts();
+    }, []);
+
+    useEffect(() => {
+        let filteredProducts = allProducts;
+
+        if (category) {
+            if (category === "Sale") {
+                filteredProducts = filteredProducts.filter(product =>
+                    product.sizes.some(size => size.salePrice !== null)
+                );
+            } else {
+                filteredProducts = filteredProducts.filter(product => product.category === category);
+            }
+        }
+
+        if (selectedRatings.length > 0) {
+            filteredProducts = filteredProducts.filter(product =>
+                selectedRatings.includes(product.reviews)
+            );
+        }
+
+        if (selectedPriceRange.label) {
+            filteredProducts = filteredProducts.filter(product =>
+                product.sizes.some(size => 
+                    (size.salePrice !== null ? size.salePrice : size.regularPrice) >= selectedPriceRange.min && 
+                    (size.salePrice !== null ? size.salePrice : size.regularPrice) <= selectedPriceRange.max
+                )
+            );
+        }
+
+        switch (sortBy) {
+            case "Low to High":
+                filteredProducts.sort((a, b) => a.sizes[0].regularPrice - b.sizes[0].regularPrice);
+                break;
+            case "High to Low":
+                filteredProducts.sort((a, b) => b.sizes[0].regularPrice - a.sizes[0].regularPrice);
+                break;
+            case "Release Date":
+                filteredProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                break;
+            case "Avg. Rating":
+                filteredProducts.sort((a, b) => b.reviews - a.reviews);
+                break;
+            default:
+                break;
+        }
+
+        setLatestProductsWithSale(filteredProducts);
+    }, [allProducts, category, sortBy, selectedRatings, selectedPriceRange]);
+
+    const handleRatingChange = (rating) => {
+        setSelectedRatings((prevRatings) =>
+            prevRatings.includes(rating)
+                ? prevRatings.filter((r) => r !== rating)
+                : [...prevRatings, rating]
+        );
     };
 
-    fetchAllProducts();
-  }, []);
+    const handlePriceChange = (range) => {
+        setSelectedPriceRange(range);
+    };
 
-  useEffect(() => {
-    let filteredProducts = allProducts;
-
-    if (category) {
-      if (category === "Sale") {
-        filteredProducts = filteredProducts.filter(product =>
-          product.sizes.some(size => size.salePrice !== null)
-        );
-      } else {
-        filteredProducts = filteredProducts.filter(product => product.category === category);
-      }
-    }
-
-    if (selectedRatings.length > 0) {
-      filteredProducts = filteredProducts.filter(product =>
-        selectedRatings.includes(product.reviews)
-      );
-    }
-
-    if (selectedPriceRange.label) {
-      filteredProducts = filteredProducts.filter(product =>
-        product.sizes.some(size => 
-          (size.salePrice !== null ? size.salePrice : size.regularPrice) >= selectedPriceRange.min && 
-          (size.salePrice !== null ? size.salePrice : size.regularPrice) <= selectedPriceRange.max
-        )
-      );
-    }
-
-    switch (sortBy) {
-      case "Low to High":
-        filteredProducts.sort((a, b) => a.sizes[0].regularPrice - b.sizes[0].regularPrice);
-        break;
-      case "High to Low":
-        filteredProducts.sort((a, b) => b.sizes[0].regularPrice - a.sizes[0].regularPrice);
-        break;
-      case "Release Date":
-        filteredProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        break;
-      case "Avg. Rating":
-        filteredProducts.sort((a, b) => b.reviews - a.reviews);
-        break;
-      default:
-        break;
-    }
-
-    setLatestProductsWithSale(filteredProducts);
-  }, [allProducts, category, sortBy, selectedRatings, selectedPriceRange]);
-
-  const handleRatingChange = (rating) => {
-    setSelectedRatings((prevRatings) =>
-      prevRatings.includes(rating)
-        ? prevRatings.filter((r) => r !== rating)
-        : [...prevRatings, rating]
-    );
-  };
-
-  const handlePriceChange = (range) => {
-    setSelectedPriceRange(range);
-  };
 
   const handleCategoryClick = (category) => {
     setCategoryName(category);
@@ -101,11 +103,13 @@ const ProductList = () => {
   return (
     <div className="container">
             <CategoryName categoryName={categoryName}/>
+
             <div className="row">
                 <aside className="col-lg-3 col-md-4 mb-6 mb-md-0">
                     <h5 style={{ marginBottom: 3 }}>Categories</h5>
                     <ul className="nav nav-category flex-column">
                         <li className="nav-item border-bottom w-100">
+
                             <Link className="nav-link" to="/wide?category=Home" onClick={() => handleCategoryClick('Home')}>Home</Link>
                         </li>
                         <li className="nav-item border-bottom w-100">
@@ -131,6 +135,7 @@ const ProductList = () => {
                         </li>
                         <li className="nav-item border-bottom w-100">
                             <Link className="nav-link" to="/wide?category=Electronics" onClick={() => handleCategoryClick('Electronics')}>Electronics</Link>
+
                         </li>
                     </ul>
                     <PriceFilter selectedPriceRange={selectedPriceRange} onPriceChange={handlePriceChange} />
@@ -155,13 +160,18 @@ const ProductList = () => {
                                 category={product.category}
                                 inStock={product.inStock}
                                 reviews={product.reviews}
+
+                                exchangeRate={exchangeRate}
+
                             />
                         ))}
                     </div>
                 </section>
             </div>
         </div>
+
   );
+
 };
 
 export default ProductList;

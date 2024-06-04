@@ -53,7 +53,7 @@ async function createCheckout(req, res) {
   if (!req.user || !req.user.id) {
     return res.status(401).json({ message: "User not authenticated" });
   }
-  const { address, deliveryInstructions, paymentMethod, items, totalAfterDiscount } = req.body;
+  const { address, deliveryInstructions, paymentMethod, items, totalAfterDiscount, pointsUsed } = req.body;
 
   const userId = req.user.id;
 
@@ -95,6 +95,17 @@ async function createCheckout(req, res) {
       };
     }));
 
+    const user = await User.findById(userId);
+console.log(user.points.availablePoints);
+    // Ensure the total after discount is not negative
+    const calculatedTotal = Math.max(0, totalAfterDiscount);
+
+    // Deduct the used points from the user's available points
+    if (pointsUsed > user.points.availablePoints) {
+      return res.status(400).json({ message: "Insufficient available points" });
+    }
+    user.points.availablePoints -= pointsUsed;
+
     const checkout = await Checkout.create({
       user: userId,
       address: address,
@@ -102,10 +113,9 @@ async function createCheckout(req, res) {
       paymentMethod: paymentMethod,
       items: productDetails,
       numOrder: generateOrderNumber(),
-      total: totalAfterDiscount,
+      total: calculatedTotal,
     });
 
-    const user = await User.findById(userId);
     user.cart = [];
     await user.save();
 
@@ -115,8 +125,6 @@ async function createCheckout(req, res) {
     res.status(500).json({ message: "Could not create checkout", error: error.message });
   }
 }
-
-
 
 
 
@@ -217,5 +225,21 @@ markOrderAsDelivered = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+const getUserPoints = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming you have the user ID in the request object after authentication
+    const user = await User.findById(userId);
 
-module.exports = { createCheckout, getCheckoutDetails ,getAllCheckouts,getCheckoutByOrderNumber,markOrderAsDelivered};
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const availablePoints = user.points.availablePoints;
+    res.json({ availablePoints });
+  } catch (error) {
+    console.error('Error fetching user points:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { createCheckout, getCheckoutDetails ,getAllCheckouts,getCheckoutByOrderNumber,markOrderAsDelivered,getUserPoints};

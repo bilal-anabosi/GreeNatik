@@ -80,7 +80,7 @@ const FormII = ({postId}) => {
             setQuantity(value);
             setErrorMsg('');
 
-            const calculatedPoints = value * 200;
+            const calculatedPoints = value ;
             setPoints(calculatedPoints);
         }
     };
@@ -124,7 +124,7 @@ const FormII = ({postId}) => {
             });
 
             if (response.status === 201) {
-                setSuccessMessage('Contribution created successfully . You earned ' + points + ' points!');
+                setSuccessMessage('Contribution created successfully . You are about to get ' + points + ' points!, wait until delivery to get them ');
                 setErrorMessage('');
                 // Reset form fields
                 setMaterial('');

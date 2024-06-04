@@ -44,6 +44,10 @@ import EditPost from './pages/dashboard/edit-post.jsx';
 import { useState, useEffect } from 'react';
 import RiseLoader from "react-spinners/RiseLoader";
 import Footer from './components/footer.jsx';
+import { ToastContainer } from 'react-toastify';
+import DeliveryContributions from './pages/DeliveryContributions';
+
+import ContributionDetailsPage from './pages/ContributionDetailsPage';
 
 function AppContent() {
   const location = useLocation();
@@ -56,11 +60,12 @@ function AppContent() {
   };
   return (
     <>
+    <ToastContainer />
       <Navbar onRateChange={handleRateChange} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart exchangeRate={exchangeRate} />} />
         <Route path='/checkout' element={<Checkout exchangeRate={exchangeRate} />} />
         <Route path='/sign-up' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage />} />
@@ -69,7 +74,7 @@ function AppContent() {
         <Route path='/set-password' element={<SetPasswordPage />} />
         <Route path='/AccessDenied' element={<AccessDenied />} />
         <Route path='/Error404' element={<Error404 />} />
-        <Route path="/store" element={<Store />} />
+        <Route path="/store" element={<Store  exchangeRate={exchangeRate}  />} />
         <Route path="/Blog" element={<AllBlogs />} />
         <Route path="/blog-category/:category" element={<BlogCategory />} />
         <Route path="/single-blog/:id" element={<SingleBlog />} />
@@ -77,21 +82,23 @@ function AppContent() {
         <Route path="/dashboard/create-new-blog" element={<CreateNewBlog />} />
         <Route path="/openingblog" element={<OpeningBlog />} />
         <Route path="/all-posts" element={<Posts />} />
-        <Route path="/shop-single/:id" element={<ShopSingle />} />
+        <Route path="/shop-single/:id" element={<ShopSingle exchangeRate={exchangeRate} />} />
         <Route path="/dashboard/post" element={<PostsList />} />
         <Route path="/dashboard/post/add" element={<CreatePost />} />
         <Route path="/dashboard/post/edit/:id" element={<EditPost />} />
         <Route path="/singlepost/:id" element={<SinglePost />} />
         <Route path="/wishlist" element={<Wishlist exchangeRate={exchangeRate} />} />
-        <Route path="/wide" element={<Wide />} />
+        <Route path="/wide" element={<Wide exchangeRate={exchangeRate}  />} />
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/test" element={<Test />} />
-        <Route path="/dashboard/products" element={<ProductsPage />} />
+        <Route path="/dashboard/products" element={<ProductsPage  exchangeRate={exchangeRate}/>}   />
         <Route path="/dashboard/add-products" element={<CreateProductForm />} />
         <Route exact path="/dashboard/EditProductPage/:productId" element={<EditProductPage />} />
         <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/dashboard/deliveryorders" element={<DeliveryOrders />} />
-        <Route path="/dashboard/order-details/:numOrder" element={<OrderDetails />} /> 
+        <Route path="/dashboard/deliveryorders" element={<DeliveryOrders exchangeRate={exchangeRate} />} />
+        <Route path="/dashboard/order-details/:numOrder" element={<OrderDetails  exchangeRate={exchangeRate}  />} /> 
+        <Route path="/dashboard/contributions" element={<DeliveryContributions />} />
+        <Route path="/dashboard/contribution-details/:id" element={<ContributionDetailsPage />} />
       </Routes>
       {shouldShowFooter && <Footer />}
     </>

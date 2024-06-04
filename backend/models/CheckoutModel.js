@@ -39,7 +39,7 @@ const checkoutSchema = new Schema(
       required: true,
       enum: ['cashonDelivery', 'Credit / Debit Card', 'Pay with Payoneer', 'Cash on Delivery', 'Payment with Paypal']
     }, 
-    totalPoints: { type: Number, default: 300 },
+
     items: [
       {
         productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },

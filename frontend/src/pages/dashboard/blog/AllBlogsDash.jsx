@@ -21,7 +21,7 @@ const AllBlogsDash = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/blogs/user-blogs', {
+                const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/blogs/user-blogs`, {
                     headers: {
                         Authorization: `group__${token}`
                     }

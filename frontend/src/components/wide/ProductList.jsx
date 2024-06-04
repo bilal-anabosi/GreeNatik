@@ -24,7 +24,7 @@ const ProductList = ({exchangeRate}) => {
     useEffect(() => {
         const fetchAllProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/wide/wide-products');
+                const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/wide/wide-products`);
                 setAllProducts(response.data.LasstProductsWithSale);
             } catch (error) {
                 console.error('Error fetching products:', error);

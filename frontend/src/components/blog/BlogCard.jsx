@@ -5,7 +5,7 @@ function BlogCard(props) {
         <div className="mb-4">
           <a href={`/single-blog/${props.blogId}`}>
             <div className="img-zoom">
-              <img src={`http://localhost:4000/${props.cover}`} alt="Blog's cover" className="img-fluid w-100" style={{width:'353px', height:'172px', objectFit: 'cover'}} />
+              <img src={`${process.env.REACT_APP_GREENATIK}/${props.cover}`} alt="Blog's cover" className="img-fluid w-100" style={{width:'353px', height:'172px', objectFit: 'cover'}} />
             </div>
           </a>
         </div>

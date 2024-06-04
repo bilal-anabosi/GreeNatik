@@ -19,7 +19,7 @@ const DeliveryOrders = ({exchangeRate}) => {
     const fetchCustomers = async () => {
       try {
         const token = localStorage.getItem('userToken');
-        const response = await axios.get(`http://localhost:4000/checkout/all`, {
+        const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/checkout/all`, {
           headers: {
             Authorization: `group__${token}`, 
           },

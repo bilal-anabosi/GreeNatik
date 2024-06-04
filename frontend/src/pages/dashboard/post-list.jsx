@@ -10,7 +10,7 @@ export default function PostsList() {
     let token = localStorage.getItem('userToken');
 
     useEffect(() => {
-        axios.get("http://localhost:4000/posts/admin", {
+        axios.get(`${process.env.REACT_APP_GREENATIK}/posts/admin`, {
             headers: {
                 'Authorization': `group__${token}`,
             }

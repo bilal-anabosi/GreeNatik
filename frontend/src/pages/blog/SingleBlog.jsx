@@ -11,7 +11,7 @@ function SingleBlog() {
     // Fetch blog data by ID
     const fetchBlog = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/blogs/blogs/${id}`);
+        const response = await fetch(`${process.env.REACT_APP_GREENATIK}/blogs/blogs/${id}`);
         const data = await response.json();
         setBlog(data);
       } catch (error) {
@@ -65,7 +65,7 @@ function SingleBlog() {
                 </div>
                 {/* img */}
                 <div className="mb-8">
-                  <img src={`http://localhost:4000/${blog.coverPicture}`} alt="Blog cover" className="img-fluid rounded" style={{ width: '848px', height: '389px', objectFit: 'cover' }} />
+                  <img src={`${process.env.REACT_APP_GREENATIK}/${blog.coverPicture}`} alt="Blog cover" className="img-fluid rounded" style={{ width: '848px', height: '389px', objectFit: 'cover' }} />
                 </div>
                 <div>
                   {/* Render HTML content */}

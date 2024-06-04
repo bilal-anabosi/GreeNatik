@@ -12,7 +12,7 @@ const OfferCard = ( {exchangeRate}) => {
     useEffect(() => {
         async function fetchLatestProductsWithSale() {
         try {
-            const response = await axios.get('http://localhost:4000/store/sale-products');
+            const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/store/sale-products`);
             setLatestProductsWithSale(response.data.latestProductsWithSale);
         } 
         catch (error) {

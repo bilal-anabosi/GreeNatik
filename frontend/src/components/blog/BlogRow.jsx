@@ -5,7 +5,7 @@ const BlogRow = ({ cover, title, blogCategory, blogStatus, createdAt, blogId, on
     return (
         <tr>
             <td>
-                <img src={`http://localhost:4000/${cover}`} alt="Cover" className="icon-shape icon-md" />
+                <img src={`${process.env.REACT_APP_GREENATIK}/${cover}`} alt="Cover" className="icon-shape icon-md" />
             </td>
             <td><a href="#!" className="text-reset">{title}</a></td>
             <td>{blogCategory.join(', ')}</td>

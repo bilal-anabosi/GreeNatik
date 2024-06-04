@@ -33,7 +33,7 @@ const CreateNewBlog = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:4000/blogs/create-new-blog', data, {
+            const response = await axios.post(`${process.env.REACT_APP_GREENATIK}/blogs/create-new-blog`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `group__${token}`,

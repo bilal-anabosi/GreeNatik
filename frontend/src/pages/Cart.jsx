@@ -15,7 +15,7 @@ const Cart = ({ exchangeRate }) => {
 
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/cart", {
+      const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/cart`, {
         headers: {
           Authorization: `group__${token}`,
         },
@@ -57,7 +57,7 @@ const Cart = ({ exchangeRate }) => {
   const addToCart = async (productId, quantity, size) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/cart/add",
+        `${process.env.REACT_APP_GREENATIK}/cart/add`,
         {
           productId,
           quantity,
@@ -82,7 +82,7 @@ const Cart = ({ exchangeRate }) => {
 
   const removeFromCart = async (productId, size) => {
     try {
-      const response = await axios.delete("http://localhost:4000/cart/delete", {
+      const response = await axios.delete(`${process.env.REACT_APP_GREENATIK}/cart/delete`, {
         headers: {
           Authorization: `group__${token}`,
         },
@@ -105,7 +105,7 @@ const Cart = ({ exchangeRate }) => {
   const updateCartItemQuantity = async (productId, size, quantity) => {
     try {
       const response = await axios.put(
-        "http://localhost:4000/cart/update",
+        `${process.env.REACT_APP_GREENATIK}/cart/update`,
         {
           productId,
           size,

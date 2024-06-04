@@ -18,7 +18,7 @@ const ProductCards = ({ id, title, rating, regularPrice, salePrice, images, cate
                         </div>
                     )}
                     <a href={`/shop-single/${id}`}>
-                        <img src={images && images.length > 0 ? `http://localhost:4000/${images[0]}` : 'path/to/default-image.jpg'} alt={`${title} Image`} className="mb-3 img-fluid" />
+                        <img src={images && images.length > 0 ? `${process.env.REACT_APP_GREENATIK}/${images[0]}` : 'path/to/default-image.jpg'} alt={`${title} Image`} className="mb-3 img-fluid" />
                     </a>
                 </div>
                 <div className="text-small mb-1">

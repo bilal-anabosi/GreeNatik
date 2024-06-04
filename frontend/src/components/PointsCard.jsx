@@ -14,7 +14,7 @@ const PointsCard = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:4000/profile/points', {
+        const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/profile/points`, {
           headers: { Authorization: `group__${token}` },
         });
         setPoints(response.data);

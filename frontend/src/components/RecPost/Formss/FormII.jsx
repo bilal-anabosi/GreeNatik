@@ -32,7 +32,7 @@ const FormII = ({postId}) => {
     useEffect(() => {
         const fetchPostDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/singlepost/${postId}`);
+                const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/singlepost/${postId}`);
                 if (response.data) {
                     setMaxQuantity(response.data.quantity-response.data.provided);
 
@@ -116,7 +116,7 @@ const FormII = ({postId}) => {
             console.log(token);
 
             // Submit contribution data to the server with token
-            const response = await axios.post(`http://localhost:4000/singlepost/${postId}/contributions`, contributionData, {
+            const response = await axios.post(`${process.env.REACT_APP_GREENATIK}/singlepost/${postId}/contributions`, contributionData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization':  `group__${token}` // user Token

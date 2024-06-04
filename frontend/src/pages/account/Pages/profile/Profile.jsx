@@ -86,7 +86,7 @@ function Profile({ exchangeRate }) {
                     formData.append("address", values.address);
 
                     axios
-                      .put("http://localhost:4000/profile", formData, {
+                      .put(`${process.env.REACT_APP_GREENATIK}/profil`, formData, {
                         headers: { Authorization: `group__${userToken}` },
                       })
                       .then((response) => {

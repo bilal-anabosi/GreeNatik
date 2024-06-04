@@ -23,7 +23,7 @@ const Postss = ({ postId }) => {
           console.log(token);
 
           // Send the like request to the server with the token
-          const response = await axios.post(`http://localhost:4000/singlepost/${postId}/likes`, null, {
+          const response = await axios.post(`${process.env.REACT_APP_GREENATIK}/singlepost/${postId}/likes`, null, {
               headers: {
                   'Authorization': `group__${token}`
               }
@@ -52,7 +52,7 @@ const Postss = ({ postId }) => {
   useEffect(() => {
     const fetchPostData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/singlepost/${postId}`);
+        const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/singlepost/${postId}`);
         setPost(response.data); // Assuming your backend sends back the whole post object
       } catch (error) {
         console.error('Error fetching post data:', error);

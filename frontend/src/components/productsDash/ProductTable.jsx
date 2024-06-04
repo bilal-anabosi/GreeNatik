@@ -30,7 +30,7 @@ const ProductTable = ({ products, exchangeRate }) => {
             <tr key={product._id}>
               <td>
                 <img
-                  src={product.images[0] ? `http://localhost:4000/${product.images[0]}` : 'path/to/default-image.jpg'}
+                  src={product.images[0] ? `${process.env.REACT_APP_GREENATIK}/${product.images[0]}` : 'path/to/default-image.jpg'}
                   alt=""
                   className="icon-shape icon-md"
                 />

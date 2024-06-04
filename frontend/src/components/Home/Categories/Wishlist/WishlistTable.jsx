@@ -17,7 +17,7 @@ const WishlistTable = ({ exchangeRate }) => {
       }
 
       try {
-        const response = await axios.get('http://localhost:4000/wishlist', {
+        const response = await axios.get(`${process.env.REACT_APP_GREENATIK}/wishlist`, {
           headers: {
             'Authorization': `group__${token}`
           }
@@ -44,7 +44,7 @@ const WishlistTable = ({ exchangeRate }) => {
     console.log(`Attempting to delete item with ID: ${id}`);
 
     try {
-      const response = await axios.delete(`http://localhost:4000/wishlist/${id}`, {
+      const response = await axios.delete(`${process.env.REACT_APP_GREENATIK}/wishlist/${id}`, {
         headers: {
           'Authorization': `group__${token}`
         },
@@ -80,7 +80,7 @@ const WishlistTable = ({ exchangeRate }) => {
     const quantity = 1;
 
     try {
-      const response = await axios.post('http://localhost:4000/cart/add', 
+      const response = await axios.post(`${process.env.REACT_APP_GREENATIK}/cart/add`, 
         { productId, quantity, size },
         {
           headers: {
@@ -132,7 +132,7 @@ const WishlistTable = ({ exchangeRate }) => {
                       <td className="align-middle">
                         <a href="#1">
                           <img
-                            src={item.product.images && item.product.images[0] ? `http://localhost:4000/${item.product.images[0]}` : 'path/to/default-image.jpg'}
+                            src={item.product.images && item.product.images[0] ? `${process.env.REACT_APP_GREENATIK}/${item.product.images[0]}` : 'path/to/default-image.jpg'}
                             className="icon-shape icon-xxl"
                             alt=""
                           />

@@ -34,7 +34,7 @@ const Posts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:4000/posts"); // Updated: Fetching data from the API
+        const response = await fetch(`${process.env.REACT_APP_GREENATIK}/posts`); // Updated: Fetching data from the API
         const data = await response.json();
         setOriginalData(data);
         setFilteredData(data); // Updated: Setting the fetched data to state

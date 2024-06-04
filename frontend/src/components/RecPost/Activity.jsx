@@ -20,7 +20,7 @@ const Activity = () => {
 
                 console.log(token);
 
-                const response = await axios.post('http://localhost:4000/singlepost/likedposts',{} ,{
+                const response = await axios.post(`${process.env.REACT_APP_GREENATIK}/singlepost/likedposts`,{} ,{
                     headers: {
                         'Authorization': `group__${token}`
                     }

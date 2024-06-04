@@ -12,7 +12,7 @@ function AllBlogs() {
     // Fetch blogs from the API
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:4000/blogs/blogs'); // Adjust the URL as per your backend setup
+        const response = await fetch(`${process.env.REACT_APP_GREENATIK}/blogs/blogs`); // Adjust the URL as per your backend setup
         const data = await response.json();
         setBlogs(data);
       } catch (error) {

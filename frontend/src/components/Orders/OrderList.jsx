@@ -13,7 +13,7 @@ const OrderList = ({ exchangeRate })=> {
     const fetchOrders = useCallback(async () => {
         const token = localStorage.getItem('userToken');
         try {
-            const response = await fetch('http://localhost:4000/checkout/details', {
+            const response = await fetch(`${process.env.REACT_APP_GREENATIK}/checkout/details`, {
                 headers: {
                     'Authorization': `group__${token}`
                 }
@@ -73,7 +73,7 @@ const OrderList = ({ exchangeRate })=> {
                                                     <tr key={itemIndex}>
                                                         <td className="align-middle border-top-0 w-0">
                                                             <a href="# ">
-                                                                <img src={`http://localhost:4000/${item.image}`} alt="Ecommerce" className="icon-shape icon-xl" />
+                                                                <img src={`${process.env.REACT_APP_GREENATIK}/${item.image}`} alt="Ecommerce" className="icon-shape icon-xl" />
                                                             </a>
                                                         </td>
                                                         <td className="align-middle border-top-0">

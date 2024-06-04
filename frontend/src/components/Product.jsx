@@ -43,7 +43,7 @@ const Product = ({
           <img
             src={
               imgSrc
-                ? `http://localhost:4000/${imgSrc}`
+                ? `${process.env.REACT_APP_GREENATIK}/${imgSrc}`
                 : "fallback_image_url.jpg"
             }
             alt="Ecommerce"

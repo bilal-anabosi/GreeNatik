@@ -9,12 +9,16 @@ import CheckoutComponent from '../components/checkout/CheckoutComponent';
 import Discount from '../components/checkout/Discount';
 
 import './Checkout.css';
+import { useTranslation } from 'react-i18next';
 
 function Checkout({ exchangeRate }) {
   const [items, setItems] = useState([]);
   const [availablePoints, setAvailablePoints] = useState(0);
   const token = localStorage.getItem('userToken');
-
+  const { t, i18n } = useTranslation();
+  const handleLanguageChange = (lng) => {
+  i18n.changeLanguage(lng);
+};
   useEffect(() => {
     const fetchWishlistData = async () => {
       if (!token) {
@@ -104,10 +108,10 @@ function Checkout({ exchangeRate }) {
         }
       });
       if (response.status === 201) {
-        setNotification(`Order placed successfully. Order Number:  ${response.data.numOrder}`);
+        setNotification(`t('Checkout2.setErrorMessage2') ${response.data.numOrder}`);
       }
     } catch (error) {
-      setErrorMessage('Failed to place order.');
+      setErrorMessage(t('Checkout2.setErrorMessage1') );
     } finally {
       setIsSubmitting(false);
     }
@@ -130,7 +134,7 @@ function Checkout({ exchangeRate }) {
               className="btn btn-primary mt-4" 
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Placing Order...' : 'Place Order'}
+              {isSubmitting ? t('Checkout2.button1') : t('Checkout2.button2')}
             </button>
           </div>
           <div className="mb-3">

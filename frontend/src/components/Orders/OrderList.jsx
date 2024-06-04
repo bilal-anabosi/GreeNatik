@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-const OrderList = ({ exchangeRate })=> {
+const OrderList = ({ exchangeRate }) => {
     const [orders, setOrders] = useState([]);
     const navigate = useNavigate();
-    const [currencySymbol, setCurrencySymbol] = useState('$'); 
+    const [currencySymbol, setCurrencySymbol] = useState('$');
+    const { t, i18n } = useTranslation();
+    const handleLanguageChange = (lng) => {
+        i18n.changeLanguage(lng);
+    };
 
     useEffect(() => {
         setCurrencySymbol(exchangeRate === 1 ? '$' : '₪');
-      }, [exchangeRate]);
-    
+    }, [exchangeRate]);
+
     const fetchOrders = useCallback(async () => {
         const token = localStorage.getItem('userToken');
         try {
@@ -44,7 +49,7 @@ const OrderList = ({ exchangeRate })=> {
                         <div className="row" key={orderIndex}>
                             <div className="col-lg-9 col-md-8 col-12">
                                 <div className="py-6 p-md-6 p-lg-10">
-                                    <h2 className="mb-1">Order {orderIndex + 1}: {order.numOrder}</h2>
+                                    <h2 className="mb-1">{t('orderList.order')} {orderIndex + 1}: {order.numOrder}</h2>
                                     <h6
                                         className="mb-6"
                                         style={{
@@ -55,17 +60,17 @@ const OrderList = ({ exchangeRate })=> {
                                             color: 'white'
                                         }}
                                     >
-                                        Status: {order.status}
+                                        {t('orderList.status')}: {order.status === 'delivered' ? t('orderList.delivered') : t('orderList.notDelivered')}
                                     </h6>
                                     <div className="table-responsive-xxl border-0">
                                         <table className="table mb-0 text-nowrap table-centered">
                                             <thead className="bg-light">
                                                 <tr>
                                                     <th>&nbsp;</th>
-                                                    <th>Product</th>
-                                                    <th>Date</th>
-                                                    <th>Quantity</th>
-                                                    <th>Price</th>
+                                                    <th>{t('orderList.product')}</th>
+                                                    <th>{t('orderList.date')}</th>
+                                                    <th>{t('orderList.quantity')}</th>
+                                                    <th>{t('orderList.price')}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -88,7 +93,7 @@ const OrderList = ({ exchangeRate })=> {
                                                     </tr>
                                                 ))}
                                                 <tr>
-                                                    <td colSpan="4" className="text-end fw-bold">Total Amount</td>
+                                                    <td colSpan="4" className="text-end fw-bold">{t('orderList.totalAmount')}</td>
                                                     <td className="fw-bold"> {currencySymbol}{(order.items.reduce((total, item) => total + (item.price * item.quantity), 0) * exchangeRate).toFixed(2)}</td>
                                                 </tr>
                                             </tbody>
